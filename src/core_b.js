@@ -31,13 +31,13 @@ function next(){if(!done)return;
 
 /* ===== fretboard ===== */
 const X=f=>f===0?62:90+(f-.5)*60,Y=s=>32+(5-s)*32;
-const BASE=(()=>{let h=`<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a26" stop-opacity=".55"/><stop offset=".5" stop-color="#2b1b13" stop-opacity="0"/><stop offset="1" stop-color="#1a0f0a" stop-opacity=".6"/></linearGradient></defs><rect x="40" y="16" width="50" height="192" rx="6" fill="var(--panel)"/><rect x="90" y="16" width="900" height="192" rx="3" fill="#3a2418"/><rect x="90" y="16" width="900" height="192" rx="3" fill="url(#gr)"/>`;
-  for(const f of [3,5,7,9,15])h+=`<circle cx="${X(f)}" cy="112" r="7" fill="#e9dfcf" opacity=".85"/>`;
-  h+=`<circle cx="${X(12)}" cy="80" r="7" fill="#e9dfcf" opacity=".85"/><circle cx="${X(12)}" cy="144" r="7" fill="#e9dfcf" opacity=".85"/>`;
-  for(let f=1;f<=15;f++)h+=`<line x1="${90+f*60}" y1="16" x2="${90+f*60}" y2="208" stroke="#b9b4ab" stroke-width="3"/><line x1="${89+f*60}" y1="16" x2="${89+f*60}" y2="208" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`;
-  h+=`<rect x="86" y="14" width="8" height="196" rx="2" fill="#efe7d8"/>`;
-  for(let s=0;s<6;s++)h+=`<line x1="40" y1="${Y(s)}" x2="990" y2="${Y(s)}" stroke="#cfc8bd" stroke-width="${(3.2-s*.42).toFixed(2)}"/><text x="20" y="${Y(s)}" fill="var(--mut)" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="central">${SL[s]}</text>`;
-  for(let f=0;f<=15;f++)h+=`<text x="${X(f)}" y="225" fill="var(--mut)" font-size="13" font-weight="${[3,5,7,9,12,15].includes(f)?700:400}" text-anchor="middle">${f}</text>`;
+const BASE=(()=>{let h=`<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#b89f74" stop-opacity=".25"/></linearGradient></defs><rect x="40" y="16" width="50" height="192" fill="var(--panel)"/><rect x="90" y="16" width="900" height="192" fill="#efe6d2"/><rect x="90" y="16" width="900" height="192" fill="url(#gr)"/>`;
+  for(const f of [3,5,7,9,15])h+=`<circle cx="${X(f)}" cy="112" r="6.5" fill="#1d1d1d"/>`;
+  h+=`<circle cx="${X(12)}" cy="80" r="6.5" fill="#1d1d1d"/><circle cx="${X(12)}" cy="144" r="6.5" fill="#1d1d1d"/>`;
+  for(let f=1;f<=15;f++)h+=`<line x1="${90+f*60}" y1="16" x2="${90+f*60}" y2="208" stroke="#8d8a84" stroke-width="2.4"/>`;
+  h+=`<rect x="86" y="14" width="7" height="196" fill="#1d1d1d"/>`;
+  for(let s=0;s<6;s++)h+=`<line x1="40" y1="${Y(s)}" x2="990" y2="${Y(s)}" stroke="#55524c" stroke-width="${(2.6-s*.32).toFixed(2)}"/><text x="20" y="${Y(s)}" fill="var(--mut)" font-size="14" font-weight="600" text-anchor="middle" dominant-baseline="central">${SL[s]}</text>`;
+  for(let f=0;f<=15;f++)h+=`<text x="${X(f)}" y="225" fill="var(--mut)" font-size="12.5" font-weight="${[3,5,7,9,12,15].includes(f)?700:400}" text-anchor="middle">${f}</text>`;
   return h})();
 const CELLS=(()=>{let h='';for(let s=0;s<6;s++)for(let f=0;f<=15;f++)h+=`<rect class="cell" data-s="${s}" data-f="${f}" x="${f===0?40:X(f)-30}" y="${Y(s)-16}" width="${f===0?48:60}" height="32"><title>${NN2[pcAt(s,f)]}</title></rect>`;return h})();
 function board(ms,box){let h=BASE;
@@ -51,7 +51,7 @@ const same=(a,b)=>a&&b&&a.s===b.s&&a.f===b.f;
 function render(){const L=LS[cur],n=L.test.length;
   $('tabs').innerHTML=ORDER.map(k=>{const b=best[k],p=b>=passMark(LS[k].test.length);return`<button class="tab" role="tab" data-k="${k}" aria-selected="${k===cur}"><b>${LS[k].n}: ${LS[k].title}</b><span>${b==null?'Not tested yet':`Best ${b}/${LS[k].test.length}${p?' · passed':''}`}</span></button>`}).join('');
   $('ttl').textContent=`${L.n}: ${L.title}`;$('sub').textContent=L.sub;
-  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#fff"/><path d="M10 8.5v7l6-3.5z" fill="#e0561b"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
+  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#fff"/><path d="M10 8.5v7l6-3.5z" fill="#1f3fd6"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
    $('vid').innerHTML=num?lk(num,`Watch lesson ${num} on YouTube`):ORDER.filter(k=>/\d/.test(LS[k].n)).map(k=>{const m=LS[k].n.match(/\d+/)[0];return lk(m,`Lesson ${m}`)}).join('')}
   $('mPr').className=mode==='practice'?'on':'';$('mTe').className=mode==='test'?'on':'';
   $('chips').hidden=mode!=='practice';
