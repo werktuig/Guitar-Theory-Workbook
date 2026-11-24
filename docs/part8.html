@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guitar Theory · Part 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a patient teacher at your elbow; calm, clear, encouraging.
+   IDEA: a practice workbook laid on a rosewood fretboard.
+   PICTURE: the live, clickable fretboard is the page.
+   COLOUR and TYPE: rosewood brown header, sunburst orange accent, nickel strings; Barlow Condensed (amp-panel lettering) + Barlow.
+   LAYOUT: lesson tabs, then prompt, board, answers, feedback; lesson notes below. */
+:root{color-scheme:light dark;--bg:light-dark(#fbfaf7,#13110f);--ink:light-dark(#1d1814,#f1ebe4);--mut:light-dark(#6d6359,#a89d92);--line:light-dark(#e3ddd4,#2e2924);--panel:light-dark(#f2eee7,#1d1a17);--acc:#e0561b;--acci:light-dark(#b5420f,#ff8b57);--good:light-dark(#1b7a3d,#4cc47a);--bad:light-dark(#bf242b,#ff6f6f);--wood:#2b1b13}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(22px,3.5vw,48px) max(5vw,16px)}
+.wrap{max-width:1100px;margin:0 auto}
+h1,h2,h3{font-family:"Barlow Condensed",sans-serif;font-weight:600;line-height:1.05;text-wrap:balance;margin:0}
+.top{background:var(--wood);color:#f6eee5;padding-bottom:0}
+.top h1{font-size:clamp(34px,5vw,50px)}
+.top p{margin:6px 0 18px;color:#d8c9ba;max-width:62ch}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{background:#ffffff12;color:#f6eee5;border:0;border-radius:10px 10px 0 0;padding:10px 16px 12px;text-align:left;cursor:pointer;font:inherit;min-height:44px}
+.tab b{display:block;font:600 19px/1.1 "Barlow Condensed",sans-serif}
+.tab span{font-size:13px;color:#cdbcab}
+.tab[aria-selected=true]{background:var(--bg);color:var(--ink)}
+.tab[aria-selected=true] span{color:var(--mut)}
+.bar{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:end;justify-content:space-between}
+.bar h2{font-size:clamp(30px,4vw,40px)}
+.bar p{margin:4px 0 0;color:var(--mut)}
+.seg{display:flex;background:var(--panel);border-radius:12px;padding:4px}
+.seg button{border:0;background:none;font:600 16px Barlow,sans-serif;color:var(--ink);padding:10px 18px;border-radius:9px;cursor:pointer;min-height:44px}
+.seg button.on{background:var(--acc);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.chip{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:8px 14px;font:500 15px Barlow,sans-serif;cursor:pointer;min-height:40px}
+.chip.on{border-color:var(--acci);color:var(--acci);background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.status{margin:18px 0 6px;font-size:14px;color:var(--mut);display:flex;gap:16px;flex-wrap:wrap}
+.status b{color:var(--ink)}
+.prompt{font-size:clamp(18px,2.3vw,22px);font-weight:500;margin:0 0 12px;min-height:2.4em;max-width:70ch}
+.board{overflow-x:auto;border-radius:12px;margin:0 -4px;padding:4px}
+.board svg{display:block;width:100%;min-width:680px;height:auto;user-select:none}
+.cell{fill:transparent;cursor:pointer}.cell:hover{fill:#ffffff22}
+.mk text{font:700 13px Barlow,sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.mk circle{pointer-events:none}
+.k-root circle{fill:var(--acc);stroke:#fff;stroke-width:2}.k-root text{fill:#fff}
+.k-q circle{fill:#f6eee5;stroke:var(--acc);stroke-width:2.5;stroke-dasharray:4 3}.k-q text{fill:#2b1b13}
+.k-ghost circle{fill:#ffffff30;stroke:#ffffffaa;stroke-width:1.5}.k-ghost text{fill:#fff}
+.k-good circle{fill:#2fa05a;stroke:#fff;stroke-width:2}.k-good text{fill:#fff}
+.k-bad circle{fill:#d3343b;stroke:#fff;stroke-width:2}.k-bad text{fill:#fff}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:10px;margin:16px 0 0}
+.ch{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;font:500 17px Barlow,sans-serif;cursor:pointer;min-height:52px;text-align:left}
+.ch:hover:not(:disabled){border-color:var(--acci)}
+.ch kbd{font:600 12px Barlow,sans-serif;color:var(--mut);margin-right:8px}
+.ch.good{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.ch.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.ch.sel{border-color:var(--acci)}
+.ch:disabled{cursor:default}
+.fbk{margin:16px 0 0;padding:14px 16px;border-radius:12px;background:var(--panel);min-height:52px;max-width:80ch}
+.fbk:empty{display:none}
+.fbk .ok{color:var(--good)}.fbk .no{color:var(--bad)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.btn{border:0;border-radius:12px;padding:12px 20px;font:600 16px Barlow,sans-serif;cursor:pointer;min-height:46px;background:var(--panel);color:var(--ink)}
+.btn.main{background:var(--acc);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+button:focus-visible{outline:3px solid var(--acci);outline-offset:2px}
+.score{display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:24px;border-radius:16px;background:var(--panel)}
+.big{font:700 clamp(64px,10vw,96px)/1 "Barlow Condensed",sans-serif;color:var(--acci)}
+.big small{font-size:.45em;color:var(--mut)}
+.score h3{font-size:30px}.score p{margin:6px 0 0;color:var(--mut)}
+.miss{border-top:1px solid var(--line);padding:14px 0}
+.miss p{margin:4px 0}.miss .y{color:var(--bad)}.miss .c{color:var(--good)}
+.notes{border-top:1px solid var(--line)}
+.notes h3{font-size:28px;margin-bottom:10px}
+.cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 40px}
+@media(max-width:820px){.cols{grid-template-columns:minmax(0,1fr)}}
+.notes ul{padding-left:20px;margin:8px 0}.notes li{margin:5px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--mut);font-size:14px}
+td.n{white-space:nowrap}
+.tuning{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 14px}
+.tuning b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--wood);color:#f6eee5;font:700 20px "Barlow Condensed",sans-serif}
+.tuning i{font-style:normal;font-size:14px;color:var(--mut);padding:0 4px}
+.tuning i.odd{color:var(--acci);font-weight:600}
+.small{font-size:14px;color:var(--mut)}
+.vidp{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0!important}.vidp:empty{display:none}
+.vid{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.vid:hover{border-color:var(--acci);color:var(--acci)}.vid svg{flex:none}
+@media(max-width:600px){.tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-16px;padding-inline:16px}.tab{flex:none;scroll-snap-align:start;padding:8px 12px 10px}.tab b{font-size:17px}}
+.parts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 14px;font-size:14px}
+.parts a,.parts span{color:#d8c9ba;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+.parts a:hover{color:#fff;border-color:#fff6}.parts span{color:#fff;border-color:var(--acc);font-weight:600}
+.allp{position:relative}.allp summary{cursor:pointer;color:#d8c9ba;padding:4px 0;list-style:none}.allp summary::after{content:" ▾"}
+.allp[open] ol{position:absolute;z-index:5;top:100%;left:0;margin:6px 0 0;padding:10px 14px 10px 34px;width:min(420px,90vw);max-height:60vh;overflow:auto;background:#3a271c;border-radius:12px;box-shadow:0 12px 30px #0008}
+.allp li{padding:3px 0;color:#d8c9ba}.allp li a,.allp li span{border:0;padding:0}.allp li b{color:#fff}.allp li span{color:#a8988a;font-weight:400}
+.box{fill:#ffffff14;stroke:var(--acc);stroke-width:2;stroke-dasharray:6 4}
+.scroll{overflow-x:auto}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--mut)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:no-preference){.mk{animation:pop .18s ease-out}@keyframes pop{from{transform:scale(.6);opacity:0}}.mk{transform-box:fill-box;transform-origin:center}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band top"><div class="wrap">
+  <nav class="parts" aria-label="Workbook parts"><a href="index.html">Home</a> <a href="part7.html">← Part 7 · Lessons 25–28</a> <span>Part 8 · Lessons 29–31</span> <a href="part9.html">Part 9 · Lessons 32–36 →</a><details class="allp"><summary>All parts</summary><ol><li><a href="part1.html">Part 1 · Lessons 1–3: Intervals</a></li><li><a href="part2.html">Part 2 · Lessons 4–6: Octaves, unisons & note names</a></li><li><a href="part3.html">Part 3 · Lessons 7–11: The major scale</a></li><li><a href="part4.html">Part 4 · Lessons 12–15: Keys, sharps & flats</a></li><li><a href="part5.html">Part 5 · Lessons 16–20: Triads</a></li><li><a href="part6.html">Part 6 · Lessons 21–24: Triad shapes & inversions</a></li><li><a href="part7.html">Part 7 · Lessons 25–28: Diatonic triads & progressions</a></li><li><b>Part 8 · Lessons 29–31: Open triads & the harmonized scale</b></li><li><a href="part9.html">Part 9 · Lessons 32–36: 7th chords & drop voicings</a></li><li><a href="part10.html">Part 10 · Lessons 37–41: Diminished 7ths & harmonized 7th chords</a></li><li><a href="part11.html">Part 11 · Lessons 42–44: 7th-chord progressions & relative minor</a></li><li><a href="part12.html">Part 12 · Lessons 45–47: Shell voicings & drop 2&4</a></li><li><a href="part13.html">Part 13 · Lessons 48–52: I, ii and iii chords</a></li><li><a href="part14.html">Part 14 · Lessons 53–57: IV, V, vi and vii chords</a></li><li><a href="part15.html">Part 15 · Lessons 58–62: Sus, power & slash chords</a></li><li><a href="part16.html">Part 16 · Lessons 63–67: Borrowed chords, secondary dominants & blues</a></li><li><a href="part17.html">Part 17 · Lessons 68–71: Modulation & the modes</a></li><li><a href="part18.html">Part 18 · Lessons 72–75: Ionian, Dorian, Phrygian, Lydian</a></li><li><a href="part19.html">Part 19 · Lessons 76–80: Mixolydian, Aeolian, Locrian & mode families</a></li><li><a href="part20.html">Part 20 · Lessons 81–84: Mode patterns & soloing over chords</a></li><li><a href="part21.html">Part 21 · Lessons 85–87: Soloing over progressions & modal harmony</a></li><li><a href="part22.html">Part 22 · Lessons 88–91: Pentatonic scales</a></li><li><a href="part23.html">Part 23 · Lessons 92–95: Advanced pentatonics</a></li><li><a href="part24.html">Part 24 · Lessons 96–98: Arpeggios & blues scales</a></li><li><a href="part25.html">Part 25 · Lessons 99–103: Melodic & harmonic minor</a></li><li><a href="part26.html">Part 26 · Lessons 104–108: Diminished scales</a></li><li><a href="part27.html">Part 27 · Lessons 109–112: Dim7, whole tone & augmented</a></li><li><a href="part28.html">Part 28 · Lessons 113–116: Upper intervals & chord synonyms</a></li></ol></details></nav>
+  <h1>Part 8: Open triads & the harmonized scale</h1>
+  <p>Lessons 29–31 of <em>Music Theory for Guitar</em>: Open Triads; Harmonized Major Scale (Triads); Harmonized Major Scale (Intervals). Video lessons by <a href="https://www.youtube.com/@Moveforwardguitar" target="_blank" rel="noopener" style="color:#fff">Move Forward Guitar</a> on YouTube. Practise each lesson until it feels automatic, then take its test. Click any fret to hear it.</p>
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+</div></header>
+<main>
+<section class="band"><div class="wrap">
+  <div class="bar">
+    <div><h2 id="ttl"></h2><p id="sub"></p><p id="vid" class="vidp"></p></div>
+    <div class="seg" role="group" aria-label="Mode"><button id="mPr">Practice</button><button id="mTe">Test</button></div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="quiz">
+    <div class="status" id="status"></div>
+    <p class="prompt" id="prompt" aria-live="polite"></p>
+    <div class="board" id="boardWrap"><svg id="fb" viewBox="0 0 1000 232" role="img" aria-label="Guitar fretboard, frets 0 to 15"></svg></div>
+    <div class="choices" id="choices"></div>
+    <div class="fbk" id="fbk" aria-live="polite"></div>
+    <div class="acts">
+      <button class="btn main" id="next" disabled>Next</button>
+      <button class="btn" id="hear">Hear it</button>
+      <button class="btn" id="hint">Hint</button>
+    </div>
+    <p class="small">Keys: 1–4 choose an answer · Enter for next · H to hear.</p>
+  </div>
+  <div id="result" hidden></div>
+</div></section>
+<section class="band notes"><div class="wrap" id="notes"></div></section>
+</main>
+<script>
+{
+const VIDEOS={"1": "ukP7BOd6WOI", "2": "8fN0BWgD2TU", "3": "mdpropk49A8", "4": "Vkzy2ENUljk", "9": "Es4sVRU8tOE", "12": "cfRYPFLx7kg", "15": "2YOho9zfdWc", "17": "rr2-BC4mRwI", "20": "ZESzuiH2cLs", "21": "o8lwXSrfvwE", "23": "H-qVZNoCAqU", "25": "_V7zfGlc_9U", "28": "3-wiaydeAts", "34": "wz6Lo5Enxb0", "39": "Rr1IUSbowcE", "40": "IkwdzM1FgVU", "41": "xLGnPMVFcAY", "42": "ZGfKwQNWmp4", "44": "q4MLaSz1i0U", "45": "Xike8CFfjPA", "47": "AmIKvYNSwwM", "49": "rD-tfT-y8PE", "50": "vinSZEVrsmY", "52": "T3fGMQ6JUx8", "54": "lxEpJNZPCXc", "55": "9MUOAYfsgLE", "57": "fzkgaSVfPHY", "59": "47gJ9enSfU8", "60": "amobkRwNOVE", "61": "u8gAJT6PnTU", "68": "Y6lUineJl3g", "69": "Xn1uqXZufUQ", "70": "mzQcmropJqg", "71": "UKu9bpbWxA0", "72": "qi4AU6AT_uc", "73": "y_CzPxl_Auk", "74": "-p_irTYCj9g", "75": "bDTkrdnzgR4", "78": "69Hyj8v7nxk", "79": "wt8KS8NtnCo", "80": "2kf4rK8dgVU", "82": "ifHEVJwF6oY", "87": "Z8fNjabLOvA", "90": "1sFxsFGsX_0", "91": "qtvpvDMulEU", "93": "ncydtJ8elSg", "94": "Gp8IKbmu2Ms", "96": "rFRNfzFYVJ8", "98": "I9UOzV1aM1Q", "100": "kSpytbB9A0Q", "102": "0xAwiFoG56w", "104": "9Aa924YYRWE", "105": "MQUESZWwVWo", "107": "QsdxDMzRUNs", "108": "8l3USMIK96I", "112": "fBUAI-yyg48", "115": "jlScNZSWpX4", "116": "o0MPFANv2g0", "18": "rqdcHf5CeS4", "24": "1dcRjiK7Dcw", "26": "mNT5YDM7vAM", "29": "BSgcz2rmMAQ", "31": "IOZOk6JuoS4", "32": "mfdxEnRtlco", "35": "ePZTk5o-GzU", "56": "ANSTCmArB1E", "63": "AlKRH9W9ZTs", "86": "IgBMS_aWvAc", "95": "YGspF2qbdd4", "97": "OcmiQCsPy58", "76": "Vh6mOM_XfVA", "83": "3huizrYOg2g", "84": "Gjk88ZrqK7Q", "85": "5fWsGQsorMk", "88": "Oi8Su6PKujc", "89": "CRzmyeVny_c", "92": "w-Sx0KqmBGw", "101": "5WHzKqinB3k", "109": "P_yaDnMzF4c", "110": "phfPicSAYIU", "111": "wvr12QjtzBg", "113": "FWxqJy-Bx4A", "5": "X07zP3XpcgM", "6": "5ZkdETlUIow", "8": "Pt4Z1Yx2f7s", "10": "e_wSzaPAC9M", "11": "CCblc218XTI", "13": "2PH56rW00lU", "14": "yqXL9HvShEE", "16": "A_ZrKuk57GA", "19": "C0JJodOU7Zs", "22": "hInfLxAejVU", "27": "eVnoYSRO_jY", "48": "MyuKD_e53AA", "51": "RtnE-Ozvgw0", "114": "d7K7gnKj15o", "7": "9aR4d_MN6sc", "30": "YuvKCie87b4", "33": "to8a7ptygfk", "36": "1R_A4qcE630", "37": "1XggdE36rWQ", "38": "nSkAVrhUdc8", "43": "rk8i7K_mZzA", "46": "bOMOcFyu9Kw", "53": "GckcH3JcPck", "58": "9_waiVUOQt0", "62": "BEL4yhzleXs", "64": "kHw1jvncf8c", "65": "3QinJWadjtU", "66": "8vsshAnOvmY", "67": "EHMpSPHtvGE", "77": "1nUA6w5Wiao", "81": "XlEUuDUoa1w", "99": "MzuQvJ7qWhg", "103": "KqPsc-O7EKM", "106": "FZzUM4oTV5w"};
+/* ===== shared helpers ===== */
+const OPEN=[40,45,50,55,59,64],SN=['low E','A','D','G','B','high e'],SL=['E','A','D','G','B','e'];
+const NN=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const NN2=['C','C♯/D♭','D','D♯/E♭','E','F','F♯/G♭','G','G♯/A♭','A','A♯/B♭','B'];
+const IV=[['P1','unison'],['m2','minor 2nd'],['M2','major 2nd'],['m3','minor 3rd'],['M3','major 3rd'],['P4','perfect 4th'],['TT','tritone (aug 4th / dim 5th)'],['P5','perfect 5th'],['m6','minor 6th'],['M6','major 6th'],['m7','minor 7th'],['M7','major 7th'],['P8','octave']];
+const CUE=['','“Jaws” theme','“Happy Birthday” (“-py” → “Birth-”)','“Greensleeves” opening','“When the Saints Go Marching In”','“Here Comes the Bride”','“The Simpsons” theme','“Star Wars” main theme leap','“The Entertainer” (high-note leap)','“My Bonnie Lies Over the Ocean”','original “Star Trek” theme','“Take On Me” chorus leap','“Somewhere Over the Rainbow”'];
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),pick=a=>a[R(0,a.length-1)];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const nm=i=>IV[i][1],ab=i=>IV[i][0],cap=s=>s[0].toUpperCase()+s.slice(1);
+const gap=(a,b)=>OPEN[b]-OPEN[a],pcAt=(s,f)=>(OPEN[s]+f)%12,note=(s,f)=>NN[pcAt(s,f)],midi=(s,f)=>OPEN[s]+f;
+const fr=n=>n===1?'1 fret':n+' frets';
+const fretTxt=f=>f?'fret '+f:'open';
+const posTxt=t=>`${SL[t.s]} string ${fretTxt(t.f)}`;
+const where=(s,f)=>`${note(s,f)} on the ${SN[s]} string, ${fretTxt(f)}`;
+const offTxt=d=>d===0?'same fret':`${fr(Math.abs(d))} ${d>0?'higher':'lower'}`;
+const mc=(ans,pool)=>shuf([ans,...shuf([...new Set(pool)].filter(x=>x!==ans)).slice(0,3)]);
+const near=i=>[i-3,i-2,i-1,i+1,i+2,i+3].filter(x=>x>=1&&x<=12).sort((a,b)=>Math.abs(a-i)-Math.abs(b-i)).slice(0,4).map(nm);
+const crossGB=(a,b)=>a<=3&&b>=4;
+const art=w=>/^(octave|aug|unison|11th|8th|18th|eleventh|eighth)/i.test(w)?'an':'a';
+const rep=(f,n)=>Array(n).fill(f);
+const passMark=n=>Math.ceil(n*.85);
+const ord=n=>n+(n%10===1&&n!==11?'st':n%10===2&&n!==12?'nd':n%10===3&&n!==13?'rd':'th');
+/* every (string,fret) on frets lo..hi whose pitch class is pc */
+const allPc=(pc,strings=[0,1,2,3,4,5],lo=0,hi=15)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pc)o.push({s,f});return o};
+/* every (string,fret) sounding exactly midi m */
+const allMidi=m=>{const o=[];for(let s=0;s<6;s++){const f=m-OPEN[s];if(f>=0&&f<=15)o.push({s,f})}return o};
+/* fret on string s2 that sounds `semis` above (s1,f) */
+const shapeFret=(s1,f,s2,semis)=>f+semis-gap(s1,s2);
+
+/* ===== note spelling and keys ===== */
+const LET='CDEFGAB',LPC=[0,2,4,5,7,9,11],MAJ=[0,2,4,5,7,9,11];
+const ACC={'':0,'♯':1,'♭':-1,'𝄪':2,'𝄫':-2};
+const pcOf=n=>(LPC[LET.indexOf(n[0])]+ACC[n.slice(1)]+12)%12;
+const accTxt=a=>({0:'',1:'♯',[-1]:'♭',2:'𝄪',[-2]:'𝄫'})[a];
+function spellScale(k){const li=LET.indexOf(k[0]),rpc=pcOf(k);return MAJ.map((iv,d)=>{const L=(li+d)%7,pc=(rpc+iv)%12,a=((pc-LPC[L]+18)%12)-6;return LET[L]+accTxt(a)})}
+/* key name -> signature count (+ sharps, − flats) */
+const KS=[['C',0],['G',1],['D',2],['A',3],['E',4],['B',5],['F♯',6],['C♯',7],['F',-1],['B♭',-2],['E♭',-3],['A♭',-4],['D♭',-5],['G♭',-6],['C♭',-7]];
+const KEASY=KS.filter(k=>Math.abs(k[1])<=6&&k[0]!=='G♭').map(k=>k[0]); /* 12 practical keys, F♯ used for 6 sharps */
+const SHARPS=['F♯','C♯','G♯','D♯','A♯','E♯','B♯'],FLATS=['B♭','E♭','A♭','D♭','G♭','C♭','F♭'];
+const sigOf=k=>KS.find(x=>x[0]===k)[1];
+const sigTxt=n=>n===0?'no sharps or flats':n>0?`${n} sharp${n>1?'s':''} (${SHARPS.slice(0,n).join(' ')})`:`${-n} flat${n<-1?'s':''} (${FLATS.slice(0,-n).join(' ')})`;
+/* name of the note at (s,f) inside key k, or null if not in key */
+const inKey=(k,s,f)=>{const sc=spellScale(k),i=sc.findIndex(n=>pcOf(n)===pcAt(s,f));return i<0?null:{deg:i+1,name:sc[i]}};
+const keyPositions=(k,strings,lo,hi)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++){const x=inKey(k,s,f);if(x)o.push({s,f,t:x.deg===1?'R':String(x.deg),name:x.name,deg:x.deg})}return o};
+const rootFret=(k,s,lo=0)=>{const pc=pcOf(k);for(let f=lo;f<=15;f++)if(pcAt(s,f)===pc)return f;return-1};
+
+/* static question bank: [text, answer, distractors, explanation, hint?] */
+const sbank=(pre,items)=>()=>{const i=R(0,items.length-1),[text,ans,dis,explain,hint]=items[i];return{type:'choice',noBoard:true,key:pre+i,text,ans,choices:mc(ans,dis),explain,hint:hint||'Think it through on your guitar before you choose.'}};
+
+/* ===== formulas: chords, scales, modes (letter-correct spelling) ===== */
+/* formula string like '1 b3 5 b7' or '1 2 b3 4 5 b6 7'; degrees > 7 allowed (9, 11, 13) */
+const fml=f=>f.split(' ').map(t=>{const m=t.match(/^(bb|b|#|x)?(\d+)$/),d=+m[2],a={bb:-2,b:-1,'#':1,x:2}[m[1]]||0;return[(d-1)%7,MAJ[(d-1)%7]+12*Math.floor((d-1)/7)+a]});
+const fmlSemis=f=>fml(f).map(x=>x[1]);
+function spellSteps(root,steps){const li=LET.indexOf(root[0]),rpc=pcOf(root);return steps.map(([l,st])=>{const L=(li+l)%7,pc=(rpc+st)%12,a=((pc-LPC[L]+18)%12)-6;return Math.abs(a)<=2?LET[L]+accTxt(a):NN[pc]})}
+const spellF=(root,f)=>spellSteps(root,fml(f));
+const CHORDS={
+ maj:{f:'1 3 5',sym:'',name:'major'},min:{f:'1 b3 5',sym:'m',name:'minor'},dim:{f:'1 b3 b5',sym:'°',name:'diminished'},aug:{f:'1 3 #5',sym:'+',name:'augmented'},
+ sus2:{f:'1 2 5',sym:'sus2',name:'suspended 2nd'},sus4:{f:'1 4 5',sym:'sus4',name:'suspended 4th'},pow:{f:'1 5',sym:'5',name:'power chord'},
+ maj7:{f:'1 3 5 7',sym:'maj7',name:'major 7th'},dom7:{f:'1 3 5 b7',sym:'7',name:'dominant 7th'},m7:{f:'1 b3 5 b7',sym:'m7',name:'minor 7th'},
+ m7b5:{f:'1 b3 b5 b7',sym:'m7♭5',name:'half-diminished (m7♭5)'},dim7:{f:'1 b3 b5 bb7',sym:'°7',name:'diminished 7th'},mMaj7:{f:'1 b3 5 7',sym:'m(maj7)',name:'minor-major 7th'},
+ aug7:{f:'1 3 #5 b7',sym:'+7',name:'augmented 7th'},augMaj7:{f:'1 3 #5 7',sym:'+maj7',name:'augmented major 7th'},
+ maj6:{f:'1 3 5 6',sym:'6',name:'major 6th'},m6:{f:'1 b3 5 6',sym:'m6',name:'minor 6th'},sus47:{f:'1 4 5 b7',sym:'7sus4',name:'7sus4'},
+ add9:{f:'1 3 5 9',sym:'add9',name:'add 9'},maj9:{f:'1 3 5 7 9',sym:'maj9',name:'major 9th'},dom9:{f:'1 3 5 b7 9',sym:'9',name:'dominant 9th'},m9:{f:'1 b3 5 b7 9',sym:'m9',name:'minor 9th'},
+ m11:{f:'1 b3 5 b7 9 11',sym:'m11',name:'minor 11th'},dom13:{f:'1 3 5 b7 9 13',sym:'13',name:'dominant 13th'},maj13:{f:'1 3 5 7 9 13',sym:'maj13',name:'major 13th'}};
+const SCALES={
+ major:{f:'1 2 3 4 5 6 7',name:'major'},ionian:{f:'1 2 3 4 5 6 7',name:'Ionian'},dorian:{f:'1 2 b3 4 5 6 b7',name:'Dorian'},phrygian:{f:'1 b2 b3 4 5 b6 b7',name:'Phrygian'},
+ lydian:{f:'1 2 3 #4 5 6 7',name:'Lydian'},mixolydian:{f:'1 2 3 4 5 6 b7',name:'Mixolydian'},aeolian:{f:'1 2 b3 4 5 b6 b7',name:'Aeolian'},locrian:{f:'1 b2 b3 4 b5 b6 b7',name:'Locrian'},
+ minor:{f:'1 2 b3 4 5 b6 b7',name:'natural minor'},majPent:{f:'1 2 3 5 6',name:'major pentatonic'},minPent:{f:'1 b3 4 5 b7',name:'minor pentatonic'},
+ blues:{f:'1 b3 4 b5 5 b7',name:'blues'},majBlues:{f:'1 2 b3 3 5 6',name:'major blues'},melMinor:{f:'1 2 b3 4 5 6 7',name:'melodic minor'},harmMinor:{f:'1 2 b3 4 5 b6 7',name:'harmonic minor'},
+ wholeTone:{f:'1 2 3 #4 #5 b7',name:'whole tone'},dimWH:{f:'1 2 b3 4 b5 #5 6 7',name:'whole-half diminished'},dimHW:{f:'1 b2 #2 3 #4 5 6 b7',name:'half-whole diminished'}};
+const MODES=['ionian','dorian','phrygian','lydian','mixolydian','aeolian','locrian'];
+const chordNotes=(root,q)=>spellF(root,CHORDS[q].f);
+const chordSym=(root,q)=>root+CHORDS[q].sym;
+const scaleNotes=(root,sc)=>spellF(root,SCALES[sc].f);
+/* identify chord quality from semitones above root (mod 12), e.g. [0,4,7] -> 'maj' */
+const qualityOf=semis=>{const k=[...new Set(semis.map(x=>((x%12)+12)%12))].sort((a,b)=>a-b).join();return Object.keys(CHORDS).find(q=>[...new Set(fmlSemis(CHORDS[q].f).map(x=>x%12))].sort((a,b)=>a-b).join()===k)||null};
+const ROMAN=['I','II','III','IV','V','VI','VII'];
+const romanOf=(deg,q)=>{const r=ROMAN[deg-1],lo=r.toLowerCase();return({maj:r,min:lo,dim:lo+'°',aug:r+'+',maj7:r+'maj7',dom7:r+'7',m7:lo+'7',m7b5:lo+'ø7',dim7:lo+'°7',mMaj7:lo+'(maj7)',augMaj7:r+'+maj7'})[q]||r};
+/* stack 3rds on each degree of a 7-note scale: size 3 = triads, 4 = 7th chords */
+function diatonic(root,sc='major',size=3){const n=scaleNotes(root,sc),s=fmlSemis(SCALES[sc].f);return n.map((x,i)=>{const idx=[0,2,4,6].slice(0,size).map(o=>(i+o)%7),semis=idx.map(j=>((s[j]-s[i])%12+12)%12),q=qualityOf(semis);return{deg:i+1,root:x,notes:idx.map(j=>n[j]),q,sym:x+(CHORDS[q]?CHORDS[q].sym:'?'),roman:romanOf(i+1,q)}})}
+/* fretboard positions of a set of pitch classes */
+const pcsPositions=(pcs,strings=[0,1,2,3,4,5],lo=0,hi=15)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++)if(pcs.includes(pcAt(s,f)))o.push({s,f});return o};
+/* find a voicing: strings[i] must play pitch class pcs[i]; all frets in lo..hi, max fret span ≤ span (open strings ignored for span if allowOpen). Returns [{s,f}] or null; picks the lowest-fret solution. */
+function voicing(strings,pcs,lo=0,hi=15,span=4,allowOpen=false){let best=null;const cand=strings.map((s,i)=>{const o=[];for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pcs[i])o.push(f);return o});
+  const rec=(i,acc)=>{if(i===strings.length){const fs=acc.filter(f=>!(allowOpen&&f===0)),sp=fs.length?Math.max(...fs)-Math.min(...fs):0;if(sp<=span-1){const sc=Math.max(...acc);if(!best||sc<best.sc)best={sc,v:acc.slice()}}return}for(const f of cand[i]){acc.push(f);rec(i+1,acc);acc.pop()}};
+  rec(0,[]);return best?best.v.map((f,i)=>({s:strings[i],f})):null}
+/* string sets for 3- and 4-note voicings, low to high */
+const SETS3=[[0,1,2],[1,2,3],[2,3,4],[3,4,5]],SETS4=[[0,1,2,3],[1,2,3,4],[2,3,4,5]];
+const setName=st=>st.map(s=>SL[s]).join('');
+/* inversion name for a 3-note or 4-note chord */
+const INV=['root position','1st inversion','2nd inversion','3rd inversion'];
+const pickKey=()=>pick(KEASY);
+const relMinor=k=>spellScale(k)[5];
+
+/* ===== Part 8: lessons 29–31 ===== */
+/* ---------- shared voicing helpers ---------- */
+const m3=x=>((x%3)+3)%3,m4=x=>((x%4)+4)%4;
+const LB={maj:['R','3','5'],min:['R','♭3','5'],dim:['R','♭3','♭5'],aug:['R','3','♯5'],
+ maj7:['R','3','5','7'],dom7:['R','3','5','♭7'],m7:['R','♭3','5','♭7'],m7b5:['R','♭3','♭5','♭7'],dim7:['R','♭3','♭5','𝄫7'],mMaj7:['R','♭3','5','7']};
+const INVN=['root position','1st inversion','2nd inversion','3rd inversion'];
+const TONE=['root','3rd','5th','7th'];
+/* every playable way to sound pcs[i] on strings[i]: frets lo..hi (no open strings), pitch strictly rising, fret spread < span */
+function vAll(strings,pcs,lo,hi,span){const out=[];
+  const rec=(i,acc)=>{if(i===strings.length){const mn=Math.min(...acc),mx=Math.max(...acc);
+      if(mx-mn<=span-1){const m=acc.map((f,j)=>midi(strings[j],f));if(m.every((x,j)=>j===0||x>m[j-1]))out.push(acc.slice())}return}
+    for(let f=lo;f<=hi;f++)if(pcAt(strings[i],f)===pcs[i]){acc.push(f);rec(i+1,acc);acc.pop()}};
+  rec(0,[]);return out}
+function vOne(strings,pcs,lo,hi=15,span=4){const a=vAll(strings,pcs,lo,hi,span);if(!a.length)return null;
+  a.sort((x,y)=>Math.max(...x)-Math.max(...y)||x[0]-y[0]);return a[0].map((f,i)=>({s:strings[i],f}))}
+/* voicing of chord (root,q): order = chord-tone indices from lowest to highest string */
+function mkV(root,q,strings,order,lo,span=4){const cn=chordNotes(root,q),pcs=order.map(i=>pcOf(cn[i])),p=vOne(strings,pcs,lo,15,span);
+  return p?p.map((x,j)=>({...x,idx:order[j],name:cn[order[j]],deg:LB[q][order[j]]})):null}
+const strList=st=>{const a=st.map(s=>SN[s]);return a.length>1?a.slice(0,-1).join(', ')+' and '+a[a.length-1]:a[0]};
+const bx=(...vs)=>{const fs=vs.flat().map(p=>p.f);return[Math.max(0,Math.min(...fs)-1),Math.min(15,Math.max(...fs)+1)]};
+const vNotes=v=>v.map(p=>midi(p.s,p.f));
+const vTxt=v=>v.map(p=>`${p.name} (${SN[p.s]} string, fret ${p.f})`).join(', ');
+const nmark=(p,mode)=>({s:p.s,f:p.f,t:mode==='deg'?p.deg:p.name,k:p.idx===0?'root':'q'});
+/* roots whose chord spelling avoids double accidentals and awkward C♭/F♭/E♯/B♯ (dim7 may use one 𝄫 or the flats) */
+function okSpell(q,r){const s=chordNotes(r,q).join(' ');if(/𝄪/.test(s))return false;const d=(s.match(/𝄫/g)||[]).length;
+  if(q==='dim7')return d<=1;return d===0&&!/C♭|F♭|E♯|B♯/.test(s)}
+const bad={test:s=>/𝄪|𝄫|C♭|F♭|E♯|B♯/.test(s)};
+function rootFor(q,pool=KEASY){for(let i=0;i<120;i++){const r=pick(pool);if(okSpell(q,r))return r}return'C'}
+const semiSpan=v=>midi(v[v.length-1].s,v[v.length-1].f)-midi(v[0].s,v[0].f);
+const noteList=a=>a.join(' ');
+
+const ROM7=['I','ii','iii','IV','V','vi','vii°'];
+const swapCase=s=>s===s.toUpperCase()?s.toLowerCase():s.toUpperCase();
+const keyTxt=k=>`${k} major: ${spellScale(k).join(' ')} ${k}`;
+const altN=(n,d)=>{const a=ACC[n.slice(1)]+d;return Math.abs(a)<=1?n[0]+accTxt(a):null};
+
+/* ---------- Lesson 29: open triads ---------- */
+const OSETS=[[0,1,3],[1,2,4],[2,3,5],[0,2,3],[1,3,4],[2,4,5],[0,2,4],[1,3,5]];
+const OORD=[[0,2,1],[1,0,2],[2,1,0]],OLAB=['root–5th–3rd','3rd–root–5th','5th–3rd–root'];
+function oPick(inv,qs=['maj','min']){for(let t=0;t<500;t++){const q=pick(qs),root=rootFor(q),i=inv===undefined?R(0,2):inv,st=pick(OSETS),v=mkV(root,q,st,OORD[i],R(1,10));
+  if(v&&semiSpan(v)>12)return{root,q,inv:i,st,v}}
+  return{root:'C',q:'maj',inv:0,st:[1,2,4],v:mkV('C','maj',[1,2,4],OORD[0],1)}}
+function cPick(){for(let t=0;t<300;t++){const q=pick(['maj','min']),root=rootFor(q),b=R(0,2),st=pick(SETS3),v=mkV(root,q,st,[b,b+1,b+2].map(m3),R(1,10));
+  if(v&&semiSpan(v)<12)return{root,q,inv:b,st,v}}
+  return{root:'C',q:'maj',inv:0,st:[3,4,5],v:mkV('C','maj',[3,4,5],[0,1,2],1)}}
+const oExp=o=>`${chordSym(o.root,o.q)} = ${chordNotes(o.root,o.q).join(' ')}. ${cap(INVN[o.inv])} open triad (${OLAB[o.inv]}) on the ${strList(o.st)} strings: ${vTxt(o.v)}.`;
+const oBank=sbank('ob',[
+ ['What is an open triad?','A triad voiced over more than an octave',['A triad that uses open strings','A triad on the top three strings only','A triad with the root doubled'],'In an open triad the notes are spread: the lowest and highest notes are more than an octave apart. A close triad fits inside one octave.'],
+ ['From low to high, what is the order of a root-position open triad?','Root – 5th – 3rd',['Root – 3rd – 5th','3rd – 5th – root','5th – root – 3rd'],'Close root position is R–3–5. Move the middle note (the 3rd) up an octave and the order becomes R–5–3: the 3rd now sits above the 5th.'],
+ ['How do you turn a close triad into an open triad with the same bass note?','Move the middle note up an octave',['Add an open string','Double the root','Raise the whole chord an octave'],'The bass stays put and the middle note jumps over the top note: R–3–5 becomes R–5–3, 3–5–R becomes 3–R–5, and 5–R–3 becomes 5–3–R.'],
+ ['What is the order of a 1st-inversion open triad, low to high?','3rd – root – 5th',['Root – 5th – 3rd','5th – 3rd – root','3rd – 5th – root'],'The bass note names the inversion. 1st inversion has the 3rd in the bass: 3–R–5.'],
+ ['What is the order of a 2nd-inversion open triad, low to high?','5th – 3rd – root',['3rd – root – 5th','Root – 5th – 3rd','5th – root – 3rd'],'2nd inversion has the 5th in the bass: 5–3–R.'],
+ ['Why are open triads usually fingered with one string skipped?','The notes are over an octave apart, so a string is skipped to keep the shape within about four frets',['Adjacent strings cannot be fretted together','The root must always be on the low E string','Skipped strings sound louder'],'On three adjacent strings an open voicing would need a huge stretch. Skipping a string brings the notes within reach, for example A–D–B or E–D–G.'],
+ ['Which statement is true for all three open voicings of one triad?','They contain the same three notes, ordered differently from the bass up',['They contain different notes','They are all in root position','They all start on the root'],'Inversions rearrange the same three chord tones; only the bass note changes.'],
+ ['A triad has its lowest and highest notes 16 semitones apart. Is it open or close?','Open (more than an octave)',['Close (within an octave)','It depends on the key','Neither: triads cannot be this wide'],'An octave is 12 semitones. More than 12 between lowest and highest means an open voicing.']]);
+function oSpell(){const q=pick(['maj','min']),root=rootFor(q),inv=R(0,2),cn=chordNotes(root,q),ord=OORD[inv],a=ord.map(i=>cn[i]).join(' ');
+  const perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]].map(p=>p.map(i=>cn[i]).join(' ')).filter(x=>x!==a);
+  return{type:'choice',noBoard:true,key:`os${root}${q}${inv}`,text:`Which shows ${chordSym(root,q)} as an open triad in ${INVN[inv]}, notes listed from lowest to highest?`,choices:mc(a,perms),ans:a,
+   hint:`${cap(INVN[inv])} has the ${['root','3rd','5th'][inv]} in the bass. The open pattern for it is ${OLAB[inv]}.`,
+   explain:`${chordSym(root,q)} = ${cn.join(' ')}. ${cap(INVN[inv])} open triad (${OLAB[inv]}): ${a}. The other orders are different inversions or close voicings.`}}
+function oBuild(){const o=oPick(),b=o.v[0],cn=chordNotes(o.root,o.q);
+  return{type:'multi',key:`ob${o.root}${o.q}${o.inv}${o.st.join('')}`,box:bx(o.v),text:`${chordSym(o.root,o.q)} open triad in ${INVN[o.inv]} (${OLAB[o.inv]}, low to high) on the ${strList(o.st)} strings. The bass note is marked. Click the other two notes inside the shaded frets.`,
+   marks:[nmark(b,'deg')],targets:o.v.slice(1).map(p=>({s:p.s,f:p.f,t:p.deg})),notes:vNotes(o.v),
+   hint:`Spell the chord first (${cn.join(' ')}). Then find the next note of the pattern on each remaining string, close to the marked fret.`,explain:oExp(o)}}
+function oTone(){const o=oPick(),h=R(0,2),p=o.v[h],tn=['root','3rd','5th'][p.idx];
+  return{type:'click',key:`ot${o.root}${o.q}${o.inv}${h}${o.st.join('')}`,box:bx(o.v),text:`${chordSym(o.root,o.q)} open triad in ${INVN[o.inv]} on the ${strList(o.st)} strings. Two notes are shown; click the missing ${tn} (the ${SN[p.s]} string).`,
+   marks:o.v.filter((x,i)=>i!==h).map(x=>nmark(x,'deg')),target:{s:p.s,f:p.f,t:p.deg},notes:vNotes(o.v),
+   hint:`The ${tn} of ${chordSym(o.root,o.q)} is ${p.name}. Find it on the ${SN[p.s]} string inside the shaded frets.`,explain:`The missing ${tn} is ${p.name}. ${oExp(o)}`}}
+function oInv(){const o=oPick(),b=o.v[0];
+  return{type:'choice',key:`oi${o.root}${o.q}${o.inv}${o.st.join('')}`,text:`These notes spell ${chordSym(o.root,o.q)} as an open triad (the root is highlighted). Which inversion is it?`,
+   marks:o.v.map(p=>({...nmark(p,'name')})),choices:INVN.slice(0,3),ans:INVN[o.inv],notes:vNotes(o.v),
+   hint:'Look at the lowest-sounding note. Which chord tone is it?',explain:`The lowest note is ${b.name}, the ${['root','3rd','5th'][b.idx]} of ${chordSym(o.root,o.q)}, so this is ${INVN[o.inv]} (${OLAB[o.inv]}). ${oExp(o)}`}}
+function oType(){const open=Math.random()<.5,o=open?oPick():cPick(),sp=semiSpan(o.v),a=open?'Open triad':'Close triad';
+  return{type:'choice',key:`oy${open?1:0}${o.root}${o.q}${o.inv}${o.st.join('')}`,text:`These marks are the three notes of ${chordSym(o.root,o.q)}. Is the voicing an open triad or a close triad?`,
+   marks:o.v.map(p=>nmark(p,'name')),choices:['Open triad','Close triad'],ans:a,notes:vNotes(o.v),
+   hint:'Compare the lowest and highest notes: are they more than an octave (12 semitones) apart?',
+   explain:`The lowest note is ${o.v[0].name} and the highest is ${o.v[2].name}: ${sp} semitones apart. ${open?`That is more than an octave, so it is open (one string is skipped). ${oExp(o)}`:`That is less than an octave and the notes sit on three adjacent strings, so it is a close triad: ${vTxt(o.v)}.`}`}}
+function oChord(){const o=oPick(undefined,['maj','min','dim','aug']),r=o.v.find(p=>p.idx===0),cn=chordNotes(o.root,o.q);
+  const ch=['maj','min','dim','aug'].map(x=>chordSym(o.root,x)),a=chordSym(o.root,o.q);
+  return{type:'choice',key:`oc${o.root}${o.q}${o.inv}${o.st.join('')}`,text:`This open triad has its root ${o.root} marked R. Which chord is it?`,
+   marks:o.v.map(p=>p.idx===0?{s:p.s,f:p.f,t:'R',k:'root'}:{s:p.s,f:p.f,t:'?',k:'q'}),choices:ch,ans:a,notes:vNotes(o.v),
+   hint:`Name the other two notes, then measure the interval from ${o.root} to the 3rd and to the 5th.`,
+   explain:`The notes are ${o.v.map(p=>p.name).join(', ')}. Measured from ${o.root}: a ${nm(o.q==='min'||o.q==='dim'?3:4)} to the 3rd and ${o.q==='dim'?'a diminished':o.q==='aug'?'an augmented':'a perfect'} 5th, so it is ${a}. ${oExp(o)}`}}
+
+/* ---------- Lesson 30: harmonized major scale (triads) ---------- */
+const dia3=k=>diatonic(k,'major',3);
+function hDeg(){const key=pick(KEASY),d=R(1,7);return{key,d,c:dia3(key)[d-1],all:dia3(key)}}
+const hBank=sbank('hb',[
+ ['What does harmonizing the major scale mean?','Building one triad on each scale degree using only notes of the scale',['Playing the scale in two octaves','Adding a bass note to each scale note','Changing every chord to major'],'Stack two thirds on each of the seven notes, staying inside the key. That gives seven triads.'],
+ ['What is the order of triad qualities in a major key?','Major, minor, minor, major, major, minor, diminished',['Major, major, minor, minor, major, minor, diminished','Minor, major, major, minor, minor, major, diminished','Major, minor, major, minor, major, minor, diminished'],'I ii iii IV V vi vii°. It is the same pattern in every major key.'],
+ ['Which triads of a major key are major?','I, IV and V',['ii, iii and vi','I, ii and V','IV, V and vii°'],'Major triads are written with capital numerals: I, IV, V.'],
+ ['Which degree carries the diminished triad?','vii°',['ii','iv','vi'],'In C major it is B–D–F: two stacked minor thirds.'],
+ ['Which triads of a major key are minor?','ii, iii and vi',['I, IV and V','ii, V and vii°','iii, IV and vi'],'Minor triads are written with lower-case numerals: ii, iii, vi.'],
+ ['When you play the harmonized scale up the neck on one string set, what usually stays the same?','The inversion and the string set',['The fret','The root note','The chord quality'],'Each note simply moves up to the next scale note, so the shape changes slightly to follow the major/minor/diminished qualities.'],
+ ['Why is the triad on degree 7 diminished in C major (B D F)?','It stacks two minor thirds, B–D and D–F',['It contains a sharp','It starts on the 7th, so it is always minor','It has a major 3rd and perfect 5th'],'B–D is 3 semitones, D–F is 3 semitones: root, ♭3, ♭5 = diminished.'],
+ ['How many different triad qualities appear in a major key?','3 (major, minor, diminished)',['2','4','7'],'Major (I IV V), minor (ii iii vi) and one diminished (vii°). Augmented triads do not occur.']]);
+function hQual(){const{key,d,c}=hDeg(),a=c.sym,ch=['maj','min','dim','aug'].map(x=>chordSym(c.root,x));
+  return{type:'choice',noBoard:true,key:`hq${key}${d}`,text:`In ${key} major, which triad is built on the ${ord(d)} degree (${c.roman})?`,choices:mc(a,ch),ans:a,
+   hint:`Find the ${ord(d)} note of ${key} major, then stack the notes two and four letters above it from the scale.`,explain:`${keyTxt(key)}. The ${ord(d)} degree is ${c.root}; its triad uses scale notes ${c.notes.join(' ')} = ${a} (${c.roman}).`}}
+function hRoman(){const{key,d,c}=hDeg(),a=c.roman;
+  return{type:'choice',noBoard:true,key:`hr${key}${d}`,text:`In ${key} major, which Roman numeral does the chord ${c.sym} have?`,choices:mc(a,[...ROM7.filter(x=>x!==a),swapCase(a)]),ans:a,
+   hint:`Which degree of ${key} major is ${c.root}? Capital numeral = major, lower case = minor, ° = diminished.`,explain:`${keyTxt(key)}. ${c.root} is degree ${d}, and ${c.notes.join('–')} is ${CHORDS[c.q].name}: ${a}.`}}
+function hSetup(){for(let t=0;t<300;t++){const{key,d,c,all}=hDeg(),b=R(0,2),st=pick(SETS3),v=mkV(c.root,c.q,st,[b,b+1,b+2].map(m3),R(1,8));if(v)return{key,d,c,all,b,st,v}}
+  const all=dia3('C');return{key:'C',d:1,c:all[0],all,b:0,st:[3,4,5],v:mkV('C','maj',[3,4,5],[0,1,2],1)}}
+function hBoard(){const o=hSetup(),{key,d,c,b,st,v}=o;
+  return{type:'multi',key:`hf${key}${d}${b}${st.join('')}`,box:bx(v),text:`${key} major, the ${c.roman} triad (${c.sym}) in ${INVN[b]} on the ${strList(st)} strings. The bass note is marked; click the other two notes inside the shaded frets.`,
+   marks:[nmark(v[0],'name')],targets:v.slice(1).map(p=>({s:p.s,f:p.f,t:p.name})),notes:vNotes(v),
+   hint:`${c.sym} contains ${c.notes.join(' ')}. Find the next note (from the bass up) on each string.`,explain:`${keyTxt(key)}. ${c.roman} = ${c.sym} = ${c.notes.join(' ')}. ${cap(INVN[b])} on the ${strList(st)} strings: ${vTxt(v)}.`}}
+function hStep(){for(let t=0;t<400;t++){const key=pick(KEASY),d=R(1,5),all=dia3(key),c=all[d-1],n=all[d],b=R(0,2),st=pick(SETS3),v=mkV(c.root,c.q,st,[b,b+1,b+2].map(m3),R(1,7));if(!v)continue;
+    const sc=spellScale(key),nv=v.map(p=>{const i=(d-1+2*p.idx)%7,step=(pcOf(sc[(i+1)%7])-pcOf(sc[i])+12)%12;return{s:p.s,f:p.f+step,name:sc[(i+1)%7],step}});
+    if(nv.some(p=>p.f>15))continue;
+    return{type:'multi',key:`hs${key}${d}${b}${st.join('')}`,box:bx(v,nv),text:`${key} major: the ${c.roman} triad (${c.sym}) is shown in ${INVN[b]} on the ${strList(st)} strings. Move every note up one step of the ${key} major scale to get the ${n.roman} triad (${n.sym}), and click the three new notes.`,
+     marks:v.map(p=>({s:p.s,f:p.f,t:p.name,k:'ghost'})),targets:nv.map(p=>({s:p.s,f:p.f,t:p.name})),notes:[...vNotes(v)],
+     hint:'Each note moves to the next scale note: 1 fret for a half step (3–4 and 7–8), 2 frets for a whole step.',
+     explain:`${keyTxt(key)}. Each note steps up the scale: ${v.map((p,i)=>`${p.name}→${nv[i].name} (+${nv[i].step})`).join(', ')}. The result is ${n.sym} = ${n.notes.join(' ')} on the same strings.`}}
+  return hStep()}
+function hWhich(){const o=hSetup(),{key,d,c,all,b,st,v}=o,a=c.roman;
+  return{type:'choice',key:`hw${key}${d}${b}${st.join('')}`,text:`These three notes come from the harmonized ${key} major scale. Which chord (Roman numeral) is it?`,
+   marks:v.map(p=>({s:p.s,f:p.f,t:p.name,k:'q'})),choices:mc(a,ROM7.filter(x=>x!==a)),ans:a,notes:vNotes(v),
+   hint:'Read the three note names, stack them in thirds to find the root, then count its degree in the key.',explain:`${keyTxt(key)}. The notes ${v.map(p=>p.name).join(', ')} are ${c.sym} (${c.notes.join(' ')}), the ${ord(d)} degree chord: ${a}.`}}
+function hRootFind(){for(let t=0;t<200;t++){const key=pick(KEASY),s=R(0,1),r=rootFret(key,s,1),d=R(2,7),c=dia3(key)[d-1],f=rootFret(c.root,s,1);if(r<1||r>12||f<1||f>12||f===r)continue;
+  return{type:'click',key:`hrf${key}${s}${d}`,box:[1,12],text:`The root of ${key} major (chord I) is marked. Click the root of the ${c.roman} chord on the ${SN[s]} string, frets 1–12.`,
+   marks:[{s,f:r,t:'I',k:'root'}],target:{s,f,t:c.roman},notes:[midi(s,r),midi(s,f)],hint:`The ${c.roman} chord is built on the ${ord(d)} note of the ${key} major scale.`,
+   explain:`${keyTxt(key)}. The ${ord(d)} degree is ${c.root} (${c.sym}), at fret ${f} of the ${SN[s]} string.`}}
+  return hRootFind()}
+
+/* ---------- Lesson 31: harmonized major scale in intervals ---------- */
+const IQ={3:{3:'minor 3rd',4:'major 3rd'},4:{5:'perfect 4th',6:'augmented 4th'},5:{7:'perfect 5th',6:'diminished 5th'},6:{8:'minor 6th',9:'major 6th'}};
+const NS={3:'3rd',4:'4th',5:'5th',6:'6th'};
+function hiInfo(key,d,n){const sc=spellScale(key),a=sc[d-1],b=sc[(d-1+n-1)%7],semis=(pcOf(b)-pcOf(a)+12)%12;return{a,b,semis,name:IQ[n][semis]}}
+const iBank=sbank('ib',[
+ ['In a major key, on which degrees does a diatonic 3rd above make a MAJOR 3rd?','I, IV and V',['ii, iii and vi','I, ii and V','IV, V and vii'],'In C major: C–E, F–A and G–B are major 3rds. D–F, E–G, A–C and B–D are minor 3rds.'],
+ ['On which degrees does a diatonic 6th above make a MINOR 6th?','iii, vi and vii',['I, IV and V','ii, iii and vi','I, IV and vii'],'In C major: E–C, A–F and B–G are minor 6ths. The other four degrees give major 6ths.'],
+ ['Which diatonic 4th is not perfect?','The 4th above the 4th degree (F up to B in C major)',['The 4th above the root','The 4th above the 5th degree','The 4th above the 2nd degree'],'F–B is an augmented 4th (tritone), the only non-perfect diatonic 4th.'],
+ ['Which diatonic 5th is not perfect?','The 5th above the 7th degree (B up to F in C major)',['The 5th above the root','The 5th above the 4th degree','The 5th above the 2nd degree'],'B–F is a diminished 5th (tritone), the only non-perfect diatonic 5th.'],
+ ['What does a major 3rd become when you turn it upside down?','A minor 6th',['A major 6th','A perfect 4th','A minor 3rd'],'Inversion: the two numbers add to 9 and major becomes minor. C up to E (major 3rd) inverts to E up to C (minor 6th).'],
+ ['Harmonizing a melody in diatonic 3rds means…','adding a note a 3rd above each melody note, using only notes of the key',['adding a note exactly 4 semitones above each melody note','adding the root under each melody note','playing every note twice'],'Because the 3rd is diatonic, its size alternates between major and minor to stay in the key.'],
+ ['How many frets is a major 3rd on the same string?','4',['3','5','2'],'A major 3rd is 4 semitones = 4 frets; a minor 3rd is 3.'],
+ ['A diatonic 3rd above the 7th degree of C major (B) is…','D, a minor 3rd',['D♯, a major 3rd','D♭, a diminished 3rd','C, a major 2nd'],'B up two scale notes is D (B–D = 3 semitones).']]);
+function iQual(){const key=pick(KEASY),d=R(1,7),n=pick([3,3,6,6,4,5]),x=hiInfo(key,d,n),a=x.name;
+  return{type:'choice',noBoard:true,key:`iq${key}${d}${n}`,text:`In ${key} major, what interval is it from ${x.a} up to the diatonic ${NS[n]} above it (${x.b})?`,
+   choices:mc(a,[...Object.values(IQ[n]),'perfect 4th','major 6th','minor 3rd','major 3rd','perfect 5th','minor 6th']),ans:a,
+   hint:`Count the semitones from ${x.a} to ${x.b} and compare with the interval names.`,explain:`${keyTxt(key)}. ${x.a} up to ${x.b} is ${x.semis} semitones: ${art(a)} ${a}.`}}
+function iAbove(){const key=pick(KEASY),d=R(1,7),n=pick([3,3,6,6,4,5]),x=hiInfo(key,d,n),sc=spellScale(key),a=x.b;
+  return{type:'choice',noBoard:true,key:`ia${key}${d}${n}`,text:`In ${key} major, which note is the diatonic ${NS[n]} above ${x.a}?`,
+   choices:mc(a,[altN(a,1),altN(a,-1),sc[(d-1+n)%7],sc[(d+n-3+7)%7]].filter(Boolean)),ans:a,
+   hint:`Count ${n} letters from ${x.a} (${x.a} is 1), then take that letter as it appears in the ${key} major scale.`,explain:`${keyTxt(key)}. Counting ${n} notes up from ${x.a} lands on ${a}: ${art(x.name)} ${x.name}.`}}
+function iPlace(n){for(let t=0;t<300;t++){const key=pick(KEASY),d=R(1,7),x=hiInfo(key,d,n),s1=R(0,4),s2=s1+(n===6?2:1);if(s2>5)continue;
+  const fs=allPc(pcOf(x.a),[s1],2,12);if(!fs.length)continue;const f=pick(fs).f,tf=shapeFret(s1,f,s2,x.semis);if(tf<1||tf>15||Math.abs(tf-f)>4)continue;
+  return{key,d,n,x,s1,s2,f,tf}}
+  return{key:'C',d:1,n:3,x:hiInfo('C',1,3),s1:1,s2:2,f:3,tf:2}}
+function iName(){const p=iPlace(pick([3,3,4,5,6,6])),{key,x,s1,s2,f,tf,n}=p,a=nm(x.semis);
+  return{type:'choice',key:`in${key}${p.d}${n}${s1}`,text:`Both marked notes belong to ${key} major. What interval is it from ${x.a} up to the note marked ?`,
+   marks:[{s:s1,f,t:x.a,k:'root'},{s:s2,f:tf,t:'?',k:'q'}],choices:mc(a,near(x.semis)),ans:a,notes:[midi(s1,f),midi(s2,tf)],
+   hint:`Add the string gap (${gap(s1,s2)} semitones) and the fret difference.`,explain:`${gap(s1,s2)} semitones between the strings ${tf-f>=0?'+':'−'} ${Math.abs(tf-f)} = ${x.semis}: ${art(a)} ${a} from ${x.a} up to ${x.b}.`}}
+function iBoard(){const p=iPlace(pick([3,3,6,6,4,5])),{key,d,n,x,s1,s2,f,tf}=p;
+  return{type:'click',key:`ib${key}${d}${n}${s1}`,box:[Math.max(0,Math.min(f,tf)-1),Math.min(15,Math.max(f,tf)+1)],text:`${key} major: ${x.a} (degree ${d}) is marked on the ${SN[s1]} string. Click the diatonic ${NS[n]} above it on the ${SN[s2]} string.`,
+   marks:[{s:s1,f,t:x.a,k:'root'}],target:{s:s2,f:tf,t:x.b},notes:[midi(s1,f),midi(s2,tf)],
+   hint:`Count ${n} letters up from ${x.a}, then check which note that is in ${key} major.`,explain:`${keyTxt(key)}. The diatonic ${NS[n]} above ${x.a} is ${x.b} (${art(x.name)} ${x.name}): fret ${tf} of the ${SN[s2]} string.`}}
+function iRun(){for(let t=0;t<400;t++){const key=pick(KEASY),n=pick([3,3,6,6]),s1=R(0,3),s2=s1+(n===6?2:1);if(s2>5)continue;
+  const lo=R(1,8),ps=keyPositions(key,[s1],lo,lo+6).sort((a,b)=>a.f-b.f).slice(0,4);if(ps.length<4)continue;
+  const sc=spellScale(key),tg=ps.map(p=>{const x=hiInfo(key,p.deg,n),tf=shapeFret(s1,p.f,s2,x.semis);return{s:s2,f:tf,t:x.b,name:x.name,from:p.name}});
+  if(tg.some(g=>g.f<1||g.f>15)||new Set(tg.map(g=>g.f)).size<4)continue;
+  return{type:'multi',key:`ir${key}${n}${s1}${lo}`,box:bx(ps,tg),text:`Harmonize this run of ${key} major in ${NS[n]}s: for each marked note, click the diatonic ${NS[n]} above it on the ${SN[s2]} string.`,
+   marks:ps.map(p=>({s:p.s,f:p.f,t:p.name,k:'root'})),targets:tg.map(g=>({s:g.s,f:g.f,t:g.t})),notes:ps.flatMap((p,i)=>[midi(p.s,p.f),midi(tg[i].s,tg[i].f)]),pm:'seq',
+   hint:n===3?'Major 3rds fall only on degrees 1, 4 and 5. Every other degree takes a minor 3rd.':'Minor 6ths fall only on degrees 3, 6 and 7. Every other degree takes a major 6th.',
+   explain:`${keyTxt(key)}. ${tg.map(g=>`${g.from}→${g.t} (${g.name})`).join(', ')}.`}}
+  return iRun()}
+
+const LS={
+ open:{h:'open-triads',n:'Lesson 29',title:'Open triads',sub:'Spread the triad over more than an octave: root–5th–3rd and its inversions on skipped strings.',
+  ex:[['Concepts',[oBank,oSpell]],['Build it',[oBuild,oTone]],['Read it',[oInv,oType,oChord]]],
+  test:[...rep(oBank,2),...rep(oSpell,2),...rep(oBuild,3),...rep(oTone,3),...rep(oInv,2),oType,...rep(oChord,2)]},
+ htri:{h:'harmonized-triads',n:'Lesson 30',title:'Harmonized major scale (triads)',sub:'One triad on every degree of the major scale, played up the neck.',
+  ex:[['Theory',[hBank,hQual,hRoman]],['Triads on the neck',[hBoard,hStep,hRootFind]],['Name the chord',[hWhich]]],
+  test:[...rep(hBank,2),...rep(hQual,2),...rep(hRoman,2),...rep(hBoard,3),...rep(hStep,2),...rep(hWhich,2),...rep(hRootFind,2)]},
+ hint:{h:'harmonized-intervals',n:'Lesson 31',title:'Harmonized major scale (intervals)',sub:'Harmonize the scale in diatonic 3rds, 6ths and other two-note intervals.',
+  ex:[['Theory',[iBank,iQual,iAbove]],['Name it',[iName]],['Play it',[iBoard,iRun]]],
+  test:[...rep(iBank,2),...rep(iQual,3),iAbove,...rep(iName,3),...rep(iBoard,3),...rep(iRun,3)]},
+ final:{h:'final-check',n:'Final',title:'Final check',sub:'Lessons 29–31 mixed.',
+  ex:[['Lesson 29',[oBank,oSpell,oBuild,oTone,oInv,oType,oChord]],['Lesson 30',[hBank,hQual,hRoman,hBoard,hStep,hWhich,hRootFind]],['Lesson 31',[iBank,iQual,iAbove,iName,iBoard,iRun]]],
+  test:[oBank,oSpell,oBuild,oBuild,oTone,oInv,oType,oChord,hBank,hQual,hRoman,hBoard,hStep,hWhich,hRootFind,iQual,iName,iBoard,iRun,iAbove]}};
+const ORDER=['open','htri','hint','final'],STORE='gi-best-p8';
+const exOpen=i=>{for(const st of OSETS){const v=mkV('C','maj',st,OORD[i],1);if(v&&semiSpan(v)>12)return{st,v}}return null};
+const NOTES={
+ open:`<div class="cols"><div><h3>Open triads on C major</h3><table class="stack"><thead><tr><th>Voicing</th><th>Low → high</th><th>Strings · frets (low → high)</th></tr></thead><tbody>${[0,1,2].map(i=>{const e=exOpen(i);return`<tr><td>${cap(INVN[i])}</td><td>${OLAB[i]}<br>${OORD[i].map(j=>chordNotes('C','maj')[j]).join(' ')}</td><td>${e?`${e.st.map(s=>SL[s]).join(' ')} · ${e.v.map(p=>p.f).join('–')}`:''}</td></tr>`}).join('')}</tbody></table>
+  <p class="small">Assumption: an open triad is a close triad with its middle note moved up an octave, so the bass note (and the inversion name) stays the same.</p></div>
+  <div><h3>Key ideas</h3><ul><li>Close triad: all three notes inside one octave. Open triad: more than an octave from lowest to highest.</li><li>Root position R–5–3, 1st inversion 3–R–5, 2nd inversion 5–3–R.</li><li>The wide spread needs a skipped string (for example A–D–B or E–D–G) to stay within four frets.</li><li>Every open shape is movable: the root sets the chord.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Play C major as a close triad, then as an open triad with the same bass note. Hear how the sound opens up.</li><li>Play the three open inversions of one chord, then slide each shape 2 frets for the next chord.</li><li>Find a G major open triad on every skipped-string set.</li></ul></div></div>`,
+ htri:`<div class="cols"><div><h3>Triads of C major</h3><div class="scroll"><table><thead><tr><th>Degree</th><th>Chord</th><th>Notes</th><th>Frets on G–B–e (root position)</th></tr></thead><tbody>${dia3('C').map(c=>{const v=mkV(c.root,c.q,[3,4,5],[0,1,2],1);return`<tr><td>${c.roman}</td><td>${c.sym}</td><td>${c.notes.join(' ')}</td><td>${v?v.map(p=>p.f).join('–'):''}</td></tr>`}).join('')}</tbody></table></div>
+  <p class="small">Each row is the lowest voicing without open strings, so the vii° shape sits low on the neck. Add 12 frets (where possible) for the same shape one octave up.</p></div>
+  <div><h3>Key ideas</h3><ul><li>One triad per scale degree: major, minor, minor, major, major, minor, diminished.</li><li>Hold the string set and inversion and every note steps up the scale: 1 fret for a half step, 2 frets for a whole step.</li><li>The same pattern of qualities works in every major key; only the note names change.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Play all seven triads of G major in root position on the G–B–e strings.</li><li>Repeat on D–G–B, then in 1st inversion.</li><li>Say the Roman numeral and quality as you play each chord.</li></ul></div></div>`,
+ hint:`<div class="cols"><div><h3>C major in diatonic 3rds and 6ths</h3><table class="stack"><thead><tr><th>Degree</th><th>3rd above</th><th>6th above</th></tr></thead><tbody>${[1,2,3,4,5,6,7].map(d=>{const a=hiInfo('C',d,3),b=hiInfo('C',d,6);return`<tr><td>${d} (${a.a})</td><td>${a.b} · ${a.name.split(' ')[0]}</td><td>${b.b} · ${b.name.split(' ')[0]}</td></tr>`}).join('')}</tbody></table>
+  <p class="small">Assumption: “harmonizing in intervals” means adding one diatonic note above each scale note (usually a 3rd or a 6th), staying inside the key.</p></div>
+  <div><h3>Key ideas</h3><ul><li>Diatonic means: stay inside the key. The interval size can change from note to note.</li><li>3rds: major on degrees 1, 4, 5, minor on 2, 3, 6, 7. 6ths: minor on 3, 6, 7, major on the rest.</li><li>Diatonic 4ths are perfect except F–B in C; diatonic 5ths are perfect except B–F.</li><li>Two-note intervals are the building blocks of triads and 7th chords.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Play G major up the A string in 3rds with the D string below… above: each note with its diatonic 3rd on the next string.</li><li>Repeat in 6ths, skipping a string.</li><li>Name every interval aloud as you play.</li></ul></div></div>`,
+ final:`<div class="cols"><div><h3>Before the final check</h3><ul><li>Pass each lesson test first (13/15).</li><li>The final mixes lessons 29–31: open triads, the harmonized scale in triads, and in intervals. 20 questions, pass mark 17.</li></ul></div><div><h3>Next in the course</h3><p>Lessons 32–36 move on to 7th chords: construction, close position, Drop 2 and Drop 3 voicings.</p></div></div>`};
+
+
+/* ===== audio: plucked string (Karplus–Strong) ===== */
+let ac=null;
+function pluck(m,t0){const sr=ac.sampleRate,fq=440*2**((m-69)/12),len=Math.floor(sr*1.7),b=ac.createBuffer(1,len,sr),d=b.getChannelData(0),N=Math.max(2,Math.round(sr/fq));
+  for(let i=0;i<N;i++)d[i]=Math.random()*2-1;
+  for(let i=N;i<len;i++)d[i]=.996*.5*(d[i-N]+(i-N-1>=0?d[i-N-1]:0));
+  const src=ac.createBufferSource(),gn=ac.createGain(),t=ac.currentTime+t0;src.buffer=b;gn.gain.setValueAtTime(.3,t);gn.gain.linearRampToValueAtTime(0,t+1.65);src.connect(gn).connect(ac.destination);src.start(t)}
+/* default: notes one after another, then together (2–6 notes). pm 'seq' = melody only (scales), 'chord' = strum only, 'one' = single note */
+function play(ns,mode){if(!ns||!ns.length)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume();
+  if(mode==='one'||ns.length===1)return pluck(ns[0],0);
+  if(mode==='chord'){ns.forEach((m,j)=>pluck(m,j*.035));return}
+  const step=ns.length>2?.32:.6;ns.forEach((m,j)=>pluck(m,j*step));if(mode!=='seq'&&ns.length<=6)ns.forEach((m,j)=>pluck(m,ns.length*step+.15+j*.03))}catch(e){}}
+
+/* ===== state ===== */
+let cur=ORDER[0],mode='practice',sel=new Set(),q=null,done=false,picked=null,st={streak:0,ok:0,n:0},T=null,showHint=false;
+let best={};try{best=JSON.parse(localStorage.getItem(STORE)||'{}')}catch(e){}
+const $=id=>document.getElementById(id);
+function prep(x){x.found=[];return x}
+function gen(fns,seen){for(let k=0;k<40;k++){const x=pick(fns)();if(!seen.has(x.key)){seen.add(x.key);return prep(x)}}return prep(pick(fns)())}
+function autoplay(){if(q.hide&&ac)play(q.notes,q.pm)}
+function newQ(){const fns=(sel.size?LS[cur].ex.filter((e,i)=>sel.has(i+1)):LS[cur].ex).flatMap(e=>e[1]);q=gen(fns,new Set(q?[q.key]:[]));done=false;picked=null;showHint=false;render();autoplay()}
+function startTest(){const seen=new Set();T={qs:shuf(LS[cur].test.map(f=>gen([f],seen))),i:0,a:[],done:false};q=T.qs[0];done=false;picked=null;showHint=false;render();autoplay()}
+function setLesson(k,push){cur=k;mode='practice';sel=new Set();T=null;st={streak:0,ok:0,n:0};q=null;if(push!==false)try{history.replaceState(null,'','#'+LS[k].h)}catch(e){location.hash=LS[k].h}$('notes').innerHTML=NOTES[k];newQ()}
+const ansLabel=x=>x.type==='choice'?x.ans:x.type==='multi'?`${x.targets.length} spots: ${x.targets.map(posTxt).join(', ')}`:where(x.target.s,x.target.f);
+function answer(ok,label,pk){if(done)return;done=true;picked=pk;q.ok=ok;
+  if(mode==='practice'){st.n++;if(ok){st.ok++;st.streak++}else st.streak=0}else T.a.push({q,ok,label});
+  render();if(q.notes&&q.type!=='click'&&mode==='practice')play(q.notes,q.pm)}
+function next(){if(!done)return;
+  if(mode==='practice')return newQ();
+  if(T.i<T.qs.length-1){T.i++;q=T.qs[T.i];done=false;picked=null;showHint=false;render();if(q.hide)play(q.notes,q.pm);return}
+  T.done=true;const sc=T.a.filter(a=>a.ok).length;if(!(best[cur]>=sc)){best[cur]=sc;try{localStorage.setItem(STORE,JSON.stringify(best))}catch(e){}}render();window.scrollTo({top:0,behavior:'smooth'})}
+
+/* ===== fretboard ===== */
+const X=f=>f===0?62:90+(f-.5)*60,Y=s=>32+(5-s)*32;
+const BASE=(()=>{let h=`<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a26" stop-opacity=".55"/><stop offset=".5" stop-color="#2b1b13" stop-opacity="0"/><stop offset="1" stop-color="#1a0f0a" stop-opacity=".6"/></linearGradient></defs><rect x="40" y="16" width="50" height="192" rx="6" fill="var(--panel)"/><rect x="90" y="16" width="900" height="192" rx="3" fill="#3a2418"/><rect x="90" y="16" width="900" height="192" rx="3" fill="url(#gr)"/>`;
+  for(const f of [3,5,7,9,15])h+=`<circle cx="${X(f)}" cy="112" r="7" fill="#e9dfcf" opacity=".85"/>`;
+  h+=`<circle cx="${X(12)}" cy="80" r="7" fill="#e9dfcf" opacity=".85"/><circle cx="${X(12)}" cy="144" r="7" fill="#e9dfcf" opacity=".85"/>`;
+  for(let f=1;f<=15;f++)h+=`<line x1="${90+f*60}" y1="16" x2="${90+f*60}" y2="208" stroke="#b9b4ab" stroke-width="3"/><line x1="${89+f*60}" y1="16" x2="${89+f*60}" y2="208" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`;
+  h+=`<rect x="86" y="14" width="8" height="196" rx="2" fill="#efe7d8"/>`;
+  for(let s=0;s<6;s++)h+=`<line x1="40" y1="${Y(s)}" x2="990" y2="${Y(s)}" stroke="#cfc8bd" stroke-width="${(3.2-s*.42).toFixed(2)}"/><text x="20" y="${Y(s)}" fill="var(--mut)" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="central">${SL[s]}</text>`;
+  for(let f=0;f<=15;f++)h+=`<text x="${X(f)}" y="225" fill="var(--mut)" font-size="13" font-weight="${[3,5,7,9,12,15].includes(f)?700:400}" text-anchor="middle">${f}</text>`;
+  return h})();
+const CELLS=(()=>{let h='';for(let s=0;s<6;s++)for(let f=0;f<=15;f++)h+=`<rect class="cell" data-s="${s}" data-f="${f}" x="${f===0?40:X(f)-30}" y="${Y(s)-16}" width="${f===0?48:60}" height="32"><title>${NN2[pcAt(s,f)]}</title></rect>`;return h})();
+function board(ms,box){let h=BASE;
+  if(box){const x1=box[0]===0?40:90+(box[0]-1)*60,x2=90+box[1]*60;h+=`<rect class="box" x="${x1}" y="14" width="${x2-x1}" height="196" rx="6"/>`}
+  h+=CELLS;
+  for(const m of ms)h+=`<g class="mk k-${m.k}"><circle cx="${X(m.f)}" cy="${Y(m.s)}" r="15"/><text x="${X(m.f)}" y="${Y(m.s)}"${String(m.t).length>2?' style="font-size:11px"':''}>${m.t}</text></g>`;
+  $('fb').innerHTML=h}
+
+/* ===== render ===== */
+const same=(a,b)=>a&&b&&a.s===b.s&&a.f===b.f;
+function render(){const L=LS[cur],n=L.test.length;
+  $('tabs').innerHTML=ORDER.map(k=>{const b=best[k],p=b>=passMark(LS[k].test.length);return`<button class="tab" role="tab" data-k="${k}" aria-selected="${k===cur}"><b>${LS[k].n}: ${LS[k].title}</b><span>${b==null?'Not tested yet':`Best ${b}/${LS[k].test.length}${p?' · passed':''}`}</span></button>`}).join('');
+  $('ttl').textContent=`${L.n}: ${L.title}`;$('sub').textContent=L.sub;
+  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0561b"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
+   $('vid').innerHTML=num?lk(num,`Watch lesson ${num} on YouTube`):ORDER.filter(k=>/\d/.test(LS[k].n)).map(k=>{const m=LS[k].n.match(/\d+/)[0];return lk(m,`Lesson ${m}`)}).join('')}
+  $('mPr').className=mode==='practice'?'on':'';$('mTe').className=mode==='test'?'on':'';
+  $('chips').hidden=mode!=='practice';
+  $('chips').innerHTML=['Mix all',...L.ex.map(e=>e[0])].map((c,j)=>{const on=j===0?!sel.size:sel.has(j);return`<button class="chip${on?' on':''}" data-x="${j}" aria-pressed="${on}">${c}</button>`}).join('');
+  const fin=mode==='test'&&T&&T.done;$('quiz').hidden=fin;$('result').hidden=!fin;
+  if(fin)return result();
+  $('status').innerHTML=mode==='practice'?`<span>Exercise mode: hints and explanations as you go</span><span>Streak <b>${st.streak}</b></span><span>Correct <b>${st.ok}/${st.n}</b></span>`:`<span>Test · question <b>${T.i+1}</b> of ${T.qs.length}</span><span>Pass mark ${passMark(n)}/${n}</span><span>Answers are checked at the end</span>`;
+  $('prompt').textContent=q.text;
+  $('boardWrap').hidden=!!q.noBoard;
+  if(!q.noBoard){let ms=q.hide&&!done?[]:q.marks.slice();const pr=mode==='practice';
+    if(q.type==='multi')q.found.forEach(p=>ms.push({...p,t:pr?(q.targets.find(t=>same(t,p)).t||'✓'):'•',k:pr?'good':'q'}));
+    if(done&&pr){(q.reveal||[]).forEach(r=>ms.push({...r,k:'good'}));
+      if(q.type==='click'){if(picked&&!same(picked,q.target))ms.push({...picked,t:'✗',k:'bad'});ms.push({...q.target,t:q.target.t||'✓',k:'good'})}
+      if(q.type==='multi'){q.targets.filter(t=>!q.found.some(p=>same(p,t))).forEach(t=>ms.push({...t,t:t.t||'✓',k:'good'}));if(picked)ms.push({...picked,t:'✗',k:'bad'})}}
+    if(done&&!pr&&picked&&q.type!=='choice')ms.push({...picked,t:'•',k:'q'});
+    board(ms,q.box)}
+  $('choices').innerHTML=q.type==='choice'?q.choices.map((c,j)=>{let cl='';if(done){if(mode==='practice'){if(c===q.ans)cl=' good';else if(c===picked)cl=' bad'}else if(c===picked)cl=' sel'}return`<button class="ch${cl}" data-c="${j}"${done?' disabled':''}><kbd>${j+1}</kbd>${c}</button>`}).join(''):'';
+  const fb=$('fbk');
+  if(done&&mode==='practice')fb.innerHTML=`<b class="${q.ok?'ok':'no'}">${q.ok?'Correct.':'Not quite.'}</b> ${q.explain}`;
+  else if(done)fb.textContent='Answer saved. On to the next one.';
+  else{let h=showHint?`<b>Hint:</b> ${q.hint}`:'';
+    if(q.type==='multi')h+=`${h?'<br>':''}<span class="small">Found ${q.found.length} of ${q.targets.length}. A wrong click ends the question.</span>`;
+    else if(q.type==='click'&&!showHint)h='<span class="small">Click a fret on the board to answer.</span>';
+    fb.innerHTML=h}
+  $('next').disabled=!done;$('next').textContent=mode==='test'&&T.i===T.qs.length-1?'See my results':'Next';
+  $('hear').hidden=!(q.notes&&(q.hide||done||mode==='practice'));
+  $('hint').hidden=!(mode==='practice'&&!done&&!showHint&&q.hint)}
+function result(){const n=T.qs.length,sc=T.a.filter(a=>a.ok).length,pm=passMark(n),pass=sc>=pm,miss=T.a.filter(a=>!a.ok),last=cur===ORDER[ORDER.length-1];
+  $('result').innerHTML=`<div class="score"><div class="big">${sc}<small> / ${n}</small></div><div><h3>${pass?(sc===n?'Perfect. You own this lesson.':'Passed. This lesson is solid.'):'Not yet. Review the misses, practise, retake.'}</h3><p>Pass mark ${pm}/${n} · best so far ${best[cur]}/${n}</p><div class="acts"><button class="btn main" id="retake">Retake test</button><button class="btn" id="toPr">Back to practice</button>${pass&&!last?`<button class="btn" id="goNext">Next tab</button>`:''}</div></div></div>`+
+  (miss.length?`<h3 style="font-size:26px;margin:28px 0 6px">What to review</h3>`+miss.map(a=>`<div class="miss"><p><b>${a.q.text}</b></p><p class="y">Your answer: ${a.label}</p><p class="c">Correct: ${ansLabel(a.q)}</p><p>${a.q.explain}</p></div>`).join(''):'<p style="margin-top:20px">No mistakes to review.</p>')}
+
+/* ===== events ===== */
+document.addEventListener('click',e=>{const t=e.target.closest('button,.cell');if(!t)return;
+  if(t.classList.contains('cell')){const s=+t.dataset.s,f=+t.dataset.f,p={s,f};play([midi(s,f)],'one');if(!q||done||(T&&T.done))return;
+    if(q.type==='click')answer(same(p,q.target),where(s,f),p);
+    else if(q.type==='multi'){if(q.found.some(x=>same(x,p))||q.marks.some(m=>same(m,p)))return;
+      if(q.targets.some(x=>same(x,p))){q.found.push(p);q.found.length===q.targets.length?answer(true,'found them all',null):render()}
+      else answer(false,`${where(s,f)} (found ${q.found.length} of ${q.targets.length} first)`,p)}
+    return}
+  if(t.dataset.k)return setLesson(t.dataset.k);
+  if(t.dataset.x!=null){const j=+t.dataset.x;if(j===0)sel.clear();else{sel.has(j)?sel.delete(j):sel.add(j);if(sel.size===LS[cur].ex.length)sel.clear()}q=null;return newQ()}
+  if(t.dataset.c!=null){const c=q.choices[+t.dataset.c];return answer(c===q.ans,c,c)}
+  switch(t.id){case'mPr':if(mode!=='practice'){mode='practice';T=null;q=null;newQ()}break;
+   case'mTe':case'retake':mode='test';startTest();break;
+   case'toPr':mode='practice';T=null;q=null;newQ();break;
+   case'goNext':setLesson(ORDER[ORDER.indexOf(cur)+1]);break;
+   case'next':next();break;case'hear':play(q.notes,q.pm);break;case'hint':showHint=true;render();break}});
+document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea')||e.metaKey||e.ctrlKey||e.altKey)return;if(!q||(T&&T.done))return;
+  if(/^[1-4]$/.test(e.key)&&q.type==='choice'&&!done){const c=q.choices[+e.key-1];if(c)answer(c===q.ans,c,c)}
+  else if(e.key==='Enter'&&done&&document.activeElement.tagName!=='BUTTON')next();
+  else if(e.key.toLowerCase()==='h'&&q.notes&&!$('hear').hidden)play(q.notes,q.pm)});
+const fromHash=()=>ORDER.find(k=>'#'+LS[k].h===location.hash)||ORDER[0];
+addEventListener('hashchange',()=>{const k=fromHash();if(k!==cur)setLesson(k,false)});
+setLesson(fromHash(),false);
+
+}
+</script>
+</body>
+</html>

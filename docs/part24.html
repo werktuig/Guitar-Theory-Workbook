@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guitar Theory · Part 24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a patient teacher at your elbow; calm, clear, encouraging.
+   IDEA: a practice workbook laid on a rosewood fretboard.
+   PICTURE: the live, clickable fretboard is the page.
+   COLOUR and TYPE: rosewood brown header, sunburst orange accent, nickel strings; Barlow Condensed (amp-panel lettering) + Barlow.
+   LAYOUT: lesson tabs, then prompt, board, answers, feedback; lesson notes below. */
+:root{color-scheme:light dark;--bg:light-dark(#fbfaf7,#13110f);--ink:light-dark(#1d1814,#f1ebe4);--mut:light-dark(#6d6359,#a89d92);--line:light-dark(#e3ddd4,#2e2924);--panel:light-dark(#f2eee7,#1d1a17);--acc:#e0561b;--acci:light-dark(#b5420f,#ff8b57);--good:light-dark(#1b7a3d,#4cc47a);--bad:light-dark(#bf242b,#ff6f6f);--wood:#2b1b13}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(22px,3.5vw,48px) max(5vw,16px)}
+.wrap{max-width:1100px;margin:0 auto}
+h1,h2,h3{font-family:"Barlow Condensed",sans-serif;font-weight:600;line-height:1.05;text-wrap:balance;margin:0}
+.top{background:var(--wood);color:#f6eee5;padding-bottom:0}
+.top h1{font-size:clamp(34px,5vw,50px)}
+.top p{margin:6px 0 18px;color:#d8c9ba;max-width:62ch}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{background:#ffffff12;color:#f6eee5;border:0;border-radius:10px 10px 0 0;padding:10px 16px 12px;text-align:left;cursor:pointer;font:inherit;min-height:44px}
+.tab b{display:block;font:600 19px/1.1 "Barlow Condensed",sans-serif}
+.tab span{font-size:13px;color:#cdbcab}
+.tab[aria-selected=true]{background:var(--bg);color:var(--ink)}
+.tab[aria-selected=true] span{color:var(--mut)}
+.bar{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:end;justify-content:space-between}
+.bar h2{font-size:clamp(30px,4vw,40px)}
+.bar p{margin:4px 0 0;color:var(--mut)}
+.seg{display:flex;background:var(--panel);border-radius:12px;padding:4px}
+.seg button{border:0;background:none;font:600 16px Barlow,sans-serif;color:var(--ink);padding:10px 18px;border-radius:9px;cursor:pointer;min-height:44px}
+.seg button.on{background:var(--acc);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.chip{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:8px 14px;font:500 15px Barlow,sans-serif;cursor:pointer;min-height:40px}
+.chip.on{border-color:var(--acci);color:var(--acci);background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.status{margin:18px 0 6px;font-size:14px;color:var(--mut);display:flex;gap:16px;flex-wrap:wrap}
+.status b{color:var(--ink)}
+.prompt{font-size:clamp(18px,2.3vw,22px);font-weight:500;margin:0 0 12px;min-height:2.4em;max-width:70ch}
+.board{overflow-x:auto;border-radius:12px;margin:0 -4px;padding:4px}
+.board svg{display:block;width:100%;min-width:680px;height:auto;user-select:none}
+.cell{fill:transparent;cursor:pointer}.cell:hover{fill:#ffffff22}
+.mk text{font:700 13px Barlow,sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.mk circle{pointer-events:none}
+.k-root circle{fill:var(--acc);stroke:#fff;stroke-width:2}.k-root text{fill:#fff}
+.k-q circle{fill:#f6eee5;stroke:var(--acc);stroke-width:2.5;stroke-dasharray:4 3}.k-q text{fill:#2b1b13}
+.k-ghost circle{fill:#ffffff30;stroke:#ffffffaa;stroke-width:1.5}.k-ghost text{fill:#fff}
+.k-good circle{fill:#2fa05a;stroke:#fff;stroke-width:2}.k-good text{fill:#fff}
+.k-bad circle{fill:#d3343b;stroke:#fff;stroke-width:2}.k-bad text{fill:#fff}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:10px;margin:16px 0 0}
+.ch{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;font:500 17px Barlow,sans-serif;cursor:pointer;min-height:52px;text-align:left}
+.ch:hover:not(:disabled){border-color:var(--acci)}
+.ch kbd{font:600 12px Barlow,sans-serif;color:var(--mut);margin-right:8px}
+.ch.good{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.ch.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.ch.sel{border-color:var(--acci)}
+.ch:disabled{cursor:default}
+.fbk{margin:16px 0 0;padding:14px 16px;border-radius:12px;background:var(--panel);min-height:52px;max-width:80ch}
+.fbk:empty{display:none}
+.fbk .ok{color:var(--good)}.fbk .no{color:var(--bad)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.btn{border:0;border-radius:12px;padding:12px 20px;font:600 16px Barlow,sans-serif;cursor:pointer;min-height:46px;background:var(--panel);color:var(--ink)}
+.btn.main{background:var(--acc);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+button:focus-visible{outline:3px solid var(--acci);outline-offset:2px}
+.score{display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:24px;border-radius:16px;background:var(--panel)}
+.big{font:700 clamp(64px,10vw,96px)/1 "Barlow Condensed",sans-serif;color:var(--acci)}
+.big small{font-size:.45em;color:var(--mut)}
+.score h3{font-size:30px}.score p{margin:6px 0 0;color:var(--mut)}
+.miss{border-top:1px solid var(--line);padding:14px 0}
+.miss p{margin:4px 0}.miss .y{color:var(--bad)}.miss .c{color:var(--good)}
+.notes{border-top:1px solid var(--line)}
+.notes h3{font-size:28px;margin-bottom:10px}
+.cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 40px}
+@media(max-width:820px){.cols{grid-template-columns:minmax(0,1fr)}}
+.notes ul{padding-left:20px;margin:8px 0}.notes li{margin:5px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--mut);font-size:14px}
+td.n{white-space:nowrap}
+.tuning{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 14px}
+.tuning b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--wood);color:#f6eee5;font:700 20px "Barlow Condensed",sans-serif}
+.tuning i{font-style:normal;font-size:14px;color:var(--mut);padding:0 4px}
+.tuning i.odd{color:var(--acci);font-weight:600}
+.small{font-size:14px;color:var(--mut)}
+.vidp{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0!important}.vidp:empty{display:none}
+.vid{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.vid:hover{border-color:var(--acci);color:var(--acci)}.vid svg{flex:none}
+@media(max-width:600px){.tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-16px;padding-inline:16px}.tab{flex:none;scroll-snap-align:start;padding:8px 12px 10px}.tab b{font-size:17px}}
+.parts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 14px;font-size:14px}
+.parts a,.parts span{color:#d8c9ba;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+.parts a:hover{color:#fff;border-color:#fff6}.parts span{color:#fff;border-color:var(--acc);font-weight:600}
+.allp{position:relative}.allp summary{cursor:pointer;color:#d8c9ba;padding:4px 0;list-style:none}.allp summary::after{content:" ▾"}
+.allp[open] ol{position:absolute;z-index:5;top:100%;left:0;margin:6px 0 0;padding:10px 14px 10px 34px;width:min(420px,90vw);max-height:60vh;overflow:auto;background:#3a271c;border-radius:12px;box-shadow:0 12px 30px #0008}
+.allp li{padding:3px 0;color:#d8c9ba}.allp li a,.allp li span{border:0;padding:0}.allp li b{color:#fff}.allp li span{color:#a8988a;font-weight:400}
+.box{fill:#ffffff14;stroke:var(--acc);stroke-width:2;stroke-dasharray:6 4}
+.scroll{overflow-x:auto}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--mut)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:no-preference){.mk{animation:pop .18s ease-out}@keyframes pop{from{transform:scale(.6);opacity:0}}.mk{transform-box:fill-box;transform-origin:center}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band top"><div class="wrap">
+  <nav class="parts" aria-label="Workbook parts"><a href="index.html">Home</a> <a href="part23.html">← Part 23 · Lessons 92–95</a> <span>Part 24 · Lessons 96–98</span> <a href="part25.html">Part 25 · Lessons 99–103 →</a><details class="allp"><summary>All parts</summary><ol><li><a href="part1.html">Part 1 · Lessons 1–3: Intervals</a></li><li><a href="part2.html">Part 2 · Lessons 4–6: Octaves, unisons & note names</a></li><li><a href="part3.html">Part 3 · Lessons 7–11: The major scale</a></li><li><a href="part4.html">Part 4 · Lessons 12–15: Keys, sharps & flats</a></li><li><a href="part5.html">Part 5 · Lessons 16–20: Triads</a></li><li><a href="part6.html">Part 6 · Lessons 21–24: Triad shapes & inversions</a></li><li><a href="part7.html">Part 7 · Lessons 25–28: Diatonic triads & progressions</a></li><li><a href="part8.html">Part 8 · Lessons 29–31: Open triads & the harmonized scale</a></li><li><a href="part9.html">Part 9 · Lessons 32–36: 7th chords & drop voicings</a></li><li><a href="part10.html">Part 10 · Lessons 37–41: Diminished 7ths & harmonized 7th chords</a></li><li><a href="part11.html">Part 11 · Lessons 42–44: 7th-chord progressions & relative minor</a></li><li><a href="part12.html">Part 12 · Lessons 45–47: Shell voicings & drop 2&4</a></li><li><a href="part13.html">Part 13 · Lessons 48–52: I, ii and iii chords</a></li><li><a href="part14.html">Part 14 · Lessons 53–57: IV, V, vi and vii chords</a></li><li><a href="part15.html">Part 15 · Lessons 58–62: Sus, power & slash chords</a></li><li><a href="part16.html">Part 16 · Lessons 63–67: Borrowed chords, secondary dominants & blues</a></li><li><a href="part17.html">Part 17 · Lessons 68–71: Modulation & the modes</a></li><li><a href="part18.html">Part 18 · Lessons 72–75: Ionian, Dorian, Phrygian, Lydian</a></li><li><a href="part19.html">Part 19 · Lessons 76–80: Mixolydian, Aeolian, Locrian & mode families</a></li><li><a href="part20.html">Part 20 · Lessons 81–84: Mode patterns & soloing over chords</a></li><li><a href="part21.html">Part 21 · Lessons 85–87: Soloing over progressions & modal harmony</a></li><li><a href="part22.html">Part 22 · Lessons 88–91: Pentatonic scales</a></li><li><a href="part23.html">Part 23 · Lessons 92–95: Advanced pentatonics</a></li><li><b>Part 24 · Lessons 96–98: Arpeggios & blues scales</b></li><li><a href="part25.html">Part 25 · Lessons 99–103: Melodic & harmonic minor</a></li><li><a href="part26.html">Part 26 · Lessons 104–108: Diminished scales</a></li><li><a href="part27.html">Part 27 · Lessons 109–112: Dim7, whole tone & augmented</a></li><li><a href="part28.html">Part 28 · Lessons 113–116: Upper intervals & chord synonyms</a></li></ol></details></nav>
+  <h1>Part 24: Arpeggios & blues scales</h1>
+  <p>Lessons 96–98 of <em>Music Theory for Guitar</em>: Arpeggios; How to Solo with Arpeggios; The Blues Scales. Video lessons by <a href="https://www.youtube.com/@Moveforwardguitar" target="_blank" rel="noopener" style="color:#fff">Move Forward Guitar</a> on YouTube. Practise each lesson until it feels automatic, then take its test. Click any fret to hear it.</p>
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+</div></header>
+<main>
+<section class="band"><div class="wrap">
+  <div class="bar">
+    <div><h2 id="ttl"></h2><p id="sub"></p><p id="vid" class="vidp"></p></div>
+    <div class="seg" role="group" aria-label="Mode"><button id="mPr">Practice</button><button id="mTe">Test</button></div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="quiz">
+    <div class="status" id="status"></div>
+    <p class="prompt" id="prompt" aria-live="polite"></p>
+    <div class="board" id="boardWrap"><svg id="fb" viewBox="0 0 1000 232" role="img" aria-label="Guitar fretboard, frets 0 to 15"></svg></div>
+    <div class="choices" id="choices"></div>
+    <div class="fbk" id="fbk" aria-live="polite"></div>
+    <div class="acts">
+      <button class="btn main" id="next" disabled>Next</button>
+      <button class="btn" id="hear">Hear it</button>
+      <button class="btn" id="hint">Hint</button>
+    </div>
+    <p class="small">Keys: 1–4 choose an answer · Enter for next · H to hear.</p>
+  </div>
+  <div id="result" hidden></div>
+</div></section>
+<section class="band notes"><div class="wrap" id="notes"></div></section>
+</main>
+<script>
+{
+const VIDEOS={"1": "ukP7BOd6WOI", "2": "8fN0BWgD2TU", "3": "mdpropk49A8", "4": "Vkzy2ENUljk", "9": "Es4sVRU8tOE", "12": "cfRYPFLx7kg", "15": "2YOho9zfdWc", "17": "rr2-BC4mRwI", "20": "ZESzuiH2cLs", "21": "o8lwXSrfvwE", "23": "H-qVZNoCAqU", "25": "_V7zfGlc_9U", "28": "3-wiaydeAts", "34": "wz6Lo5Enxb0", "39": "Rr1IUSbowcE", "40": "IkwdzM1FgVU", "41": "xLGnPMVFcAY", "42": "ZGfKwQNWmp4", "44": "q4MLaSz1i0U", "45": "Xike8CFfjPA", "47": "AmIKvYNSwwM", "49": "rD-tfT-y8PE", "50": "vinSZEVrsmY", "52": "T3fGMQ6JUx8", "54": "lxEpJNZPCXc", "55": "9MUOAYfsgLE", "57": "fzkgaSVfPHY", "59": "47gJ9enSfU8", "60": "amobkRwNOVE", "61": "u8gAJT6PnTU", "68": "Y6lUineJl3g", "69": "Xn1uqXZufUQ", "70": "mzQcmropJqg", "71": "UKu9bpbWxA0", "72": "qi4AU6AT_uc", "73": "y_CzPxl_Auk", "74": "-p_irTYCj9g", "75": "bDTkrdnzgR4", "78": "69Hyj8v7nxk", "79": "wt8KS8NtnCo", "80": "2kf4rK8dgVU", "82": "ifHEVJwF6oY", "87": "Z8fNjabLOvA", "90": "1sFxsFGsX_0", "91": "qtvpvDMulEU", "93": "ncydtJ8elSg", "94": "Gp8IKbmu2Ms", "96": "rFRNfzFYVJ8", "98": "I9UOzV1aM1Q", "100": "kSpytbB9A0Q", "102": "0xAwiFoG56w", "104": "9Aa924YYRWE", "105": "MQUESZWwVWo", "107": "QsdxDMzRUNs", "108": "8l3USMIK96I", "112": "fBUAI-yyg48", "115": "jlScNZSWpX4", "116": "o0MPFANv2g0", "18": "rqdcHf5CeS4", "24": "1dcRjiK7Dcw", "26": "mNT5YDM7vAM", "29": "BSgcz2rmMAQ", "31": "IOZOk6JuoS4", "32": "mfdxEnRtlco", "35": "ePZTk5o-GzU", "56": "ANSTCmArB1E", "63": "AlKRH9W9ZTs", "86": "IgBMS_aWvAc", "95": "YGspF2qbdd4", "97": "OcmiQCsPy58", "76": "Vh6mOM_XfVA", "83": "3huizrYOg2g", "84": "Gjk88ZrqK7Q", "85": "5fWsGQsorMk", "88": "Oi8Su6PKujc", "89": "CRzmyeVny_c", "92": "w-Sx0KqmBGw", "101": "5WHzKqinB3k", "109": "P_yaDnMzF4c", "110": "phfPicSAYIU", "111": "wvr12QjtzBg", "113": "FWxqJy-Bx4A", "5": "X07zP3XpcgM", "6": "5ZkdETlUIow", "8": "Pt4Z1Yx2f7s", "10": "e_wSzaPAC9M", "11": "CCblc218XTI", "13": "2PH56rW00lU", "14": "yqXL9HvShEE", "16": "A_ZrKuk57GA", "19": "C0JJodOU7Zs", "22": "hInfLxAejVU", "27": "eVnoYSRO_jY", "48": "MyuKD_e53AA", "51": "RtnE-Ozvgw0", "114": "d7K7gnKj15o", "7": "9aR4d_MN6sc", "30": "YuvKCie87b4", "33": "to8a7ptygfk", "36": "1R_A4qcE630", "37": "1XggdE36rWQ", "38": "nSkAVrhUdc8", "43": "rk8i7K_mZzA", "46": "bOMOcFyu9Kw", "53": "GckcH3JcPck", "58": "9_waiVUOQt0", "62": "BEL4yhzleXs", "64": "kHw1jvncf8c", "65": "3QinJWadjtU", "66": "8vsshAnOvmY", "67": "EHMpSPHtvGE", "77": "1nUA6w5Wiao", "81": "XlEUuDUoa1w", "99": "MzuQvJ7qWhg", "103": "KqPsc-O7EKM", "106": "FZzUM4oTV5w"};
+/* ===== shared helpers ===== */
+const OPEN=[40,45,50,55,59,64],SN=['low E','A','D','G','B','high e'],SL=['E','A','D','G','B','e'];
+const NN=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const NN2=['C','C♯/D♭','D','D♯/E♭','E','F','F♯/G♭','G','G♯/A♭','A','A♯/B♭','B'];
+const IV=[['P1','unison'],['m2','minor 2nd'],['M2','major 2nd'],['m3','minor 3rd'],['M3','major 3rd'],['P4','perfect 4th'],['TT','tritone (aug 4th / dim 5th)'],['P5','perfect 5th'],['m6','minor 6th'],['M6','major 6th'],['m7','minor 7th'],['M7','major 7th'],['P8','octave']];
+const CUE=['','“Jaws” theme','“Happy Birthday” (“-py” → “Birth-”)','“Greensleeves” opening','“When the Saints Go Marching In”','“Here Comes the Bride”','“The Simpsons” theme','“Star Wars” main theme leap','“The Entertainer” (high-note leap)','“My Bonnie Lies Over the Ocean”','original “Star Trek” theme','“Take On Me” chorus leap','“Somewhere Over the Rainbow”'];
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),pick=a=>a[R(0,a.length-1)];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const nm=i=>IV[i][1],ab=i=>IV[i][0],cap=s=>s[0].toUpperCase()+s.slice(1);
+const gap=(a,b)=>OPEN[b]-OPEN[a],pcAt=(s,f)=>(OPEN[s]+f)%12,note=(s,f)=>NN[pcAt(s,f)],midi=(s,f)=>OPEN[s]+f;
+const fr=n=>n===1?'1 fret':n+' frets';
+const fretTxt=f=>f?'fret '+f:'open';
+const posTxt=t=>`${SL[t.s]} string ${fretTxt(t.f)}`;
+const where=(s,f)=>`${note(s,f)} on the ${SN[s]} string, ${fretTxt(f)}`;
+const offTxt=d=>d===0?'same fret':`${fr(Math.abs(d))} ${d>0?'higher':'lower'}`;
+const mc=(ans,pool)=>shuf([ans,...shuf([...new Set(pool)].filter(x=>x!==ans)).slice(0,3)]);
+const near=i=>[i-3,i-2,i-1,i+1,i+2,i+3].filter(x=>x>=1&&x<=12).sort((a,b)=>Math.abs(a-i)-Math.abs(b-i)).slice(0,4).map(nm);
+const crossGB=(a,b)=>a<=3&&b>=4;
+const art=w=>/^(octave|aug|unison|11th|8th|18th|eleventh|eighth)/i.test(w)?'an':'a';
+const rep=(f,n)=>Array(n).fill(f);
+const passMark=n=>Math.ceil(n*.85);
+const ord=n=>n+(n%10===1&&n!==11?'st':n%10===2&&n!==12?'nd':n%10===3&&n!==13?'rd':'th');
+/* every (string,fret) on frets lo..hi whose pitch class is pc */
+const allPc=(pc,strings=[0,1,2,3,4,5],lo=0,hi=15)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pc)o.push({s,f});return o};
+/* every (string,fret) sounding exactly midi m */
+const allMidi=m=>{const o=[];for(let s=0;s<6;s++){const f=m-OPEN[s];if(f>=0&&f<=15)o.push({s,f})}return o};
+/* fret on string s2 that sounds `semis` above (s1,f) */
+const shapeFret=(s1,f,s2,semis)=>f+semis-gap(s1,s2);
+
+/* ===== note spelling and keys ===== */
+const LET='CDEFGAB',LPC=[0,2,4,5,7,9,11],MAJ=[0,2,4,5,7,9,11];
+const ACC={'':0,'♯':1,'♭':-1,'𝄪':2,'𝄫':-2};
+const pcOf=n=>(LPC[LET.indexOf(n[0])]+ACC[n.slice(1)]+12)%12;
+const accTxt=a=>({0:'',1:'♯',[-1]:'♭',2:'𝄪',[-2]:'𝄫'})[a];
+function spellScale(k){const li=LET.indexOf(k[0]),rpc=pcOf(k);return MAJ.map((iv,d)=>{const L=(li+d)%7,pc=(rpc+iv)%12,a=((pc-LPC[L]+18)%12)-6;return LET[L]+accTxt(a)})}
+/* key name -> signature count (+ sharps, − flats) */
+const KS=[['C',0],['G',1],['D',2],['A',3],['E',4],['B',5],['F♯',6],['C♯',7],['F',-1],['B♭',-2],['E♭',-3],['A♭',-4],['D♭',-5],['G♭',-6],['C♭',-7]];
+const KEASY=KS.filter(k=>Math.abs(k[1])<=6&&k[0]!=='G♭').map(k=>k[0]); /* 12 practical keys, F♯ used for 6 sharps */
+const SHARPS=['F♯','C♯','G♯','D♯','A♯','E♯','B♯'],FLATS=['B♭','E♭','A♭','D♭','G♭','C♭','F♭'];
+const sigOf=k=>KS.find(x=>x[0]===k)[1];
+const sigTxt=n=>n===0?'no sharps or flats':n>0?`${n} sharp${n>1?'s':''} (${SHARPS.slice(0,n).join(' ')})`:`${-n} flat${n<-1?'s':''} (${FLATS.slice(0,-n).join(' ')})`;
+/* name of the note at (s,f) inside key k, or null if not in key */
+const inKey=(k,s,f)=>{const sc=spellScale(k),i=sc.findIndex(n=>pcOf(n)===pcAt(s,f));return i<0?null:{deg:i+1,name:sc[i]}};
+const keyPositions=(k,strings,lo,hi)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++){const x=inKey(k,s,f);if(x)o.push({s,f,t:x.deg===1?'R':String(x.deg),name:x.name,deg:x.deg})}return o};
+const rootFret=(k,s,lo=0)=>{const pc=pcOf(k);for(let f=lo;f<=15;f++)if(pcAt(s,f)===pc)return f;return-1};
+
+/* static question bank: [text, answer, distractors, explanation, hint?] */
+const sbank=(pre,items)=>()=>{const i=R(0,items.length-1),[text,ans,dis,explain,hint]=items[i];return{type:'choice',noBoard:true,key:pre+i,text,ans,choices:mc(ans,dis),explain,hint:hint||'Think it through on your guitar before you choose.'}};
+
+/* ===== formulas: chords, scales, modes (letter-correct spelling) ===== */
+/* formula string like '1 b3 5 b7' or '1 2 b3 4 5 b6 7'; degrees > 7 allowed (9, 11, 13) */
+const fml=f=>f.split(' ').map(t=>{const m=t.match(/^(bb|b|#|x)?(\d+)$/),d=+m[2],a={bb:-2,b:-1,'#':1,x:2}[m[1]]||0;return[(d-1)%7,MAJ[(d-1)%7]+12*Math.floor((d-1)/7)+a]});
+const fmlSemis=f=>fml(f).map(x=>x[1]);
+function spellSteps(root,steps){const li=LET.indexOf(root[0]),rpc=pcOf(root);return steps.map(([l,st])=>{const L=(li+l)%7,pc=(rpc+st)%12,a=((pc-LPC[L]+18)%12)-6;return Math.abs(a)<=2?LET[L]+accTxt(a):NN[pc]})}
+const spellF=(root,f)=>spellSteps(root,fml(f));
+const CHORDS={
+ maj:{f:'1 3 5',sym:'',name:'major'},min:{f:'1 b3 5',sym:'m',name:'minor'},dim:{f:'1 b3 b5',sym:'°',name:'diminished'},aug:{f:'1 3 #5',sym:'+',name:'augmented'},
+ sus2:{f:'1 2 5',sym:'sus2',name:'suspended 2nd'},sus4:{f:'1 4 5',sym:'sus4',name:'suspended 4th'},pow:{f:'1 5',sym:'5',name:'power chord'},
+ maj7:{f:'1 3 5 7',sym:'maj7',name:'major 7th'},dom7:{f:'1 3 5 b7',sym:'7',name:'dominant 7th'},m7:{f:'1 b3 5 b7',sym:'m7',name:'minor 7th'},
+ m7b5:{f:'1 b3 b5 b7',sym:'m7♭5',name:'half-diminished (m7♭5)'},dim7:{f:'1 b3 b5 bb7',sym:'°7',name:'diminished 7th'},mMaj7:{f:'1 b3 5 7',sym:'m(maj7)',name:'minor-major 7th'},
+ aug7:{f:'1 3 #5 b7',sym:'+7',name:'augmented 7th'},augMaj7:{f:'1 3 #5 7',sym:'+maj7',name:'augmented major 7th'},
+ maj6:{f:'1 3 5 6',sym:'6',name:'major 6th'},m6:{f:'1 b3 5 6',sym:'m6',name:'minor 6th'},sus47:{f:'1 4 5 b7',sym:'7sus4',name:'7sus4'},
+ add9:{f:'1 3 5 9',sym:'add9',name:'add 9'},maj9:{f:'1 3 5 7 9',sym:'maj9',name:'major 9th'},dom9:{f:'1 3 5 b7 9',sym:'9',name:'dominant 9th'},m9:{f:'1 b3 5 b7 9',sym:'m9',name:'minor 9th'},
+ m11:{f:'1 b3 5 b7 9 11',sym:'m11',name:'minor 11th'},dom13:{f:'1 3 5 b7 9 13',sym:'13',name:'dominant 13th'},maj13:{f:'1 3 5 7 9 13',sym:'maj13',name:'major 13th'}};
+const SCALES={
+ major:{f:'1 2 3 4 5 6 7',name:'major'},ionian:{f:'1 2 3 4 5 6 7',name:'Ionian'},dorian:{f:'1 2 b3 4 5 6 b7',name:'Dorian'},phrygian:{f:'1 b2 b3 4 5 b6 b7',name:'Phrygian'},
+ lydian:{f:'1 2 3 #4 5 6 7',name:'Lydian'},mixolydian:{f:'1 2 3 4 5 6 b7',name:'Mixolydian'},aeolian:{f:'1 2 b3 4 5 b6 b7',name:'Aeolian'},locrian:{f:'1 b2 b3 4 b5 b6 b7',name:'Locrian'},
+ minor:{f:'1 2 b3 4 5 b6 b7',name:'natural minor'},majPent:{f:'1 2 3 5 6',name:'major pentatonic'},minPent:{f:'1 b3 4 5 b7',name:'minor pentatonic'},
+ blues:{f:'1 b3 4 b5 5 b7',name:'blues'},majBlues:{f:'1 2 b3 3 5 6',name:'major blues'},melMinor:{f:'1 2 b3 4 5 6 7',name:'melodic minor'},harmMinor:{f:'1 2 b3 4 5 b6 7',name:'harmonic minor'},
+ wholeTone:{f:'1 2 3 #4 #5 b7',name:'whole tone'},dimWH:{f:'1 2 b3 4 b5 #5 6 7',name:'whole-half diminished'},dimHW:{f:'1 b2 #2 3 #4 5 6 b7',name:'half-whole diminished'}};
+const MODES=['ionian','dorian','phrygian','lydian','mixolydian','aeolian','locrian'];
+const chordNotes=(root,q)=>spellF(root,CHORDS[q].f);
+const chordSym=(root,q)=>root+CHORDS[q].sym;
+const scaleNotes=(root,sc)=>spellF(root,SCALES[sc].f);
+/* identify chord quality from semitones above root (mod 12), e.g. [0,4,7] -> 'maj' */
+const qualityOf=semis=>{const k=[...new Set(semis.map(x=>((x%12)+12)%12))].sort((a,b)=>a-b).join();return Object.keys(CHORDS).find(q=>[...new Set(fmlSemis(CHORDS[q].f).map(x=>x%12))].sort((a,b)=>a-b).join()===k)||null};
+const ROMAN=['I','II','III','IV','V','VI','VII'];
+const romanOf=(deg,q)=>{const r=ROMAN[deg-1],lo=r.toLowerCase();return({maj:r,min:lo,dim:lo+'°',aug:r+'+',maj7:r+'maj7',dom7:r+'7',m7:lo+'7',m7b5:lo+'ø7',dim7:lo+'°7',mMaj7:lo+'(maj7)',augMaj7:r+'+maj7'})[q]||r};
+/* stack 3rds on each degree of a 7-note scale: size 3 = triads, 4 = 7th chords */
+function diatonic(root,sc='major',size=3){const n=scaleNotes(root,sc),s=fmlSemis(SCALES[sc].f);return n.map((x,i)=>{const idx=[0,2,4,6].slice(0,size).map(o=>(i+o)%7),semis=idx.map(j=>((s[j]-s[i])%12+12)%12),q=qualityOf(semis);return{deg:i+1,root:x,notes:idx.map(j=>n[j]),q,sym:x+(CHORDS[q]?CHORDS[q].sym:'?'),roman:romanOf(i+1,q)}})}
+/* fretboard positions of a set of pitch classes */
+const pcsPositions=(pcs,strings=[0,1,2,3,4,5],lo=0,hi=15)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++)if(pcs.includes(pcAt(s,f)))o.push({s,f});return o};
+/* find a voicing: strings[i] must play pitch class pcs[i]; all frets in lo..hi, max fret span ≤ span (open strings ignored for span if allowOpen). Returns [{s,f}] or null; picks the lowest-fret solution. */
+function voicing(strings,pcs,lo=0,hi=15,span=4,allowOpen=false){let best=null;const cand=strings.map((s,i)=>{const o=[];for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pcs[i])o.push(f);return o});
+  const rec=(i,acc)=>{if(i===strings.length){const fs=acc.filter(f=>!(allowOpen&&f===0)),sp=fs.length?Math.max(...fs)-Math.min(...fs):0;if(sp<=span-1){const sc=Math.max(...acc);if(!best||sc<best.sc)best={sc,v:acc.slice()}}return}for(const f of cand[i]){acc.push(f);rec(i+1,acc);acc.pop()}};
+  rec(0,[]);return best?best.v.map((f,i)=>({s:strings[i],f})):null}
+/* string sets for 3- and 4-note voicings, low to high */
+const SETS3=[[0,1,2],[1,2,3],[2,3,4],[3,4,5]],SETS4=[[0,1,2,3],[1,2,3,4],[2,3,4,5]];
+const setName=st=>st.map(s=>SL[s]).join('');
+/* inversion name for a 3-note or 4-note chord */
+const INV=['root position','1st inversion','2nd inversion','3rd inversion'];
+const pickKey=()=>pick(KEASY);
+const relMinor=k=>spellScale(k)[5];
+
+const hPath=(rs,rf,s2,tf)=>{const D=midi(s2,tf)-midi(rs,rf),g=OPEN[s2]-OPEN[rs],n=x=>x<0?'−'+(-x):String(x);return`${(D>=0&&D<12)?'':`On the ${SN[s2]} string the nearest one sounds ${Math.abs(D)} semitones ${D>=0?'above':'below'} the marked note (same note name, different octave). `}The ${SN[rs]}→${SN[s2]} string gap is ${n(g)} semitones, so ${n(D)} − (${n(g)}) = ${n(tf-rf)}: ${hRel(tf-rf)}, fret ${tf}.`};
+/* ===== helpers shared by parts 23-25 (prefix h) ===== */
+const hNice=n=>n.length<=2&&!/^(E♯|B♯|C♭|F♭)$/.test(n);
+const hOk=a=>a.every(hNice);
+const hTokN=t=>t.replace(/^bb/,'♭♭').replace(/^b/,'♭').replace(/^#/,'♯').replace(/^x/,'𝄪');
+const hTok=t=>t==='1'?'R':hTokN(t);
+const HR=['C','D','E','F','G','A','B','F♯','C♯','G♯','D♯','A♯','B♭','E♭','A♭','D♭','G♭'];
+const hTry=fn=>{for(let i=0;i<800;i++){const q=fn();if(q)return q}throw new Error('generator failed: '+fn)};
+const hRoot=test=>{for(let i=0;i<500;i++){const r=pick(HR);if(test(r))return r}throw new Error('no root')};
+const hFrets=(s,pc,lo=0,hi=15)=>{const o=[];for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pc)o.push(f);return o};
+const hNearF=(s,pc,f0)=>{const c=hFrets(s,pc);return c.length?c.sort((a,b)=>Math.abs(a-f0)-Math.abs(b-f0))[0]:-1};
+/* click target `off` semitones above the note at (rs,rf), on one of strs; the pitch class must occur only once on that string */
+function hClickT(rs,rf,off,strs){const o=[];for(const s of strs){const c=hFrets(s,(pcAt(rs,rf)+off)%12);if(c.length===1&&Math.abs(c[0]-rf)<=5&&!(s===rs&&c[0]===rf))o.push({s,f:c[0]})}return o.length?pick(o):null}
+const hNotes=p=>p.slice().sort((a,b)=>midi(a.s,a.f)-midi(b.s,b.f)).map(x=>midi(x.s,x.f));
+function hPcs(items,strings,lo,hi){const o=[];for(const s of strings)for(let f=lo;f<=hi;f++){const it=items.find(i=>i.pc===pcAt(s,f));if(it)o.push({s,f,t:it.t,name:it.name,i:it.i})}return o}
+const hFItems=(root,fm)=>{const tk=fm.split(' '),nn=spellF(root,fm),sm=fmlSemis(fm),rp=pcOf(root);return tk.map((t,i)=>({pc:(rp+sm[i])%12,t:hTok(t),name:nn[i],i}))};
+const hFPos=(root,fm,st,lo,hi)=>hPcs(hFItems(root,fm),st,lo,hi);
+/* a hand-sized box: nStr adjacent strings, one of them carrying a root of `root` */
+function hBox(root,nStr,w){for(let i=0;i<400;i++){const a=R(0,6-nStr),st=[...Array(nStr)].map((_,j)=>a+j),rs=pick(st),rf=rootFret(root,rs,R(1,9));if(rf<1||rf>12)continue;const lo=Math.max(0,rf-R(0,w-1)),hi=lo+w;if(hi>15)continue;return{st,rs,rf,box:[lo,hi]}}
+  const st=[...Array(nStr)].map((_,j)=>j),rf=rootFret(root,0,1),lo=Math.min(rf-1,15-w);return{st,rs:0,rf,box:[lo,lo+w]}}
+const hMarks=(pts,rootPc)=>pts.map(p=>({s:p.s,f:p.f,t:p.t,k:pcAt(p.s,p.f)===rootPc?'root':'ghost'}));
+const hPl=(w)=>w+'s';
+const hStr=st=>st.length===1?`${SN[st[0]]} string`:st.length===2?`${SN[st[0]]} and ${SN[st[1]]} strings`:`${st.slice(0,-1).map(s=>SN[s]).join(', ')} and ${SN[st[st.length-1]]} strings`;
+const hJoin=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];
+const hSub=(a,k)=>{const o=[];const rec=(i,acc)=>{if(acc.length===k){o.push(acc.slice());return}for(let j=i;j<a.length;j++){acc.push(a[j]);rec(j+1,acc);acc.pop()}};rec(0,[]);return o};
+const hSem=n=>n+' semitone'+(n===1?'':'s');
+const hRel=d=>d===0?'on the same fret as the root':`${fr(Math.abs(d))} ${d>0?'higher':'lower'} than the root`;
+const hG=(a,b)=>{const g=gap(a,b);return g<0?'−'+(-g):''+g};
+
+/* ===== Part 24: lessons 96-98 ===== */
+const Q3=['maj','min','dim','aug'],Q7=['maj7','dom7','m7','m7b5'],QALL=[...Q3,...Q7];
+const ALT={maj:'min',min:'maj',dim:'min',aug:'maj',maj7:'dom7',dom7:'maj7',m7:'m7b5',m7b5:'m7'};
+const DW={'3':'3rd','b3':'♭3rd','5':'5th','b5':'♭5th','#5':'♯5th','7':'major 7th','b7':'♭7th'};
+const aToks=q=>CHORDS[q].f.split(' ');
+const aCtx=(qs)=>{const q=pick(qs);return hTry(()=>{const r=pick(HR),cn=chordNotes(r,q);if(!hOk(cn))return null;return{q,r,cn,sym:chordSym(r,q),toks:aToks(q),name:CHORDS[q].name}})};
+const aSizePool=q=>(CHORDS[q].f.split(' ').length===3?Q3:Q7);
+const aFormula=q=>aToks(q).map(hTokN).join(' ');
+
+/* ---------- Lesson 96: arpeggios ---------- */
+const a96Spell=()=>{const x=aCtx(QALL),a=x.cn.join(' '),pool=aSizePool(x.q).filter(q=>q!==x.q).map(q=>chordNotes(x.r,q).join(' ')).filter(t=>!/𝄪|𝄫/.test(t));
+  return{type:'choice',noBoard:true,key:'a6s'+x.q+x.r,text:`Which notes make up the ${x.sym} arpeggio?`,choices:mc(a,pool),ans:a,hint:`${x.sym} is a ${x.name} chord: ${aFormula(x.q)}.`,
+   explain:`${x.sym} = ${aFormula(x.q)} from ${x.r}: ${a}. An arpeggio plays those chord tones one at a time.`}};
+const a96Tone=()=>{const x=aCtx(QALL),i=R(1,x.cn.length-1),a=x.cn[i],alt=chordNotes(x.r,ALT[x.q]),pool=[...x.cn.filter((_,j)=>j!==i),alt[i]],w=DW[x.toks[i]];
+  return{type:'choice',noBoard:true,key:'a6t'+x.q+x.r+i,text:`In ${x.sym}, which note is the ${w}?`,choices:mc(a,pool),ans:a,hint:`Spell ${x.sym} from the root using its formula (${aFormula(x.q)}).`,
+   explain:`${x.sym} = ${x.cn.join(' ')} (${aFormula(x.q)}). The ${w} is ${a}.`}};
+const a96Qual=()=>hTry(()=>{const x=aCtx(QALL),n=x.cn.length,st=pick(n===3?SETS3:SETS4),inv=R(0,n-1),order=x.cn.map((_,i)=>(i+inv)%n),v=voicing(st,order.map(i=>pcOf(x.cn[i])),1,12,4);if(!v)return null;
+  const marks=v.map((p,j)=>({s:p.s,f:p.f,t:hTok(x.toks[order[j]]),k:order[j]===0?'root':'q'})),pool=aSizePool(x.q).filter(q=>q!==x.q).map(q=>chordSym(x.r,q));
+  return{type:'choice',key:`a6q${x.q}${x.r}${inv}${st[0]}`,text:`This one-note-per-string shape is an arpeggio with root ${x.r}. Which arpeggio is it?`,marks,choices:mc(x.sym,pool),ans:x.sym,notes:v.map(p=>midi(p.s,p.f)),pm:'seq',
+   hint:'Read the interval labels: which combination of 3rd, 5th and 7th do they make?',
+   explain:`The labels are ${order.map(i=>hTok(x.toks[i])).join(' ')} (low to high): ${aFormula(x.q)} = ${x.name}. With root ${x.r} that is ${x.sym} (${x.cn.join(' ')}), played in ${INV[inv]} on the ${setName(st)} strings.`}});
+const a96Box=()=>hTry(()=>{const x=aCtx(QALL),b=hBox(x.r,x.cn.length===3?3:4,4),[lo,hi]=b.box,pts=hFPos(x.r,CHORDS[x.q].f,b.st,lo,hi),marks=pts.filter(p=>p.t==='R'),tg=pts.filter(p=>p.t!=='R');if(!marks.length||tg.length<2||tg.length>8)return null;
+  return{type:'multi',key:`a6b${x.q}${x.r}${b.st[0]}${lo}`,box:b.box,text:`Play the ${x.sym} arpeggio on the ${hStr(b.st)}, frets ${lo}–${hi}. The roots are marked. Click every other chord tone.`,marks:marks.map(p=>({s:p.s,f:p.f,t:'R',k:'root'})),
+   targets:tg.map(p=>({s:p.s,f:p.f,t:p.t})),notes:hNotes(pts),pm:'seq',hint:`${x.sym} = ${aFormula(x.q)} from ${x.r}. Spell it first.`,
+   explain:`${x.sym} = ${x.cn.join(' ')}. In frets ${lo}–${hi} on the ${hStr(b.st)}: ${tg.map(p=>`${p.name} (${SL[p.s]} ${p.f})`).join(', ')}.`}});
+const a96Click=()=>hTry(()=>{const x=aCtx(QALL),i=R(1,x.cn.length-1),rs=R(0,5),rf=rootFret(x.r,rs,R(2,9));if(rf<2||rf>11)return null;const off=fmlSemis(CHORDS[x.q].f)[i]%12,s2=pick([0,1,2,3,4,5].filter(s=>s!==rs)),t=hClickT(rs,rf,off,[s2]);if(!t)return null;
+  return{type:'click',key:`a6c${x.q}${x.r}${i}${s2}`,text:`${x.sym}: its root is marked. Click the ${DW[x.toks[i]]} of ${x.sym} (${x.cn[i]}) on the ${SN[s2]} string.`,marks:[{s:rs,f:rf,t:'R',k:'root'}],target:{s:t.s,f:t.f,t:hTok(x.toks[i])},notes:[midi(rs,rf),midi(t.s,t.f)],
+   hint:`The ${DW[x.toks[i]]} is ${hSem(off)} above the root. The ${SN[rs]}→${SN[s2]} gap is ${hG(rs,s2)}.`,
+   explain:`${x.cn[i]} is ${hSem(off)} above ${x.r}. ${hPath(rs,rf,s2,t.f)}`}});
+const a96Bank=sbank('a6b',[
+ ['What is an arpeggio?','The notes of a chord played one after another',['A chord strummed fast','A scale with a chord name','A chord with extra notes'],'Arpeggio = “broken chord”: the same notes as the chord, played one at a time.'],
+ ['How many different notes does a triad arpeggio have?','3',['2','4','5'],'Root, 3rd and 5th. A 7th-chord arpeggio adds the 7th: 4 notes.'],
+ ['Which note do you add to a C major triad arpeggio (C E G) to get a Cmaj7 arpeggio?','B',['B♭','A','D'],'The major 7th above C is B. B♭ would give C7.'],
+ ['Which note do you add to a C major triad arpeggio (C E G) to get a C7 arpeggio?','B♭',['B','A','D'],'The ♭7th above C is B♭: dominant 7th.'],
+ ['What is the difference between Am7 and Am7♭5 arpeggios?','The 5th is lowered: E becomes E♭',['The 3rd is raised','The 7th is raised','The root changes'],'Am7 = A C E G; Am7♭5 = A C E♭ G.'],
+ ['Which of these arpeggios has the notes C E G B?','Cmaj7',['C7','Cm7','Cm(maj7)'],'C E G is major, B is the major 7th: Cmaj7. Cm(maj7) would have E♭.'],
+ ['Why practise arpeggios across several strings rather than one?','The chord tones lie in one fret area, one or two per string',['Chord notes only exist on one string','It is the only way to play in tune','One string always gives the best tone'],'The neck repeats chord tones on every string, so one position holds all of them.']]);
+
+/* ---------- Lesson 97: soloing with arpeggios ---------- */
+const a97Guide=()=>{const x=aCtx(Q7),a=hJoin([x.cn[1],x.cn[3]]),pool=[[0,1],[0,2],[0,3],[1,2],[2,3]].map(p=>hJoin(p.map(i=>x.cn[i])));
+  return{type:'choice',noBoard:true,key:'a7g'+x.q+x.r,text:`Which two notes are the guide tones of ${x.sym}?`,choices:mc(a,pool),ans:a,hint:'Guide tones are the two chord tones that define the chord’s quality.',
+   explain:`${x.sym} = ${x.cn.join(' ')}. The guide tones are the 3rd (${x.cn[1]}) and the 7th (${x.cn[3]}): the 3rd says major or minor, the 7th says maj7, dominant or minor 7th.`}};
+const A97P=[[2,5,'ii7','V7'],[5,1,'V7','Imaj7']];
+const a97Lead=()=>{const key=pick(KEASY),d=diatonic(key,'major',4),[i1,i2,l1,l2]=pick(A97P),c1=d[i1-1],c2=d[i2-1],a=c2.notes[1],pool=[...c2.notes.filter((_,j)=>j!==1),c1.notes[1]];
+  return{type:'choice',noBoard:true,key:`a7l${key}${i1}`,text:`In ${key} major the chords go ${c1.sym} (${l1}) → ${c2.sym} (${l2}). The 7th of ${c1.sym} moves a half step down to which note?`,choices:mc(a,pool),ans:a,
+   hint:`Find the 7th of ${c1.sym}, then go one half step down.`,explain:`${c1.sym} = ${c1.notes.join(' ')}; its 7th is ${c1.notes[3]}. A half step lower is ${a}, the 3rd of ${c2.sym} (${c2.notes.join(' ')}). Guide tones move by the smallest step.`}};
+const a97Move=()=>hTry(()=>{const key=pick(KEASY),d=diatonic(key,'major',4),[i1,i2,l1,l2]=pick(A97P),c1=d[i1-1],c2=d[i2-1],n7=c1.notes[3],s=R(0,5),fs=hFrets(s,pcOf(n7),5,12);if(!fs.length)return null;const f=pick(fs);
+  return{type:'click',key:`a7m${key}${i1}${s}`,text:`In ${key} major the chords go ${c1.sym} → ${c2.sym}. The 7th of ${c1.sym} (${n7}) is marked. Click the 3rd of ${c2.sym} on the same string.`,marks:[{s,f,t:'♭7',k:'q'}],target:{s,f:f-1,t:'3'},notes:[midi(s,f),midi(s,f-1)],
+   hint:'Guide tones usually resolve by the smallest step. Which direction does the 7th go?',explain:`${n7} is the 7th of ${c1.sym}. It falls a half step to ${c2.notes[1]}, the 3rd of ${c2.sym}. On the same string that is one fret lower: fret ${f-1}.`}});
+const a97Target=()=>hTry(()=>{const x=aCtx(Q7),i=pick([1,3]),rs=R(0,5),rf=rootFret(x.r,rs,R(2,9));if(rf<2||rf>11)return null;const off=fmlSemis(CHORDS[x.q].f)[i]%12,s2=pick([0,1,2,3,4,5].filter(s=>s!==rs)),t=hClickT(rs,rf,off,[s2]);if(!t)return null;
+  return{type:'click',key:`a7t${x.q}${x.r}${i}${s2}`,text:`The chord changes to ${x.sym}; its root is marked. Land on the ${DW[x.toks[i]]} (a guide tone, ${x.cn[i]}) on the ${SN[s2]} string.`,marks:[{s:rs,f:rf,t:'R',k:'root'}],target:{s:t.s,f:t.f,t:hTok(x.toks[i])},notes:[midi(rs,rf),midi(t.s,t.f)],
+   hint:`The ${DW[x.toks[i]]} is ${hSem(off)} above the root. The ${SN[rs]}→${SN[s2]} gap is ${hG(rs,s2)}.`,
+   explain:`${x.cn[i]} is the ${DW[x.toks[i]]} of ${x.sym}: ${hSem(off)} above ${x.r}. ${hPath(rs,rf,s2,t.f)}`}});
+const a97GT=()=>hTry(()=>{const x=aCtx(Q7),b=hBox(x.r,6,4),[lo,hi]=b.box,pts=hFPos(x.r,CHORDS[x.q].f,b.st,lo,hi),marks=pts.filter(p=>p.t==='R'),tg=pts.filter(p=>p.t==='3'||p.t==='♭3'||p.t==='7'||p.t==='♭7');if(!marks.length||tg.length<2||tg.length>8)return null;
+  return{type:'multi',key:`a7q${x.q}${x.r}${lo}`,box:b.box,text:`${x.sym}: the roots are marked. Click every guide tone (3rd and 7th) in the shaded frets ${lo}–${hi}.`,marks:marks.map(p=>({s:p.s,f:p.f,t:'R',k:'root'})),targets:tg.map(p=>({s:p.s,f:p.f,t:p.t})),notes:hNotes(tg),
+   hint:`The guide tones of ${x.sym} are ${x.cn[1]} and ${x.cn[3]}.`,explain:`${x.sym} = ${x.cn.join(' ')}. Guide tones: ${x.cn[1]} (3rd) and ${x.cn[3]} (7th). In frets ${lo}–${hi}: ${tg.map(p=>`${p.name} (${SL[p.s]} ${p.f})`).join(', ')}.`}});
+const A97N=[[2,5],[5,1],[6,2],[1,4],[4,5],[1,6]];
+const a97Next=()=>{const key=pick(KEASY),d=diatonic(key,'major',4),[i1,i2]=pick(A97N),c1=d[i1-1],c2=d[i2-1],a=c2.notes.join(' '),pool=d.filter((_,j)=>j+1!==i2).map(c=>c.notes.join(' '));
+  return{type:'choice',noBoard:true,key:`a7n${key}${i1}${i2}`,text:`Over ${c1.sym} you want to lead into the next chord, ${c2.sym}. Which notes make the arpeggio of the next chord that you can start on the last beat?`,choices:mc(a,pool),ans:a,
+   hint:'You want the chord you are heading to, not the one you are leaving.',explain:`The next chord is ${c2.sym} = ${a}. Starting its arpeggio just before the change makes the move audible. ${c1.sym} (${c1.notes.join(' ')}) is the chord you are leaving.`}};
+const a97Bank=sbank('a7b',[
+ ['Which chord tones are called guide tones?','The 3rd and the 7th',['The root and 5th','The 5th and 9th','The root and 3rd'],'They define the chord’s quality; the root is usually in the bass and the 5th is not needed to name the chord.'],
+ ['Why are the 3rd and 7th good notes to land on when the chord changes?','They tell the listener which chord is playing',['They are the loudest notes on the guitar','They are always the lowest notes','They never clash'],'Different chords usually have different 3rds and 7ths, so landing on them outlines the change.'],
+ ['In a ii–V–I, the 7th of the ii chord falls by a half step to which note of the V chord?','Its 3rd',['Its root','Its 7th','Its 5th'],'In C: Dm7 (7th = C) → G7 (3rd = B).'],
+ ['In a ii–V–I, the 7th of the V7 chord falls by a half step to which note of the I chord?','Its 3rd',['Its root','Its 5th','Its 7th'],'In C: G7 (7th = F) → Cmaj7 (3rd = E).'],
+ ['Which chord tone is the least important for outlining a chord when soloing?','The 5th',['The 3rd','The 7th','The ♭3rd of a minor chord'],'The 5th is the same in most chords of the same family, so it does not define the quality.'],
+ ['What does playing the arpeggio of the next chord early do?','It anticipates the change and leads the ear into it',['It changes the key','It makes the solo slower','It is only used in minor keys'],'You switch on the last beat so the new chord’s notes arrive just as it begins.']]);
+
+/* ---------- Lesson 98: blues scales ---------- */
+const BK={min:{sc:'blues',base:'minPent',name:'minor blues',pname:'minor pentatonic',blue:'b5',off:6,bl:'♭5'},maj:{sc:'majBlues',base:'majPent',name:'major blues',pname:'major pentatonic',blue:'b3',off:3,bl:'♭3'}};
+const bCtx=(kind)=>{const k=kind||pick(['min','maj']),K=BK[k];return hTry(()=>{const r=pick(HR),sc=scaleNotes(r,K.sc),base=scaleNotes(r,K.base),blue=spellF(r,'1 '+K.blue)[1];if(!hOk(sc)||!hOk(base))return null;return{k,K,r,sc,base,blue}})};
+const b98Spell=()=>{const x=bCtx(),a=x.sc.join(' '),pool=x.k==='min'?[scaleNotes(x.r,'minPent'),scaleNotes(x.r,'majBlues'),scaleNotes(x.r,'aeolian'),scaleNotes(x.r,'dorian')]:[scaleNotes(x.r,'majPent'),scaleNotes(x.r,'blues'),scaleNotes(x.r,'major'),scaleNotes(x.r,'mixolydian')];
+  return{type:'choice',noBoard:true,key:'b8s'+x.k+x.r,text:`Which notes make up the ${x.r} ${x.K.name} scale?`,choices:mc(a,pool.map(p=>p.join(' '))),ans:a,hint:`${x.r} ${x.K.pname} plus one extra note: the ${x.K.bl}.`,
+   explain:`${x.r} ${x.K.pname} = ${x.base.join(' ')}. Add the ${x.K.bl} (${x.blue}): ${x.r} ${x.K.name} = ${a} (${SCALES[x.K.sc].f.split(' ').map(hTokN).join(' ')}).`}};
+const b98Add=()=>{const x=bCtx(),a=x.blue,pool2=['b2','2','b6','6','b7','4','b3'].map(t=>spellF(x.r,'1 '+t)[1]).filter(n=>!x.sc.includes(n)&&hNice(n));
+  return{type:'choice',noBoard:true,key:'b8a'+x.k+x.r,text:`Which single note turns ${x.r} ${x.K.pname} into the ${x.r} ${x.K.name} scale?`,choices:mc(a,pool2),ans:a,hint:`The blue note is the ${x.K.bl}.`,
+   explain:`${x.r} ${x.K.pname}: ${x.base.join(' ')}. The ${x.K.bl} is ${x.blue}${x.k==='min'?` (also thought of as the ♯4)`:''}. Adding it gives ${x.sc.join(' ')}.`}};
+const b98Rel=()=>{const r=hRoot(q=>{const m=relMinor(q);return hNice(m)&&hOk(scaleNotes(q,'majBlues'))&&hOk(scaleNotes(m,'blues'))});const m=relMinor(r),sw=Math.random()<.5,sc=spellScale(r),
+  a=sw?`${m} minor blues`:`${r} major blues`,pool=sw?[r,sc[1],sc[3],sc[4]].map(n=>`${n} minor blues`):[m,spellScale(m)[2],spellScale(m)[3],spellScale(m)[4]].map(n=>`${n} major blues`);
+  return{type:'choice',noBoard:true,key:'b8r'+sw+r,text:sw?`${r} major blues has exactly the same notes as which minor blues scale?`:`${m} minor blues has exactly the same notes as which major blues scale?`,choices:mc(a,pool),ans:a,hint:'Relative major and minor share their notes: the minor root is the 6th degree of the major scale.',
+   explain:`${r} major blues = ${scaleNotes(r,'majBlues').join(' ')}. ${m} minor blues = ${scaleNotes(m,'blues').join(' ')}. Same notes: ${m} is the 6th degree of ${r} major.`}};
+const b98Blue=()=>hTry(()=>{const x=bCtx(),b=hBox(x.r,6,4),[lo,hi]=b.box,bp=hFPos(x.r,SCALES[x.K.base].f,b.st,lo,hi),bn=hPcs([{pc:(pcOf(x.r)+x.K.off)%12,t:x.K.bl,name:x.blue,i:0}],b.st,lo,hi);if(bn.length<1||bn.length>6)return null;
+  return{type:'multi',key:`b8b${x.k}${x.r}${lo}`,box:b.box,text:`The marked notes are ${x.r} ${x.K.pname}. Click every blue note (the ${x.K.bl} of ${x.r}) in the shaded frets ${lo}–${hi} to make it ${x.K.name}.`,marks:bp.map(p=>({s:p.s,f:p.f,t:p.t,k:p.t==='R'?'root':'ghost'})),targets:bn.map(p=>({s:p.s,f:p.f,t:x.K.bl})),notes:hNotes([...bp,...bn]),pm:'seq',
+   hint:`The ${x.K.bl} is ${hSem(x.K.off)} above the root: ${x.blue}.`,explain:`${x.r} ${x.K.name} adds ${x.blue} (${x.K.bl}). In frets ${lo}–${hi}: ${bn.map(posTxt).join(', ')}.`}});
+const b98Click=()=>hTry(()=>{const x=bCtx(),rs=R(0,5),rf=rootFret(x.r,rs,R(2,9));if(rf<2||rf>11)return null;const s2=pick([0,1,2,3,4,5].filter(s=>s!==rs)),t=hClickT(rs,rf,x.K.off,[s2]);if(!t)return null;
+  return{type:'click',key:`b8c${x.k}${x.r}${s2}`,text:`Root of ${x.r} ${x.K.name} marked. Click its blue note (${x.blue}) on the ${SN[s2]} string.`,marks:[{s:rs,f:rf,t:'R',k:'root'}],target:{s:t.s,f:t.f,t:x.K.bl},notes:[midi(rs,rf),midi(t.s,t.f)],
+   hint:`The blue note is the ${x.K.bl}: ${hSem(x.K.off)} above the root. The ${SN[rs]}→${SN[s2]} gap is ${hG(rs,s2)}.`,explain:`${x.blue} is ${hSem(x.K.off)} above ${x.r}. ${hPath(rs,rf,s2,t.f)}`}});
+const b98Name=()=>hTry(()=>{const x=bCtx(),b=hBox(x.r,6,5),[lo,hi]=b.box,pts=hFPos(x.r,SCALES[x.K.sc].f,b.st,lo,hi),ts=new Set(pts.map(p=>p.t));
+  if(x.k==='min'?!ts.has('♭5'):!(ts.has('♭3')&&ts.has('3')))return null;if(pts.length>22)return null;
+  const a=x.K.name,pool=['minor blues','major blues','minor pentatonic','major pentatonic'];
+  return{type:'choice',key:`b8n${x.k}${x.r}${lo}`,text:`These are the notes of one scale in frets ${lo}–${hi}, with root ${x.r}. Which scale is it?`,box:b.box,marks:pts.map(p=>({s:p.s,f:p.f,t:p.t,k:p.t==='R'?'root':'q'})),choices:mc(a,pool),ans:a,notes:hNotes(pts),pm:'seq',
+   hint:x.k==='min'?'Which note is more than a minor pentatonic or a major scale would have?':'Look for both the ♭3 and the major 3 in the same scale.',
+   explain:x.k==='min'?`The ♭5 together with ♭3 4 5 ♭7 is the minor blues: ${x.sc.join(' ')}. The minor pentatonic has no ♭5.`:`Both ♭3 and 3 appear, with 2 5 6: that is the major blues: ${x.sc.join(' ')}. The major pentatonic has no ♭3.`}});
+const b98Pent=()=>hTry(()=>{const x=bCtx(),b=hBox(x.r,2,4),[lo,hi]=b.box,pts=hFPos(x.r,SCALES[x.K.sc].f,b.st,lo,hi),marks=pts.filter(p=>p.t==='R'),tg=pts.filter(p=>p.t!=='R');if(!marks.length||tg.length<3||tg.length>8)return null;
+  return{type:'multi',key:`b8p${x.k}${x.r}${b.st[0]}${lo}`,box:b.box,text:`Play ${x.r} ${x.K.name} on the ${hStr(b.st)}, frets ${lo}–${hi}. The roots are marked. Click every other scale note.`,marks:marks.map(p=>({s:p.s,f:p.f,t:'R',k:'root'})),targets:tg.map(p=>({s:p.s,f:p.f,t:p.t})),notes:hNotes(pts),pm:'seq',
+   hint:`${x.r} ${x.K.name}: ${SCALES[x.K.sc].f.split(' ').map(hTokN).join(' ')}.`,explain:`${x.r} ${x.K.name} = ${x.sc.join(' ')}. In frets ${lo}–${hi}: ${tg.map(p=>`${p.name} (${SL[p.s]} ${p.f})`).join(', ')}.`}});
+const b98Bank=sbank('b8b',[
+ ['What is the formula of the minor blues scale?','1 ♭3 4 ♭5 5 ♭7',['1 ♭3 4 5 ♭7','1 2 ♭3 3 5 6','1 2 ♭3 4 5 ♭6 ♭7'],'Minor pentatonic (1 ♭3 4 5 ♭7) plus the ♭5 blue note.'],
+ ['What is the formula of the major blues scale?','1 2 ♭3 3 5 6',['1 ♭3 4 ♭5 5 ♭7','1 2 3 5 6','1 2 3 4 5 6 7'],'Major pentatonic (1 2 3 5 6) plus the ♭3 blue note.'],
+ ['How many notes does the minor blues scale have?','6',['5','7','8'],'Five pentatonic notes plus the ♭5.'],
+ ['Which note is the “blue note” in the minor blues scale?','The ♭5',['The ♭3','The 4th','The ♭7'],'The ♭5 sits between the 4th and 5th, so it is usually a passing note, not a place to rest.'],
+ ['In the major blues scale, which note is the blue note?','The ♭3',['The ♭5','The 6th','The 2nd'],'The ♭3 sits next to the major 3rd; sliding from ♭3 to 3 is the classic sound.'],
+ ['How is the blue note usually used?','As a passing note between the 4th and 5th',['As the final note of a phrase','As the root','Only on open strings'],'It adds tension; resolve to the 4th or 5th (in the minor blues).'],
+ ['A minor blues and C major blues…','contain the same six notes',['have no notes in common','share only the root','have the same root'],'A C D E♭ E G: the same set, a different tonal centre.']]);
+
+const LS={
+ arp:{h:'arpeggios',n:'Lesson 96',title:'Arpeggios',sub:'Triad and 7th-chord arpeggios: chord tones across the strings.',
+  ex:[['Spell & name',[a96Spell,a96Tone,a96Bank]],['Read the shape',[a96Qual]],['On the neck',[a96Box,a96Click]]],
+  test:[...rep(a96Spell,2),...rep(a96Tone,2),a96Bank,...rep(a96Qual,4),...rep(a96Box,3),...rep(a96Click,3)]},
+ solo:{h:'solo-with-arpeggios',n:'Lesson 97',title:'How to solo with arpeggios',sub:'Land on guide tones (3rd and 7th) and lead into the next chord.',
+  ex:[['Guide tones',[a97Guide,a97GT,a97Target,a97Bank]],['Voice leading',[a97Lead,a97Move]],['Next chord',[a97Next]]],
+  test:[...rep(a97Guide,2),...rep(a97Lead,2),a97Next,a97Bank,...rep(a97GT,3),...rep(a97Move,3),...rep(a97Target,3)]},
+ blues:{h:'blues-scales',n:'Lesson 98',title:'The blues scales',sub:'Minor blues = minor pentatonic + ♭5; major blues = major pentatonic + ♭3.',
+  ex:[['Spell it',[b98Spell,b98Add,b98Rel,b98Bank]],['Blue notes',[b98Blue,b98Click]],['Shapes',[b98Name,b98Pent]]],
+  test:[...rep(b98Spell,2),...rep(b98Add,2),b98Rel,b98Bank,...rep(b98Blue,3),...rep(b98Click,2),...rep(b98Name,2),...rep(b98Pent,2)]},
+ final:{h:'final-check',n:'Final',title:'Final check',sub:'Lessons 96–98 mixed.',
+  ex:[['Lesson 96',[a96Spell,a96Tone,a96Qual,a96Box,a96Click,a96Bank]],['Lessons 97–98',[a97Guide,a97GT,a97Move,a97Target,a97Next,a97Bank,b98Spell,b98Add,b98Rel,b98Blue,b98Click,b98Name,b98Pent,b98Bank]]],
+  test:[a96Spell,a96Tone,a96Qual,a96Qual,a96Box,a96Click,a96Bank,a97Guide,a97Lead,a97GT,a97Move,a97Target,a97Next,b98Spell,b98Add,b98Rel,b98Blue,b98Click,b98Name,b98Pent]}};
+const ORDER=['arp','solo','blues','final'],STORE='gi-best-p24';
+
+const arpTable=qs=>`<table class="stack"><thead><tr><th>Chord</th><th>Formula</th><th>Notes</th></tr></thead><tbody>${qs.map(q=>`<tr><td>${chordSym('C',q)}</td><td>${aFormula(q)}</td><td>${chordNotes('C',q).join(' ')}</td></tr>`).join('')}</tbody></table>`;
+const gtTable=()=>{const d=diatonic('C','major',4);return `<table class="stack"><thead><tr><th>Chord</th><th>3rd</th><th>7th</th></tr></thead><tbody>${[2,5,1].map(i=>`<tr><td>${d[i-1].sym}</td><td>${d[i-1].notes[1]}</td><td>${d[i-1].notes[3]}</td></tr>`).join('')}</tbody></table>`};
+const bluesTable=()=>`<div class="scroll"><table><thead><tr><th>Scale</th><th>Formula</th><th>In A</th><th>In C</th></tr></thead><tbody>${['minPent','blues','majPent','majBlues'].map(s=>`<tr><td>${cap(SCALES[s].name)}</td><td>${SCALES[s].f.split(' ').map(hTokN).join(' ')}</td><td>${scaleNotes('A',s).join(' ')}</td><td>${scaleNotes('C',s).join(' ')}</td></tr>`).join('')}</tbody></table></div>`;
+const NOTES={
+ arp:`<div class="cols"><div><h3>Triads and 7th chords</h3>${arpTable([...Q3,...Q7])}</div>
+  <div><h3>Key ideas</h3><ul><li>An arpeggio is the chord played one note at a time: 3 notes for a triad, 4 for a 7th chord.</li><li>On guitar the chord tones sit in one fret area with one or two notes per string.</li><li>Change one note of a shape and the quality changes: ♮7 → ♭7 turns maj7 into 7.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Play C, Cmaj7, C7 and Cm7 arpeggios in one position, changing a single note each time.</li><li>Pick up and down across adjacent strings, naming each chord tone.</li><li>Find every root in the box first, then the 3rds.</li></ul></div></div>`,
+ solo:`<div class="cols"><div><h3>Guide tones in a ii–V–I (C)</h3>${gtTable()}<p class="small">Notice the voice leading: C (7th of Dm7) → B (3rd of G7), and F (7th of G7) → E (3rd of Cmaj7): each moves a half step down.</p></div>
+  <div><h3>Key ideas</h3><ul><li>Target a chord tone, ideally the 3rd or 7th, on the first beat of each new chord.</li><li>Guide tones define the chord; the 5th does not.</li><li>Begin the next chord’s arpeggio on the last beat before the change to lead into it.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Over Dm7 – G7 – Cmaj7 play only 3rds and 7ths, one per bar.</li><li>Add the other chord tones around them as an arpeggio.</li><li>Play the arpeggio of G7 on beat 4 of the Dm7 bar.</li></ul></div></div>`,
+ blues:`<div class="cols"><div><h3>Blues scales</h3>${bluesTable()}<p class="small">Assumption: “blues scales” means the common six-note minor blues and the six-note major blues; the blue note is the ♭5 (minor) or ♭3 (major).</p></div>
+  <div><h3>Key ideas</h3><ul><li>Minor blues = minor pentatonic + ♭5.</li><li>Major blues = major pentatonic + ♭3.</li><li>A minor blues and C major blues have the same notes: relative scales.</li><li>Use the blue note as a passing note, not a place to stop.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Play A minor pentatonic, then add E♭ between D and E.</li><li>Play C major pentatonic and slide from E♭ up to E.</li><li>Play both blues scales in the same position and compare.</li></ul></div></div>`,
+ final:`<div class="cols"><div><h3>Before the final check</h3><ul><li>Pass each lesson test first (13/15).</li><li>The final mixes lessons 96–98: 20 questions, pass mark 17.</li></ul></div><div><h3>Next in the course</h3><p>Lesson 99 starts the next part, melodic and harmonic minor, with the Melodic Minor Scale.</p></div></div>`};
+
+/* ===== audio: plucked string (Karplus–Strong) ===== */
+let ac=null;
+function pluck(m,t0){const sr=ac.sampleRate,fq=440*2**((m-69)/12),len=Math.floor(sr*1.7),b=ac.createBuffer(1,len,sr),d=b.getChannelData(0),N=Math.max(2,Math.round(sr/fq));
+  for(let i=0;i<N;i++)d[i]=Math.random()*2-1;
+  for(let i=N;i<len;i++)d[i]=.996*.5*(d[i-N]+(i-N-1>=0?d[i-N-1]:0));
+  const src=ac.createBufferSource(),gn=ac.createGain(),t=ac.currentTime+t0;src.buffer=b;gn.gain.setValueAtTime(.3,t);gn.gain.linearRampToValueAtTime(0,t+1.65);src.connect(gn).connect(ac.destination);src.start(t)}
+/* default: notes one after another, then together (2–6 notes). pm 'seq' = melody only (scales), 'chord' = strum only, 'one' = single note */
+function play(ns,mode){if(!ns||!ns.length)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume();
+  if(mode==='one'||ns.length===1)return pluck(ns[0],0);
+  if(mode==='chord'){ns.forEach((m,j)=>pluck(m,j*.035));return}
+  const step=ns.length>2?.32:.6;ns.forEach((m,j)=>pluck(m,j*step));if(mode!=='seq'&&ns.length<=6)ns.forEach((m,j)=>pluck(m,ns.length*step+.15+j*.03))}catch(e){}}
+
+/* ===== state ===== */
+let cur=ORDER[0],mode='practice',sel=new Set(),q=null,done=false,picked=null,st={streak:0,ok:0,n:0},T=null,showHint=false;
+let best={};try{best=JSON.parse(localStorage.getItem(STORE)||'{}')}catch(e){}
+const $=id=>document.getElementById(id);
+function prep(x){x.found=[];return x}
+function gen(fns,seen){for(let k=0;k<40;k++){const x=pick(fns)();if(!seen.has(x.key)){seen.add(x.key);return prep(x)}}return prep(pick(fns)())}
+function autoplay(){if(q.hide&&ac)play(q.notes,q.pm)}
+function newQ(){const fns=(sel.size?LS[cur].ex.filter((e,i)=>sel.has(i+1)):LS[cur].ex).flatMap(e=>e[1]);q=gen(fns,new Set(q?[q.key]:[]));done=false;picked=null;showHint=false;render();autoplay()}
+function startTest(){const seen=new Set();T={qs:shuf(LS[cur].test.map(f=>gen([f],seen))),i:0,a:[],done:false};q=T.qs[0];done=false;picked=null;showHint=false;render();autoplay()}
+function setLesson(k,push){cur=k;mode='practice';sel=new Set();T=null;st={streak:0,ok:0,n:0};q=null;if(push!==false)try{history.replaceState(null,'','#'+LS[k].h)}catch(e){location.hash=LS[k].h}$('notes').innerHTML=NOTES[k];newQ()}
+const ansLabel=x=>x.type==='choice'?x.ans:x.type==='multi'?`${x.targets.length} spots: ${x.targets.map(posTxt).join(', ')}`:where(x.target.s,x.target.f);
+function answer(ok,label,pk){if(done)return;done=true;picked=pk;q.ok=ok;
+  if(mode==='practice'){st.n++;if(ok){st.ok++;st.streak++}else st.streak=0}else T.a.push({q,ok,label});
+  render();if(q.notes&&q.type!=='click'&&mode==='practice')play(q.notes,q.pm)}
+function next(){if(!done)return;
+  if(mode==='practice')return newQ();
+  if(T.i<T.qs.length-1){T.i++;q=T.qs[T.i];done=false;picked=null;showHint=false;render();if(q.hide)play(q.notes,q.pm);return}
+  T.done=true;const sc=T.a.filter(a=>a.ok).length;if(!(best[cur]>=sc)){best[cur]=sc;try{localStorage.setItem(STORE,JSON.stringify(best))}catch(e){}}render();window.scrollTo({top:0,behavior:'smooth'})}
+
+/* ===== fretboard ===== */
+const X=f=>f===0?62:90+(f-.5)*60,Y=s=>32+(5-s)*32;
+const BASE=(()=>{let h=`<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a26" stop-opacity=".55"/><stop offset=".5" stop-color="#2b1b13" stop-opacity="0"/><stop offset="1" stop-color="#1a0f0a" stop-opacity=".6"/></linearGradient></defs><rect x="40" y="16" width="50" height="192" rx="6" fill="var(--panel)"/><rect x="90" y="16" width="900" height="192" rx="3" fill="#3a2418"/><rect x="90" y="16" width="900" height="192" rx="3" fill="url(#gr)"/>`;
+  for(const f of [3,5,7,9,15])h+=`<circle cx="${X(f)}" cy="112" r="7" fill="#e9dfcf" opacity=".85"/>`;
+  h+=`<circle cx="${X(12)}" cy="80" r="7" fill="#e9dfcf" opacity=".85"/><circle cx="${X(12)}" cy="144" r="7" fill="#e9dfcf" opacity=".85"/>`;
+  for(let f=1;f<=15;f++)h+=`<line x1="${90+f*60}" y1="16" x2="${90+f*60}" y2="208" stroke="#b9b4ab" stroke-width="3"/><line x1="${89+f*60}" y1="16" x2="${89+f*60}" y2="208" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`;
+  h+=`<rect x="86" y="14" width="8" height="196" rx="2" fill="#efe7d8"/>`;
+  for(let s=0;s<6;s++)h+=`<line x1="40" y1="${Y(s)}" x2="990" y2="${Y(s)}" stroke="#cfc8bd" stroke-width="${(3.2-s*.42).toFixed(2)}"/><text x="20" y="${Y(s)}" fill="var(--mut)" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="central">${SL[s]}</text>`;
+  for(let f=0;f<=15;f++)h+=`<text x="${X(f)}" y="225" fill="var(--mut)" font-size="13" font-weight="${[3,5,7,9,12,15].includes(f)?700:400}" text-anchor="middle">${f}</text>`;
+  return h})();
+const CELLS=(()=>{let h='';for(let s=0;s<6;s++)for(let f=0;f<=15;f++)h+=`<rect class="cell" data-s="${s}" data-f="${f}" x="${f===0?40:X(f)-30}" y="${Y(s)-16}" width="${f===0?48:60}" height="32"><title>${NN2[pcAt(s,f)]}</title></rect>`;return h})();
+function board(ms,box){let h=BASE;
+  if(box){const x1=box[0]===0?40:90+(box[0]-1)*60,x2=90+box[1]*60;h+=`<rect class="box" x="${x1}" y="14" width="${x2-x1}" height="196" rx="6"/>`}
+  h+=CELLS;
+  for(const m of ms)h+=`<g class="mk k-${m.k}"><circle cx="${X(m.f)}" cy="${Y(m.s)}" r="15"/><text x="${X(m.f)}" y="${Y(m.s)}"${String(m.t).length>2?' style="font-size:11px"':''}>${m.t}</text></g>`;
+  $('fb').innerHTML=h}
+
+/* ===== render ===== */
+const same=(a,b)=>a&&b&&a.s===b.s&&a.f===b.f;
+function render(){const L=LS[cur],n=L.test.length;
+  $('tabs').innerHTML=ORDER.map(k=>{const b=best[k],p=b>=passMark(LS[k].test.length);return`<button class="tab" role="tab" data-k="${k}" aria-selected="${k===cur}"><b>${LS[k].n}: ${LS[k].title}</b><span>${b==null?'Not tested yet':`Best ${b}/${LS[k].test.length}${p?' · passed':''}`}</span></button>`}).join('');
+  $('ttl').textContent=`${L.n}: ${L.title}`;$('sub').textContent=L.sub;
+  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0561b"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
+   $('vid').innerHTML=num?lk(num,`Watch lesson ${num} on YouTube`):ORDER.filter(k=>/\d/.test(LS[k].n)).map(k=>{const m=LS[k].n.match(/\d+/)[0];return lk(m,`Lesson ${m}`)}).join('')}
+  $('mPr').className=mode==='practice'?'on':'';$('mTe').className=mode==='test'?'on':'';
+  $('chips').hidden=mode!=='practice';
+  $('chips').innerHTML=['Mix all',...L.ex.map(e=>e[0])].map((c,j)=>{const on=j===0?!sel.size:sel.has(j);return`<button class="chip${on?' on':''}" data-x="${j}" aria-pressed="${on}">${c}</button>`}).join('');
+  const fin=mode==='test'&&T&&T.done;$('quiz').hidden=fin;$('result').hidden=!fin;
+  if(fin)return result();
+  $('status').innerHTML=mode==='practice'?`<span>Exercise mode: hints and explanations as you go</span><span>Streak <b>${st.streak}</b></span><span>Correct <b>${st.ok}/${st.n}</b></span>`:`<span>Test · question <b>${T.i+1}</b> of ${T.qs.length}</span><span>Pass mark ${passMark(n)}/${n}</span><span>Answers are checked at the end</span>`;
+  $('prompt').textContent=q.text;
+  $('boardWrap').hidden=!!q.noBoard;
+  if(!q.noBoard){let ms=q.hide&&!done?[]:q.marks.slice();const pr=mode==='practice';
+    if(q.type==='multi')q.found.forEach(p=>ms.push({...p,t:pr?(q.targets.find(t=>same(t,p)).t||'✓'):'•',k:pr?'good':'q'}));
+    if(done&&pr){(q.reveal||[]).forEach(r=>ms.push({...r,k:'good'}));
+      if(q.type==='click'){if(picked&&!same(picked,q.target))ms.push({...picked,t:'✗',k:'bad'});ms.push({...q.target,t:q.target.t||'✓',k:'good'})}
+      if(q.type==='multi'){q.targets.filter(t=>!q.found.some(p=>same(p,t))).forEach(t=>ms.push({...t,t:t.t||'✓',k:'good'}));if(picked)ms.push({...picked,t:'✗',k:'bad'})}}
+    if(done&&!pr&&picked&&q.type!=='choice')ms.push({...picked,t:'•',k:'q'});
+    board(ms,q.box)}
+  $('choices').innerHTML=q.type==='choice'?q.choices.map((c,j)=>{let cl='';if(done){if(mode==='practice'){if(c===q.ans)cl=' good';else if(c===picked)cl=' bad'}else if(c===picked)cl=' sel'}return`<button class="ch${cl}" data-c="${j}"${done?' disabled':''}><kbd>${j+1}</kbd>${c}</button>`}).join(''):'';
+  const fb=$('fbk');
+  if(done&&mode==='practice')fb.innerHTML=`<b class="${q.ok?'ok':'no'}">${q.ok?'Correct.':'Not quite.'}</b> ${q.explain}`;
+  else if(done)fb.textContent='Answer saved. On to the next one.';
+  else{let h=showHint?`<b>Hint:</b> ${q.hint}`:'';
+    if(q.type==='multi')h+=`${h?'<br>':''}<span class="small">Found ${q.found.length} of ${q.targets.length}. A wrong click ends the question.</span>`;
+    else if(q.type==='click'&&!showHint)h='<span class="small">Click a fret on the board to answer.</span>';
+    fb.innerHTML=h}
+  $('next').disabled=!done;$('next').textContent=mode==='test'&&T.i===T.qs.length-1?'See my results':'Next';
+  $('hear').hidden=!(q.notes&&(q.hide||done||mode==='practice'));
+  $('hint').hidden=!(mode==='practice'&&!done&&!showHint&&q.hint)}
+function result(){const n=T.qs.length,sc=T.a.filter(a=>a.ok).length,pm=passMark(n),pass=sc>=pm,miss=T.a.filter(a=>!a.ok),last=cur===ORDER[ORDER.length-1];
+  $('result').innerHTML=`<div class="score"><div class="big">${sc}<small> / ${n}</small></div><div><h3>${pass?(sc===n?'Perfect. You own this lesson.':'Passed. This lesson is solid.'):'Not yet. Review the misses, practise, retake.'}</h3><p>Pass mark ${pm}/${n} · best so far ${best[cur]}/${n}</p><div class="acts"><button class="btn main" id="retake">Retake test</button><button class="btn" id="toPr">Back to practice</button>${pass&&!last?`<button class="btn" id="goNext">Next tab</button>`:''}</div></div></div>`+
+  (miss.length?`<h3 style="font-size:26px;margin:28px 0 6px">What to review</h3>`+miss.map(a=>`<div class="miss"><p><b>${a.q.text}</b></p><p class="y">Your answer: ${a.label}</p><p class="c">Correct: ${ansLabel(a.q)}</p><p>${a.q.explain}</p></div>`).join(''):'<p style="margin-top:20px">No mistakes to review.</p>')}
+
+/* ===== events ===== */
+document.addEventListener('click',e=>{const t=e.target.closest('button,.cell');if(!t)return;
+  if(t.classList.contains('cell')){const s=+t.dataset.s,f=+t.dataset.f,p={s,f};play([midi(s,f)],'one');if(!q||done||(T&&T.done))return;
+    if(q.type==='click')answer(same(p,q.target),where(s,f),p);
+    else if(q.type==='multi'){if(q.found.some(x=>same(x,p))||q.marks.some(m=>same(m,p)))return;
+      if(q.targets.some(x=>same(x,p))){q.found.push(p);q.found.length===q.targets.length?answer(true,'found them all',null):render()}
+      else answer(false,`${where(s,f)} (found ${q.found.length} of ${q.targets.length} first)`,p)}
+    return}
+  if(t.dataset.k)return setLesson(t.dataset.k);
+  if(t.dataset.x!=null){const j=+t.dataset.x;if(j===0)sel.clear();else{sel.has(j)?sel.delete(j):sel.add(j);if(sel.size===LS[cur].ex.length)sel.clear()}q=null;return newQ()}
+  if(t.dataset.c!=null){const c=q.choices[+t.dataset.c];return answer(c===q.ans,c,c)}
+  switch(t.id){case'mPr':if(mode!=='practice'){mode='practice';T=null;q=null;newQ()}break;
+   case'mTe':case'retake':mode='test';startTest();break;
+   case'toPr':mode='practice';T=null;q=null;newQ();break;
+   case'goNext':setLesson(ORDER[ORDER.indexOf(cur)+1]);break;
+   case'next':next();break;case'hear':play(q.notes,q.pm);break;case'hint':showHint=true;render();break}});
+document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea')||e.metaKey||e.ctrlKey||e.altKey)return;if(!q||(T&&T.done))return;
+  if(/^[1-4]$/.test(e.key)&&q.type==='choice'&&!done){const c=q.choices[+e.key-1];if(c)answer(c===q.ans,c,c)}
+  else if(e.key==='Enter'&&done&&document.activeElement.tagName!=='BUTTON')next();
+  else if(e.key.toLowerCase()==='h'&&q.notes&&!$('hear').hidden)play(q.notes,q.pm)});
+const fromHash=()=>ORDER.find(k=>'#'+LS[k].h===location.hash)||ORDER[0];
+addEventListener('hashchange',()=>{const k=fromHash();if(k!==cur)setLesson(k,false)});
+setLesson(fromHash(),false);
+
+}
+</script>
+</body>
+</html>

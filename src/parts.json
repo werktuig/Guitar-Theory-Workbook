@@ -3,25 +3,48 @@
   "title": "Guitar Intervals · Part 1",
   "h1": "Part 1: Intervals",
   "intro": "Lessons 1–3 of <em>Music Theory for Guitar</em>: intervals, string intervals and interval shapes.",
-  "label": "Part 1 · Lessons 1–3"
+  "label": "Part 1 · Lessons 1–3",
+  "lessons": [
+   "1. Intervals",
+   "2. String Intervals",
+   "3. Interval Shapes"
+  ]
  },
  "2": {
   "title": "Guitar Theory · Part 2",
   "h1": "Part 2: Octaves, unisons & note names",
   "intro": "Lessons 4–6 of <em>Music Theory for Guitar</em>: octaves, unison notes, the musical alphabet and the chromatic scale.",
-  "label": "Part 2 · Lessons 4–6"
+  "label": "Part 2 · Lessons 4–6",
+  "lessons": [
+   "4. Octaves",
+   "5. Unison Notes",
+   "6. Musical Alphabet & Chromatic Scale"
+  ]
  },
  "3": {
   "title": "Guitar Theory · Part 3",
   "h1": "Part 3: The major scale",
   "intro": "Lessons 7–11 of <em>Music Theory for Guitar</em>: the major scale, its intervals, patterns, upper intervals, and patterns vs positions.",
-  "label": "Part 3 · Lessons 7–11"
+  "label": "Part 3 · Lessons 7–11",
+  "lessons": [
+   "7. The Major Scale",
+   "8. Major Scale Intervals",
+   "9. Major Scale Patterns",
+   "10. Upper Intervals",
+   "11. Patterns vs Positions"
+  ]
  },
  "4": {
   "title": "Guitar Theory · Part 4",
   "h1": "Part 4: Keys, sharps & flats",
   "intro": "Lessons 12–15 of <em>Music Theory for Guitar</em>: fretboard insight and major scale keys.",
-  "label": "Part 4 · Lessons 12–15"
+  "label": "Part 4 · Lessons 12–15",
+  "lessons": [
+   "12. Fretboard Insight",
+   "13. Major Scale Keys",
+   "14. Major Scale Keys - Construction, Keys, Sharps & Flats",
+   "15. Major Scale Keys - How to Find Sharps & Flats"
+  ]
  },
  "5": {
   "title": "Guitar Theory · Part 5",

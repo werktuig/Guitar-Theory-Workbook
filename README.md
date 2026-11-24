@@ -39,7 +39,8 @@ Each lesson has:
 | 27 | 109–112 | Dim7, whole tone & augmented |
 | 28 | 113–116 | Upper intervals & chord synonyms |
 
-Live pages: see `artifacts.json` (one claude.ai artifact per part).
+Live site: https://werktuig.github.io/Guitar-Theory-Workbook/ (GitHub Pages, served from `docs/`).
+Also published as claude.ai artifacts, see `artifacts.json`.
 
 ## Layout
 
@@ -51,7 +52,7 @@ src/partN.js      One lesson pack per part: question generators (LS), tab order 
 src/parts.json    Titles, intros and lesson ranges per part
 videos.json       Lesson number -> YouTube video id
 nav.json          Part number -> published URL (used for the cross-links between parts)
-build.py          Builds dist/partN.html (self-contained pages)
+build.py          Builds dist/partN.html (claude.ai artifacts) and docs/ (GitHub Pages site with index.html)
 scripts/          check.js (invariants), sample.js / sample1.js (dump generated questions for review), ui_test.py (headless browser test)
 SPEC.md           The authoring spec every lesson pack follows
 ```
