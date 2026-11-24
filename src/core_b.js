@@ -51,7 +51,7 @@ const same=(a,b)=>a&&b&&a.s===b.s&&a.f===b.f;
 function render(){const L=LS[cur],n=L.test.length;
   $('tabs').innerHTML=ORDER.map(k=>{const b=best[k],p=b>=passMark(LS[k].test.length);return`<button class="tab" role="tab" data-k="${k}" aria-selected="${k===cur}"><b>${LS[k].n}: ${LS[k].title}</b><span>${b==null?'Not tested yet':`Best ${b}/${LS[k].test.length}${p?' · passed':''}`}</span></button>`}).join('');
   $('ttl').textContent=`${L.n}: ${L.title}`;$('sub').textContent=L.sub;
-  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0561b"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
+  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#fff"/><path d="M10 8.5v7l6-3.5z" fill="#e0561b"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
    $('vid').innerHTML=num?lk(num,`Watch lesson ${num} on YouTube`):ORDER.filter(k=>/\d/.test(LS[k].n)).map(k=>{const m=LS[k].n.match(/\d+/)[0];return lk(m,`Lesson ${m}`)}).join('')}
   $('mPr').className=mode==='practice'?'on':'';$('mTe').className=mode==='test'?'on':'';
   $('chips').hidden=mode!=='practice';

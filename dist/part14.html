@@ -87,8 +87,8 @@ td.n{white-space:nowrap}
 .tuning i.odd{color:var(--acci);font-weight:600}
 .small{font-size:14px;color:var(--mut)}
 .vidp{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0!important}.vidp:empty{display:none}
-.vid{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
-.vid:hover{border-color:var(--acci);color:var(--acci)}.vid svg{flex:none}
+.vid{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:9px 18px 9px 14px;border-radius:99px;border:0;background:var(--acc);color:#fff;text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 2px 10px color-mix(in srgb,var(--acc) 35%,transparent)}
+.vid:hover{background:#c74a14}.vid:focus-visible{outline:3px solid var(--acci);outline-offset:2px}.vid svg{flex:none}
 @media(max-width:600px){.tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-16px;padding-inline:16px}.tab{flex:none;scroll-snap-align:start;padding:8px 12px 10px}.tab b{font-size:17px}}
 .parts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 14px;font-size:14px}
 .parts a,.parts span{color:#d8c9ba;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
@@ -502,7 +502,7 @@ const same=(a,b)=>a&&b&&a.s===b.s&&a.f===b.f;
 function render(){const L=LS[cur],n=L.test.length;
   $('tabs').innerHTML=ORDER.map(k=>{const b=best[k],p=b>=passMark(LS[k].test.length);return`<button class="tab" role="tab" data-k="${k}" aria-selected="${k===cur}"><b>${LS[k].n}: ${LS[k].title}</b><span>${b==null?'Not tested yet':`Best ${b}/${LS[k].test.length}${p?' · passed':''}`}</span></button>`}).join('');
   $('ttl').textContent=`${L.n}: ${L.title}`;$('sub').textContent=L.sub;
-  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0561b"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
+  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#fff"/><path d="M10 8.5v7l6-3.5z" fill="#e0561b"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
    $('vid').innerHTML=num?lk(num,`Watch lesson ${num} on YouTube`):ORDER.filter(k=>/\d/.test(LS[k].n)).map(k=>{const m=LS[k].n.match(/\d+/)[0];return lk(m,`Lesson ${m}`)}).join('')}
   $('mPr').className=mode==='practice'?'on':'';$('mTe').className=mode==='test'?'on':'';
   $('chips').hidden=mode!=='practice';

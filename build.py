@@ -37,14 +37,14 @@ idx=f'''<!DOCTYPE html>
 <style>
 :root{{color-scheme:light dark;--bg:light-dark(#fbfaf7,#13110f);--ink:light-dark(#1d1814,#f1ebe4);--mut:light-dark(#6d6359,#a89d92);--line:light-dark(#e3ddd4,#2e2924);--panel:light-dark(#f2eee7,#1d1a17);--acc:#e0561b;--acci:light-dark(#b5420f,#ff8b57);--wood:#2b1b13}}
 *{{box-sizing:border-box;min-width:0}}body{{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 Barlow,system-ui,sans-serif}}
-header{{background:var(--wood);color:#f6eee5;padding:clamp(28px,5vw,64px) max(5vw,16px)}}
+header{{background:var(--wood);color:#f6eee5;padding:clamp(28px,5vw,64px) 0}}.wrap{{max-width:1200px;margin:0 auto;padding:0 max(5vw,16px)}}
 h1{{font:600 clamp(40px,6vw,64px)/1.02 "Barlow Condensed",sans-serif;margin:0}}header p{{max-width:64ch;color:#d8c9ba;margin:12px 0 0}}header a{{color:#fff}}
 main{{max-width:1200px;margin:0 auto;padding:clamp(22px,4vw,48px) max(5vw,16px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr));gap:14px}}
 .card{{display:flex;flex-direction:column;gap:4px;padding:18px;border:1.5px solid var(--line);border-radius:14px;color:inherit;text-decoration:none;background:var(--bg)}}
 .card:hover{{border-color:var(--acci)}}.card .n{{font-size:13px;color:var(--acci);font-weight:600}}.card b{{font:600 22px/1.1 "Barlow Condensed",sans-serif}}.card .l{{font-size:14px;color:var(--mut)}}
 footer{{max-width:1200px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--mut);font-size:14px}}
 </style></head><body>
-<header><h1>Guitar Theory Workbook</h1><p>Practice exercises and tests for all 116 lessons of <em>Music Theory for Guitar</em>. Video lessons by {YT} on YouTube. Each part has an interactive fretboard, practice with hints, a 15-question test per lesson and a final check.</p></header>
+<header><div class="wrap"><h1>Guitar Theory Workbook</h1><p>Practice exercises and tests for all 116 lessons of <em>Music Theory for Guitar</em>. Video lessons by {YT} on YouTube. Each part has an interactive fretboard, practice with hints, a 15-question test per lesson and a final check.</p></div></header>
 <main>{rows}</main>
 <footer>Scores are saved in your browser only. Source: <a href="https://github.com/werktuig/Guitar-Theory-Workbook">werktuig/Guitar-Theory-Workbook</a>.</footer>
 </body></html>
