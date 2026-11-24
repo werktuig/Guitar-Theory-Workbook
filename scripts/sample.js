@@ -1,0 +1,4 @@
+// node sample.js part5.js  -> prints 2 samples of every generator
+const fs=require('fs');const list=process.argv.slice(2).length?process.argv.slice(2):['part1.js','part2.js','part3.js','part4.js'];
+for(const file of list){const r=eval(fs.readFileSync(__dirname+'/../src/core_a.js','utf8')+fs.readFileSync(__dirname+'/../src/'+file,'utf8')+';({LS,ORDER})');
+const seen=new Set();for(const k of r.ORDER)for(const e of r.LS[k].ex)for(const f of e[1]){if(seen.has(f))continue;seen.add(f);for(let i=0;i<2;i++){const q=f();console.log(`[${file}:${k}:${f.name}] ${q.text}\n   MARKS: ${JSON.stringify((q.marks||[]).map(m=>[m.s,m.f,m.t]))}\n   A: ${q.type==='choice'?q.ans:q.type==='click'?JSON.stringify([q.target.s,q.target.f]):JSON.stringify(q.targets.map(t=>[t.s,t.f,t.t]))} | ${q.type==='choice'?q.choices.join(' / '):''}\n   H: ${q.hint||''}\n   E: ${q.explain}`)}}}

@@ -1,0 +1,391 @@
+{
+ "1": {
+  "title": "Guitar Intervals · Part 1",
+  "h1": "Part 1: Intervals",
+  "intro": "Lessons 1–3 of <em>Music Theory for Guitar</em>: intervals, string intervals and interval shapes.",
+  "label": "Part 1 · Lessons 1–3"
+ },
+ "2": {
+  "title": "Guitar Theory · Part 2",
+  "h1": "Part 2: Octaves, unisons & note names",
+  "intro": "Lessons 4–6 of <em>Music Theory for Guitar</em>: octaves, unison notes, the musical alphabet and the chromatic scale.",
+  "label": "Part 2 · Lessons 4–6"
+ },
+ "3": {
+  "title": "Guitar Theory · Part 3",
+  "h1": "Part 3: The major scale",
+  "intro": "Lessons 7–11 of <em>Music Theory for Guitar</em>: the major scale, its intervals, patterns, upper intervals, and patterns vs positions.",
+  "label": "Part 3 · Lessons 7–11"
+ },
+ "4": {
+  "title": "Guitar Theory · Part 4",
+  "h1": "Part 4: Keys, sharps & flats",
+  "intro": "Lessons 12–15 of <em>Music Theory for Guitar</em>: fretboard insight and major scale keys.",
+  "label": "Part 4 · Lessons 12–15"
+ },
+ "5": {
+  "title": "Guitar Theory · Part 5",
+  "h1": "Part 5: Triads",
+  "intro": "Lessons 16–20 of <em>Music Theory for Guitar</em>: Major Triads; Minor Triads; Diminished Triads; Augmented Triads; Triads - Major, Minor, Diminished, Augmented.",
+  "label": "Part 5 · Lessons 16–20",
+  "first": 16,
+  "last": 20,
+  "lessons": [
+   "16. Major Triads",
+   "17. Minor Triads",
+   "18. Diminished Triads",
+   "19. Augmented Triads",
+   "20. Triads - Major, Minor, Diminished, Augmented"
+  ],
+  "topic": "Triads"
+ },
+ "6": {
+  "title": "Guitar Theory · Part 6",
+  "h1": "Part 6: Triad shapes & inversions",
+  "intro": "Lessons 21–24 of <em>Music Theory for Guitar</em>: Triads Shapes on All String Sets; Triad Inversions; Triads Inversions Vertical; Augmented Triads Inversions.",
+  "label": "Part 6 · Lessons 21–24",
+  "first": 21,
+  "last": 24,
+  "lessons": [
+   "21. Triads Shapes on All String Sets",
+   "22. Triad Inversions",
+   "23. Triads Inversions Vertical",
+   "24. Augmented Triads Inversions"
+  ],
+  "topic": "Triad shapes & inversions"
+ },
+ "7": {
+  "title": "Guitar Theory · Part 7",
+  "h1": "Part 7: Diatonic triads & progressions",
+  "intro": "Lessons 25–28 of <em>Music Theory for Guitar</em>: Diatonic Major Scale Triads; Harmonized Major Scale; Major Scale Chord Progressions; How to Find the Key of a Chord Progression (song).",
+  "label": "Part 7 · Lessons 25–28",
+  "first": 25,
+  "last": 28,
+  "lessons": [
+   "25. Diatonic Major Scale Triads",
+   "26. Harmonized Major Scale",
+   "27. Major Scale Chord Progressions",
+   "28. How to Find the Key of a Chord Progression (song)"
+  ],
+  "topic": "Diatonic triads & progressions"
+ },
+ "8": {
+  "title": "Guitar Theory · Part 8",
+  "h1": "Part 8: Open triads & the harmonized scale",
+  "intro": "Lessons 29–31 of <em>Music Theory for Guitar</em>: Open Triads; Harmonized Major Scale (Triads); Harmonized Major Scale (Intervals).",
+  "label": "Part 8 · Lessons 29–31",
+  "first": 29,
+  "last": 31,
+  "lessons": [
+   "29. Open Triads",
+   "30. Harmonized Major Scale (Triads)",
+   "31. Harmonized Major Scale (Intervals)"
+  ],
+  "topic": "Open triads & the harmonized scale"
+ },
+ "9": {
+  "title": "Guitar Theory · Part 9",
+  "h1": "Part 9: 7th chords & drop voicings",
+  "intro": "Lessons 32–36 of <em>Music Theory for Guitar</em>: 7th Chords; 7th Chords Construction; Close Position 7th Chords; Drop 2 Chords; Drop 3 Chords.",
+  "label": "Part 9 · Lessons 32–36",
+  "first": 32,
+  "last": 36,
+  "lessons": [
+   "32. 7th Chords",
+   "33. 7th Chords Construction",
+   "34. Close Position 7th Chords",
+   "35. Drop 2 Chords",
+   "36. Drop 3 Chords"
+  ],
+  "topic": "7th chords & drop voicings"
+ },
+ "10": {
+  "title": "Guitar Theory · Part 10",
+  "h1": "Part 10: Diminished 7ths & harmonized 7th chords",
+  "intro": "Lessons 37–41 of <em>Music Theory for Guitar</em>: Diminished 7th Chord Inversions; Major 7th to Diminished 7th; Diatonic Major Scale 7th Chords; Harmonized Major Scale with 7th Chords; Harmonized Major Scale with Drop Chords.",
+  "label": "Part 10 · Lessons 37–41",
+  "first": 37,
+  "last": 41,
+  "lessons": [
+   "37. Diminished 7th Chord Inversions",
+   "38. Major 7th to Diminished 7th",
+   "39. Diatonic Major Scale 7th Chords",
+   "40. Harmonized Major Scale with 7th Chords",
+   "41. Harmonized Major Scale with Drop Chords"
+  ],
+  "topic": "Diminished 7ths & harmonized 7th chords"
+ },
+ "11": {
+  "title": "Guitar Theory · Part 11",
+  "h1": "Part 11: 7th-chord progressions & relative minor",
+  "intro": "Lessons 42–44 of <em>Music Theory for Guitar</em>: Chord Progressions 7th Chords; Find Key of Song (with 7th Chords); Relative minor Scale &amp; Chord Progressions.",
+  "label": "Part 11 · Lessons 42–44",
+  "first": 42,
+  "last": 44,
+  "lessons": [
+   "42. Chord Progressions 7th Chords",
+   "43. Find Key of Song (with 7th Chords)",
+   "44. Relative minor Scale & Chord Progressions"
+  ],
+  "topic": "7th-chord progressions & relative minor"
+ },
+ "12": {
+  "title": "Guitar Theory · Part 12",
+  "h1": "Part 12: Shell voicings & drop 2&4",
+  "intro": "Lessons 45–47 of <em>Music Theory for Guitar</em>: Shell Voicings; Harmonized Major Scale with Shell Voicings; Drop 2 &amp; 4 Chords.",
+  "label": "Part 12 · Lessons 45–47",
+  "first": 45,
+  "last": 47,
+  "lessons": [
+   "45. Shell Voicings",
+   "46. Harmonized Major Scale with Shell Voicings",
+   "47. Drop 2 & 4 Chords"
+  ],
+  "topic": "Shell voicings & drop 2&4"
+ },
+ "13": {
+  "title": "Guitar Theory · Part 13",
+  "h1": "Part 13: I, ii and iii chords",
+  "intro": "Lessons 48–52 of <em>Music Theory for Guitar</em>: Major Scale I Chords &amp; Construction; Major Scale I Chords Fingerings; Major Scale ii Chords &amp; Construction; Major Scale ii Chords Fingerings; Major Scale iii Chords &amp; Construction.",
+  "label": "Part 13 · Lessons 48–52",
+  "first": 48,
+  "last": 52,
+  "lessons": [
+   "48. Major Scale I Chords & Construction",
+   "49. Major Scale I Chords Fingerings",
+   "50. Major Scale ii Chords & Construction",
+   "51. Major Scale ii Chords Fingerings",
+   "52. Major Scale iii Chords & Construction"
+  ],
+  "topic": "I, ii and iii chords"
+ },
+ "14": {
+  "title": "Guitar Theory · Part 14",
+  "h1": "Part 14: IV, V, vi and vii chords",
+  "intro": "Lessons 53–57 of <em>Music Theory for Guitar</em>: Major Scale IV Chords &amp; Construction; Major Scale V Chords &amp; Construction; Major Scale V Chords Fingerings; Major Scale vi Chords &amp; Construction; Major Scale vii Chords &amp; Construction.",
+  "label": "Part 14 · Lessons 53–57",
+  "first": 53,
+  "last": 57,
+  "lessons": [
+   "53. Major Scale IV Chords & Construction",
+   "54. Major Scale V Chords & Construction",
+   "55. Major Scale V Chords Fingerings",
+   "56. Major Scale vi Chords & Construction",
+   "57. Major Scale vii Chords & Construction"
+  ],
+  "topic": "IV, V, vi and vii chords"
+ },
+ "15": {
+  "title": "Guitar Theory · Part 15",
+  "h1": "Part 15: Sus, power & slash chords",
+  "intro": "Lessons 58–62 of <em>Music Theory for Guitar</em>: Suspended Chords (sus, sus2, sus4); Power Chords; More on Major Scale Chords; Chord Progressions (More Chord Options); Slash Chords.",
+  "label": "Part 15 · Lessons 58–62",
+  "first": 58,
+  "last": 62,
+  "lessons": [
+   "58. Suspended Chords (sus, sus2, sus4)",
+   "59. Power Chords",
+   "60. More on Major Scale Chords",
+   "61. Chord Progressions (More Chord Options)",
+   "62. Slash Chords"
+  ],
+  "topic": "Sus, power & slash chords"
+ },
+ "16": {
+  "title": "Guitar Theory · Part 16",
+  "h1": "Part 16: Borrowed chords, secondary dominants & blues",
+  "intro": "Lessons 63–67 of <em>Music Theory for Guitar</em>: Chord Progressions with Borrowed Chords; Chord Progressions with Secondary Dominants; Basic Blues Chord Progressions; Chord Families; More Non Diatonic Chord Progressions.",
+  "label": "Part 16 · Lessons 63–67",
+  "first": 63,
+  "last": 67,
+  "lessons": [
+   "63. Chord Progressions with Borrowed Chords",
+   "64. Chord Progressions with Secondary Dominants",
+   "65. Basic Blues Chord Progressions",
+   "66. Chord Families",
+   "67. More Non Diatonic Chord Progressions"
+  ],
+  "topic": "Borrowed chords, secondary dominants & blues"
+ },
+ "17": {
+  "title": "Guitar Theory · Part 17",
+  "h1": "Part 17: Modulation & the modes",
+  "intro": "Lessons 68–71 of <em>Music Theory for Guitar</em>: Key Modulation; Major Scale Modes; Major Scale Modes in Series; Major Scale Modes in Parallel.",
+  "label": "Part 17 · Lessons 68–71",
+  "first": 68,
+  "last": 71,
+  "lessons": [
+   "68. Key Modulation",
+   "69. Major Scale Modes",
+   "70. Major Scale Modes in Series",
+   "71. Major Scale Modes in Parallel"
+  ],
+  "topic": "Modulation & the modes"
+ },
+ "18": {
+  "title": "Guitar Theory · Part 18",
+  "h1": "Part 18: Ionian, Dorian, Phrygian, Lydian",
+  "intro": "Lessons 72–75 of <em>Music Theory for Guitar</em>: Major Scale Modes (Ionian); Major Scale Modes (Dorian); Major Scale Modes (Phrygian); Major Scale Modes (Lydian).",
+  "label": "Part 18 · Lessons 72–75",
+  "first": 72,
+  "last": 75,
+  "lessons": [
+   "72. Major Scale Modes (Ionian)",
+   "73. Major Scale Modes (Dorian)",
+   "74. Major Scale Modes (Phrygian)",
+   "75. Major Scale Modes (Lydian)"
+  ],
+  "topic": "Ionian, Dorian, Phrygian, Lydian"
+ },
+ "19": {
+  "title": "Guitar Theory · Part 19",
+  "h1": "Part 19: Mixolydian, Aeolian, Locrian & mode families",
+  "intro": "Lessons 76–80 of <em>Music Theory for Guitar</em>: Major Scale Modes (Mixolydian); Major Scale Modes (Aeolian); Major Scale Modes (Locrian); Major Modes; Minor Modes.",
+  "label": "Part 19 · Lessons 76–80",
+  "first": 76,
+  "last": 80,
+  "lessons": [
+   "76. Major Scale Modes (Mixolydian)",
+   "77. Major Scale Modes (Aeolian)",
+   "78. Major Scale Modes (Locrian)",
+   "79. Major Modes",
+   "80. Minor Modes"
+  ],
+  "topic": "Mixolydian, Aeolian, Locrian & mode families"
+ },
+ "20": {
+  "title": "Guitar Theory · Part 20",
+  "h1": "Part 20: Mode patterns & soloing over chords",
+  "intro": "Lessons 81–84 of <em>Music Theory for Guitar</em>: Mode Scale Patterns; Solo with Modes Over Major Chords; Solo with Modes Over Minor Chords; Solo with Modes Over m7b5 Chords.",
+  "label": "Part 20 · Lessons 81–84",
+  "first": 81,
+  "last": 84,
+  "lessons": [
+   "81. Mode Scale Patterns",
+   "82. Solo with Modes Over Major Chords",
+   "83. Solo with Modes Over Minor Chords",
+   "84. Solo with Modes Over m7b5 Chords"
+  ],
+  "topic": "Mode patterns & soloing over chords"
+ },
+ "21": {
+  "title": "Guitar Theory · Part 21",
+  "h1": "Part 21: Soloing over progressions & modal harmony",
+  "intro": "Lessons 85–87 of <em>Music Theory for Guitar</em>: Solo with Modes Diatonic Chord Progressions; Solo with Modes Non-Diatonic Progressions; Modal Chord Progressions.",
+  "label": "Part 21 · Lessons 85–87",
+  "first": 85,
+  "last": 87,
+  "lessons": [
+   "85. Solo with Modes Diatonic Chord Progressions",
+   "86. Solo with Modes Non-Diatonic Progressions",
+   "87. Modal Chord Progressions"
+  ],
+  "topic": "Soloing over progressions & modal harmony"
+ },
+ "22": {
+  "title": "Guitar Theory · Part 22",
+  "h1": "Part 22: Pentatonic scales",
+  "intro": "Lessons 88–91 of <em>Music Theory for Guitar</em>: Minor Pentatonic Scale; Major Pentatonic Scale; Major vs Minor Pentatonic Scale; Major &amp; Minor Pentatonics from Modes.",
+  "label": "Part 22 · Lessons 88–91",
+  "first": 88,
+  "last": 91,
+  "lessons": [
+   "88. Minor Pentatonic Scale",
+   "89. Major Pentatonic Scale",
+   "90. Major vs Minor Pentatonic Scale",
+   "91. Major & Minor Pentatonics from Modes"
+  ],
+  "topic": "Pentatonic scales"
+ },
+ "23": {
+  "title": "Guitar Theory · Part 23",
+  "h1": "Part 23: Advanced pentatonics",
+  "intro": "Lessons 92–95 of <em>Music Theory for Guitar</em>: Advanced Soloing Minor Pentatonic Scales; Advanced Soloing Major Pentatonic Scales; Soloing with Minor Pentatonic over m7b5; Mode Pentatonic Scales.",
+  "label": "Part 23 · Lessons 92–95",
+  "first": 92,
+  "last": 95,
+  "lessons": [
+   "92. Advanced Soloing Minor Pentatonic Scales",
+   "93. Advanced Soloing Major Pentatonic Scales",
+   "94. Soloing with Minor Pentatonic over m7b5",
+   "95. Mode Pentatonic Scales"
+  ],
+  "topic": "Advanced pentatonics"
+ },
+ "24": {
+  "title": "Guitar Theory · Part 24",
+  "h1": "Part 24: Arpeggios & blues scales",
+  "intro": "Lessons 96–98 of <em>Music Theory for Guitar</em>: Arpeggios; How to Solo with Arpeggios; The Blues Scales.",
+  "label": "Part 24 · Lessons 96–98",
+  "first": 96,
+  "last": 98,
+  "lessons": [
+   "96. Arpeggios",
+   "97. How to Solo with Arpeggios",
+   "98. The Blues Scales"
+  ],
+  "topic": "Arpeggios & blues scales"
+ },
+ "25": {
+  "title": "Guitar Theory · Part 25",
+  "h1": "Part 25: Melodic & harmonic minor",
+  "intro": "Lessons 99–103 of <em>Music Theory for Guitar</em>: Melodic Minor Scale; Melodic Minor Chords &amp; Modes; Harmonic Minor Scale; Harmonic Minor Chords &amp; Modes; Minor Scales Comparison.",
+  "label": "Part 25 · Lessons 99–103",
+  "first": 99,
+  "last": 103,
+  "lessons": [
+   "99. Melodic Minor Scale",
+   "100. Melodic Minor Chords & Modes",
+   "101. Harmonic Minor Scale",
+   "102. Harmonic Minor Chords & Modes",
+   "103. Minor Scales Comparison"
+  ],
+  "topic": "Melodic & harmonic minor"
+ },
+ "26": {
+  "title": "Guitar Theory · Part 26",
+  "h1": "Part 26: Diminished scales",
+  "intro": "Lessons 104–108 of <em>Music Theory for Guitar</em>: Whole Half Diminished Scale; Harmonized Whole Half Diminished Scale; Half Whole Diminished Scale; Harmonized Half Whole Diminished Scale; Diminished Scales.",
+  "label": "Part 26 · Lessons 104–108",
+  "first": 104,
+  "last": 108,
+  "lessons": [
+   "104. Whole Half Diminished Scale",
+   "105. Harmonized Whole Half Diminished Scale",
+   "106. Half Whole Diminished Scale",
+   "107. Harmonized Half Whole Diminished Scale",
+   "108. Diminished Scales"
+  ],
+  "topic": "Diminished scales"
+ },
+ "27": {
+  "title": "Guitar Theory · Part 27",
+  "h1": "Part 27: Dim7, whole tone & augmented",
+  "intro": "Lessons 109–112 of <em>Music Theory for Guitar</em>: Diminished 7th Chords (Dim7); Whole Tone Scale; Harmonized Whole Tone Scale; Augmented Chords.",
+  "label": "Part 27 · Lessons 109–112",
+  "first": 109,
+  "last": 112,
+  "lessons": [
+   "109. Diminished 7th Chords (Dim7)",
+   "110. Whole Tone Scale",
+   "111. Harmonized Whole Tone Scale",
+   "112. Augmented Chords"
+  ],
+  "topic": "Dim7, whole tone & augmented"
+ },
+ "28": {
+  "title": "Guitar Theory · Part 28",
+  "h1": "Part 28: Upper intervals & chord synonyms",
+  "intro": "Lessons 113–116 of <em>Music Theory for Guitar</em>: Advanced Pentatonic Scales; Upper Interval Shapes; Stacked Intervals Chords; Chord Synonyms.",
+  "label": "Part 28 · Lessons 113–116",
+  "first": 113,
+  "last": 116,
+  "lessons": [
+   "113. Advanced Pentatonic Scales",
+   "114. Upper Interval Shapes",
+   "115. Stacked Intervals Chords",
+   "116. Chord Synonyms"
+  ],
+  "topic": "Upper intervals & chord synonyms"
+ }
+}

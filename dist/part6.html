@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guitar Theory · Part 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a patient teacher at your elbow; calm, clear, encouraging.
+   IDEA: a practice workbook laid on a rosewood fretboard.
+   PICTURE: the live, clickable fretboard is the page.
+   COLOUR and TYPE: rosewood brown header, sunburst orange accent, nickel strings; Barlow Condensed (amp-panel lettering) + Barlow.
+   LAYOUT: lesson tabs, then prompt, board, answers, feedback; lesson notes below. */
+:root{color-scheme:light dark;--bg:light-dark(#fbfaf7,#13110f);--ink:light-dark(#1d1814,#f1ebe4);--mut:light-dark(#6d6359,#a89d92);--line:light-dark(#e3ddd4,#2e2924);--panel:light-dark(#f2eee7,#1d1a17);--acc:#e0561b;--acci:light-dark(#b5420f,#ff8b57);--good:light-dark(#1b7a3d,#4cc47a);--bad:light-dark(#bf242b,#ff6f6f);--wood:#2b1b13}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(22px,3.5vw,48px) max(5vw,16px)}
+.wrap{max-width:1100px;margin:0 auto}
+h1,h2,h3{font-family:"Barlow Condensed",sans-serif;font-weight:600;line-height:1.05;text-wrap:balance;margin:0}
+.top{background:var(--wood);color:#f6eee5;padding-bottom:0}
+.top h1{font-size:clamp(34px,5vw,50px)}
+.top p{margin:6px 0 18px;color:#d8c9ba;max-width:62ch}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{background:#ffffff12;color:#f6eee5;border:0;border-radius:10px 10px 0 0;padding:10px 16px 12px;text-align:left;cursor:pointer;font:inherit;min-height:44px}
+.tab b{display:block;font:600 19px/1.1 "Barlow Condensed",sans-serif}
+.tab span{font-size:13px;color:#cdbcab}
+.tab[aria-selected=true]{background:var(--bg);color:var(--ink)}
+.tab[aria-selected=true] span{color:var(--mut)}
+.bar{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:end;justify-content:space-between}
+.bar h2{font-size:clamp(30px,4vw,40px)}
+.bar p{margin:4px 0 0;color:var(--mut)}
+.seg{display:flex;background:var(--panel);border-radius:12px;padding:4px}
+.seg button{border:0;background:none;font:600 16px Barlow,sans-serif;color:var(--ink);padding:10px 18px;border-radius:9px;cursor:pointer;min-height:44px}
+.seg button.on{background:var(--acc);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.chip{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:8px 14px;font:500 15px Barlow,sans-serif;cursor:pointer;min-height:40px}
+.chip.on{border-color:var(--acci);color:var(--acci);background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.status{margin:18px 0 6px;font-size:14px;color:var(--mut);display:flex;gap:16px;flex-wrap:wrap}
+.status b{color:var(--ink)}
+.prompt{font-size:clamp(18px,2.3vw,22px);font-weight:500;margin:0 0 12px;min-height:2.4em;max-width:70ch}
+.board{overflow-x:auto;border-radius:12px;margin:0 -4px;padding:4px}
+.board svg{display:block;width:100%;min-width:680px;height:auto;user-select:none}
+.cell{fill:transparent;cursor:pointer}.cell:hover{fill:#ffffff22}
+.mk text{font:700 13px Barlow,sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.mk circle{pointer-events:none}
+.k-root circle{fill:var(--acc);stroke:#fff;stroke-width:2}.k-root text{fill:#fff}
+.k-q circle{fill:#f6eee5;stroke:var(--acc);stroke-width:2.5;stroke-dasharray:4 3}.k-q text{fill:#2b1b13}
+.k-ghost circle{fill:#ffffff30;stroke:#ffffffaa;stroke-width:1.5}.k-ghost text{fill:#fff}
+.k-good circle{fill:#2fa05a;stroke:#fff;stroke-width:2}.k-good text{fill:#fff}
+.k-bad circle{fill:#d3343b;stroke:#fff;stroke-width:2}.k-bad text{fill:#fff}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:10px;margin:16px 0 0}
+.ch{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;font:500 17px Barlow,sans-serif;cursor:pointer;min-height:52px;text-align:left}
+.ch:hover:not(:disabled){border-color:var(--acci)}
+.ch kbd{font:600 12px Barlow,sans-serif;color:var(--mut);margin-right:8px}
+.ch.good{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.ch.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.ch.sel{border-color:var(--acci)}
+.ch:disabled{cursor:default}
+.fbk{margin:16px 0 0;padding:14px 16px;border-radius:12px;background:var(--panel);min-height:52px;max-width:80ch}
+.fbk:empty{display:none}
+.fbk .ok{color:var(--good)}.fbk .no{color:var(--bad)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.btn{border:0;border-radius:12px;padding:12px 20px;font:600 16px Barlow,sans-serif;cursor:pointer;min-height:46px;background:var(--panel);color:var(--ink)}
+.btn.main{background:var(--acc);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+button:focus-visible{outline:3px solid var(--acci);outline-offset:2px}
+.score{display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:24px;border-radius:16px;background:var(--panel)}
+.big{font:700 clamp(64px,10vw,96px)/1 "Barlow Condensed",sans-serif;color:var(--acci)}
+.big small{font-size:.45em;color:var(--mut)}
+.score h3{font-size:30px}.score p{margin:6px 0 0;color:var(--mut)}
+.miss{border-top:1px solid var(--line);padding:14px 0}
+.miss p{margin:4px 0}.miss .y{color:var(--bad)}.miss .c{color:var(--good)}
+.notes{border-top:1px solid var(--line)}
+.notes h3{font-size:28px;margin-bottom:10px}
+.cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 40px}
+@media(max-width:820px){.cols{grid-template-columns:minmax(0,1fr)}}
+.notes ul{padding-left:20px;margin:8px 0}.notes li{margin:5px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--mut);font-size:14px}
+td.n{white-space:nowrap}
+.tuning{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 14px}
+.tuning b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--wood);color:#f6eee5;font:700 20px "Barlow Condensed",sans-serif}
+.tuning i{font-style:normal;font-size:14px;color:var(--mut);padding:0 4px}
+.tuning i.odd{color:var(--acci);font-weight:600}
+.small{font-size:14px;color:var(--mut)}
+.vidp{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0!important}.vidp:empty{display:none}
+.vid{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.vid:hover{border-color:var(--acci);color:var(--acci)}.vid svg{flex:none}
+@media(max-width:600px){.tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-16px;padding-inline:16px}.tab{flex:none;scroll-snap-align:start;padding:8px 12px 10px}.tab b{font-size:17px}}
+.parts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 14px;font-size:14px}
+.parts a,.parts span{color:#d8c9ba;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+.parts a:hover{color:#fff;border-color:#fff6}.parts span{color:#fff;border-color:var(--acc);font-weight:600}
+.allp{position:relative}.allp summary{cursor:pointer;color:#d8c9ba;padding:4px 0;list-style:none}.allp summary::after{content:" ▾"}
+.allp[open] ol{position:absolute;z-index:5;top:100%;left:0;margin:6px 0 0;padding:10px 14px 10px 34px;width:min(420px,90vw);max-height:60vh;overflow:auto;background:#3a271c;border-radius:12px;box-shadow:0 12px 30px #0008}
+.allp li{padding:3px 0;color:#d8c9ba}.allp li a,.allp li span{border:0;padding:0}.allp li b{color:#fff}.allp li span{color:#a8988a;font-weight:400}
+.box{fill:#ffffff14;stroke:var(--acc);stroke-width:2;stroke-dasharray:6 4}
+.scroll{overflow-x:auto}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--mut)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:no-preference){.mk{animation:pop .18s ease-out}@keyframes pop{from{transform:scale(.6);opacity:0}}.mk{transform-box:fill-box;transform-origin:center}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band top"><div class="wrap">
+  <nav class="parts" aria-label="Workbook parts"><a href="https://claude.ai/artifact/X53bwF9jsTE8MoxM4LCs56" target="_blank" rel="noopener">← Part 5 · Lessons 16–20</a> <span>Part 6 · Lessons 21–24</span> <a href="https://claude.ai/artifact/AMdnCvd9vyH8sgdHXp243i" target="_blank" rel="noopener">Part 7 · Lessons 25–28 →</a><details class="allp"><summary>All parts</summary><ol><li><a href="https://claude.ai/artifact/6v9iMQoEpUi83tsrYmLMHr" target="_blank" rel="noopener">Part 1 · Lessons 1–3: Intervals</a></li><li><a href="https://claude.ai/artifact/WanzFffvzUbYmGdHUnYuSX" target="_blank" rel="noopener">Part 2 · Lessons 4–6: Octaves, unisons & note names</a></li><li><a href="https://claude.ai/artifact/YB4RtEN3BzxrxcBDvx67VN" target="_blank" rel="noopener">Part 3 · Lessons 7–11: The major scale</a></li><li><a href="https://claude.ai/artifact/L5MgxKDeaipQVme3MiAigQ" target="_blank" rel="noopener">Part 4 · Lessons 12–15: Keys, sharps & flats</a></li><li><a href="https://claude.ai/artifact/X53bwF9jsTE8MoxM4LCs56" target="_blank" rel="noopener">Part 5 · Lessons 16–20: Triads</a></li><li><b>Part 6 · Lessons 21–24: Triad shapes & inversions</b></li><li><a href="https://claude.ai/artifact/AMdnCvd9vyH8sgdHXp243i" target="_blank" rel="noopener">Part 7 · Lessons 25–28: Diatonic triads & progressions</a></li><li><a href="https://claude.ai/artifact/TATv63SdSuzcP3WbU5Z6hF" target="_blank" rel="noopener">Part 8 · Lessons 29–31: Open triads & the harmonized scale</a></li><li><a href="https://claude.ai/artifact/D7twERgGKfTCXAK9WRG2HF" target="_blank" rel="noopener">Part 9 · Lessons 32–36: 7th chords & drop voicings</a></li><li><a href="https://claude.ai/artifact/Swfy8L3jUeVizRPJ3tfqn6" target="_blank" rel="noopener">Part 10 · Lessons 37–41: Diminished 7ths & harmonized 7th chords</a></li><li><a href="https://claude.ai/artifact/MYzSfcgGRG4RAuRCCceyhr" target="_blank" rel="noopener">Part 11 · Lessons 42–44: 7th-chord progressions & relative minor</a></li><li><a href="https://claude.ai/artifact/UFsmPGzmP5SHZLU4ka62EX" target="_blank" rel="noopener">Part 12 · Lessons 45–47: Shell voicings & drop 2&4</a></li><li><a href="https://claude.ai/artifact/7HsK7gGoEkmcFDFqhr2eRc" target="_blank" rel="noopener">Part 13 · Lessons 48–52: I, ii and iii chords</a></li><li><a href="https://claude.ai/artifact/7fvYLQQwweDsuvYjssBaxj" target="_blank" rel="noopener">Part 14 · Lessons 53–57: IV, V, vi and vii chords</a></li><li><a href="https://claude.ai/artifact/1SL2ytnvmqgsKnwY3orvxu" target="_blank" rel="noopener">Part 15 · Lessons 58–62: Sus, power & slash chords</a></li><li><a href="https://claude.ai/artifact/YWjh7LsxppidoNt3JPZhb9" target="_blank" rel="noopener">Part 16 · Lessons 63–67: Borrowed chords, secondary dominants & blues</a></li><li><a href="https://claude.ai/artifact/7XvGfo1KpffqygjutFoyMN" target="_blank" rel="noopener">Part 17 · Lessons 68–71: Modulation & the modes</a></li><li><a href="https://claude.ai/artifact/VotuJvm9jux4QCZ39uDfMU" target="_blank" rel="noopener">Part 18 · Lessons 72–75: Ionian, Dorian, Phrygian, Lydian</a></li><li><a href="https://claude.ai/artifact/WHXnPPN4sVmGcL8uxkvNwS" target="_blank" rel="noopener">Part 19 · Lessons 76–80: Mixolydian, Aeolian, Locrian & mode families</a></li><li><a href="https://claude.ai/artifact/VaR6hmjfb9dR4PvArz7gpt" target="_blank" rel="noopener">Part 20 · Lessons 81–84: Mode patterns & soloing over chords</a></li><li><a href="https://claude.ai/artifact/6RsbawDdSZhb2k6qfHikW5" target="_blank" rel="noopener">Part 21 · Lessons 85–87: Soloing over progressions & modal harmony</a></li><li><a href="https://claude.ai/artifact/6ZssvVnZNEMUAtxyGnSVzL" target="_blank" rel="noopener">Part 22 · Lessons 88–91: Pentatonic scales</a></li><li><a href="https://claude.ai/artifact/RfGayMuQZ2rt21Fo4izgWe" target="_blank" rel="noopener">Part 23 · Lessons 92–95: Advanced pentatonics</a></li><li><a href="https://claude.ai/artifact/WdC7TNo4ub3t3D2eDueyZ7" target="_blank" rel="noopener">Part 24 · Lessons 96–98: Arpeggios & blues scales</a></li><li><a href="https://claude.ai/artifact/1VL25FJWgP4xAYeVvW5fhS" target="_blank" rel="noopener">Part 25 · Lessons 99–103: Melodic & harmonic minor</a></li><li><a href="https://claude.ai/artifact/Bx7EotanKoStsUmpJr3gQ9" target="_blank" rel="noopener">Part 26 · Lessons 104–108: Diminished scales</a></li><li><a href="https://claude.ai/artifact/Ftp7g4cw8m8rjieCmYaTug" target="_blank" rel="noopener">Part 27 · Lessons 109–112: Dim7, whole tone & augmented</a></li><li><a href="https://claude.ai/artifact/PpD467dCETwXFFhgpDUnfJ" target="_blank" rel="noopener">Part 28 · Lessons 113–116: Upper intervals & chord synonyms</a></li></ol></details></nav>
+  <h1>Part 6: Triad shapes & inversions</h1>
+  <p>Lessons 21–24 of <em>Music Theory for Guitar</em>: Triads Shapes on All String Sets; Triad Inversions; Triads Inversions Vertical; Augmented Triads Inversions. Video lessons by <a href="https://www.youtube.com/@Moveforwardguitar" target="_blank" rel="noopener" style="color:#fff">Move Forward Guitar</a> on YouTube. Practise each lesson until it feels automatic, then take its test. Click any fret to hear it.</p>
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+</div></header>
+<main>
+<section class="band"><div class="wrap">
+  <div class="bar">
+    <div><h2 id="ttl"></h2><p id="sub"></p><p id="vid" class="vidp"></p></div>
+    <div class="seg" role="group" aria-label="Mode"><button id="mPr">Practice</button><button id="mTe">Test</button></div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="quiz">
+    <div class="status" id="status"></div>
+    <p class="prompt" id="prompt" aria-live="polite"></p>
+    <div class="board" id="boardWrap"><svg id="fb" viewBox="0 0 1000 232" role="img" aria-label="Guitar fretboard, frets 0 to 15"></svg></div>
+    <div class="choices" id="choices"></div>
+    <div class="fbk" id="fbk" aria-live="polite"></div>
+    <div class="acts">
+      <button class="btn main" id="next" disabled>Next</button>
+      <button class="btn" id="hear">Hear it</button>
+      <button class="btn" id="hint">Hint</button>
+    </div>
+    <p class="small">Keys: 1–4 choose an answer · Enter for next · H to hear.</p>
+  </div>
+  <div id="result" hidden></div>
+</div></section>
+<section class="band notes"><div class="wrap" id="notes"></div></section>
+</main>
+<script>
+{
+const VIDEOS={"1": "ukP7BOd6WOI", "2": "8fN0BWgD2TU", "3": "mdpropk49A8", "4": "Vkzy2ENUljk", "9": "Es4sVRU8tOE", "12": "cfRYPFLx7kg", "15": "2YOho9zfdWc", "17": "rr2-BC4mRwI", "20": "ZESzuiH2cLs", "21": "o8lwXSrfvwE", "23": "H-qVZNoCAqU", "25": "_V7zfGlc_9U", "28": "3-wiaydeAts", "34": "wz6Lo5Enxb0", "39": "Rr1IUSbowcE", "40": "IkwdzM1FgVU", "41": "xLGnPMVFcAY", "42": "ZGfKwQNWmp4", "44": "q4MLaSz1i0U", "45": "Xike8CFfjPA", "47": "AmIKvYNSwwM", "49": "rD-tfT-y8PE", "50": "vinSZEVrsmY", "52": "T3fGMQ6JUx8", "54": "lxEpJNZPCXc", "55": "9MUOAYfsgLE", "57": "fzkgaSVfPHY", "59": "47gJ9enSfU8", "60": "amobkRwNOVE", "61": "u8gAJT6PnTU", "68": "Y6lUineJl3g", "69": "Xn1uqXZufUQ", "70": "mzQcmropJqg", "71": "UKu9bpbWxA0", "72": "qi4AU6AT_uc", "73": "y_CzPxl_Auk", "74": "-p_irTYCj9g", "75": "bDTkrdnzgR4", "78": "69Hyj8v7nxk", "79": "wt8KS8NtnCo", "80": "2kf4rK8dgVU", "82": "ifHEVJwF6oY", "87": "Z8fNjabLOvA", "90": "1sFxsFGsX_0", "91": "qtvpvDMulEU", "93": "ncydtJ8elSg", "94": "Gp8IKbmu2Ms", "96": "rFRNfzFYVJ8", "98": "I9UOzV1aM1Q", "100": "kSpytbB9A0Q", "102": "0xAwiFoG56w", "104": "9Aa924YYRWE", "105": "MQUESZWwVWo", "107": "QsdxDMzRUNs", "108": "8l3USMIK96I", "112": "fBUAI-yyg48", "115": "jlScNZSWpX4", "116": "o0MPFANv2g0", "18": "rqdcHf5CeS4", "24": "1dcRjiK7Dcw", "26": "mNT5YDM7vAM", "29": "BSgcz2rmMAQ", "31": "IOZOk6JuoS4", "32": "mfdxEnRtlco", "35": "ePZTk5o-GzU", "56": "ANSTCmArB1E", "63": "AlKRH9W9ZTs", "86": "IgBMS_aWvAc", "95": "YGspF2qbdd4", "97": "OcmiQCsPy58", "76": "Vh6mOM_XfVA", "83": "3huizrYOg2g", "84": "Gjk88ZrqK7Q", "85": "5fWsGQsorMk", "88": "Oi8Su6PKujc", "89": "CRzmyeVny_c", "92": "w-Sx0KqmBGw", "101": "5WHzKqinB3k", "109": "P_yaDnMzF4c", "110": "phfPicSAYIU", "111": "wvr12QjtzBg", "113": "FWxqJy-Bx4A", "5": "X07zP3XpcgM", "6": "5ZkdETlUIow", "8": "Pt4Z1Yx2f7s", "10": "e_wSzaPAC9M", "11": "CCblc218XTI", "13": "2PH56rW00lU", "14": "yqXL9HvShEE", "16": "A_ZrKuk57GA", "19": "C0JJodOU7Zs", "22": "hInfLxAejVU", "27": "eVnoYSRO_jY", "48": "MyuKD_e53AA", "51": "RtnE-Ozvgw0", "114": "d7K7gnKj15o", "7": "9aR4d_MN6sc", "30": "YuvKCie87b4", "33": "to8a7ptygfk", "36": "1R_A4qcE630", "37": "1XggdE36rWQ", "38": "nSkAVrhUdc8", "43": "rk8i7K_mZzA", "46": "bOMOcFyu9Kw", "53": "GckcH3JcPck", "58": "9_waiVUOQt0", "62": "BEL4yhzleXs", "64": "kHw1jvncf8c", "65": "3QinJWadjtU", "66": "8vsshAnOvmY", "67": "EHMpSPHtvGE", "77": "1nUA6w5Wiao", "81": "XlEUuDUoa1w", "99": "MzuQvJ7qWhg", "103": "KqPsc-O7EKM", "106": "FZzUM4oTV5w"};
+/* ===== shared helpers ===== */
+const OPEN=[40,45,50,55,59,64],SN=['low E','A','D','G','B','high e'],SL=['E','A','D','G','B','e'];
+const NN=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const NN2=['C','C♯/D♭','D','D♯/E♭','E','F','F♯/G♭','G','G♯/A♭','A','A♯/B♭','B'];
+const IV=[['P1','unison'],['m2','minor 2nd'],['M2','major 2nd'],['m3','minor 3rd'],['M3','major 3rd'],['P4','perfect 4th'],['TT','tritone (aug 4th / dim 5th)'],['P5','perfect 5th'],['m6','minor 6th'],['M6','major 6th'],['m7','minor 7th'],['M7','major 7th'],['P8','octave']];
+const CUE=['','“Jaws” theme','“Happy Birthday” (“-py” → “Birth-”)','“Greensleeves” opening','“When the Saints Go Marching In”','“Here Comes the Bride”','“The Simpsons” theme','“Star Wars” main theme leap','“The Entertainer” (high-note leap)','“My Bonnie Lies Over the Ocean”','original “Star Trek” theme','“Take On Me” chorus leap','“Somewhere Over the Rainbow”'];
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),pick=a=>a[R(0,a.length-1)];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const nm=i=>IV[i][1],ab=i=>IV[i][0],cap=s=>s[0].toUpperCase()+s.slice(1);
+const gap=(a,b)=>OPEN[b]-OPEN[a],pcAt=(s,f)=>(OPEN[s]+f)%12,note=(s,f)=>NN[pcAt(s,f)],midi=(s,f)=>OPEN[s]+f;
+const fr=n=>n===1?'1 fret':n+' frets';
+const fretTxt=f=>f?'fret '+f:'open';
+const posTxt=t=>`${SL[t.s]} string ${fretTxt(t.f)}`;
+const where=(s,f)=>`${note(s,f)} on the ${SN[s]} string, ${fretTxt(f)}`;
+const offTxt=d=>d===0?'same fret':`${fr(Math.abs(d))} ${d>0?'higher':'lower'}`;
+const mc=(ans,pool)=>shuf([ans,...shuf([...new Set(pool)].filter(x=>x!==ans)).slice(0,3)]);
+const near=i=>[i-3,i-2,i-1,i+1,i+2,i+3].filter(x=>x>=1&&x<=12).sort((a,b)=>Math.abs(a-i)-Math.abs(b-i)).slice(0,4).map(nm);
+const crossGB=(a,b)=>a<=3&&b>=4;
+const art=w=>/^(octave|aug|unison|11th|8th|18th|eleventh|eighth)/i.test(w)?'an':'a';
+const rep=(f,n)=>Array(n).fill(f);
+const passMark=n=>Math.ceil(n*.85);
+const ord=n=>n+(n%10===1&&n!==11?'st':n%10===2&&n!==12?'nd':n%10===3&&n!==13?'rd':'th');
+/* every (string,fret) on frets lo..hi whose pitch class is pc */
+const allPc=(pc,strings=[0,1,2,3,4,5],lo=0,hi=15)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pc)o.push({s,f});return o};
+/* every (string,fret) sounding exactly midi m */
+const allMidi=m=>{const o=[];for(let s=0;s<6;s++){const f=m-OPEN[s];if(f>=0&&f<=15)o.push({s,f})}return o};
+/* fret on string s2 that sounds `semis` above (s1,f) */
+const shapeFret=(s1,f,s2,semis)=>f+semis-gap(s1,s2);
+
+/* ===== note spelling and keys ===== */
+const LET='CDEFGAB',LPC=[0,2,4,5,7,9,11],MAJ=[0,2,4,5,7,9,11];
+const ACC={'':0,'♯':1,'♭':-1,'𝄪':2,'𝄫':-2};
+const pcOf=n=>(LPC[LET.indexOf(n[0])]+ACC[n.slice(1)]+12)%12;
+const accTxt=a=>({0:'',1:'♯',[-1]:'♭',2:'𝄪',[-2]:'𝄫'})[a];
+function spellScale(k){const li=LET.indexOf(k[0]),rpc=pcOf(k);return MAJ.map((iv,d)=>{const L=(li+d)%7,pc=(rpc+iv)%12,a=((pc-LPC[L]+18)%12)-6;return LET[L]+accTxt(a)})}
+/* key name -> signature count (+ sharps, − flats) */
+const KS=[['C',0],['G',1],['D',2],['A',3],['E',4],['B',5],['F♯',6],['C♯',7],['F',-1],['B♭',-2],['E♭',-3],['A♭',-4],['D♭',-5],['G♭',-6],['C♭',-7]];
+const KEASY=KS.filter(k=>Math.abs(k[1])<=6&&k[0]!=='G♭').map(k=>k[0]); /* 12 practical keys, F♯ used for 6 sharps */
+const SHARPS=['F♯','C♯','G♯','D♯','A♯','E♯','B♯'],FLATS=['B♭','E♭','A♭','D♭','G♭','C♭','F♭'];
+const sigOf=k=>KS.find(x=>x[0]===k)[1];
+const sigTxt=n=>n===0?'no sharps or flats':n>0?`${n} sharp${n>1?'s':''} (${SHARPS.slice(0,n).join(' ')})`:`${-n} flat${n<-1?'s':''} (${FLATS.slice(0,-n).join(' ')})`;
+/* name of the note at (s,f) inside key k, or null if not in key */
+const inKey=(k,s,f)=>{const sc=spellScale(k),i=sc.findIndex(n=>pcOf(n)===pcAt(s,f));return i<0?null:{deg:i+1,name:sc[i]}};
+const keyPositions=(k,strings,lo,hi)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++){const x=inKey(k,s,f);if(x)o.push({s,f,t:x.deg===1?'R':String(x.deg),name:x.name,deg:x.deg})}return o};
+const rootFret=(k,s,lo=0)=>{const pc=pcOf(k);for(let f=lo;f<=15;f++)if(pcAt(s,f)===pc)return f;return-1};
+
+/* static question bank: [text, answer, distractors, explanation, hint?] */
+const sbank=(pre,items)=>()=>{const i=R(0,items.length-1),[text,ans,dis,explain,hint]=items[i];return{type:'choice',noBoard:true,key:pre+i,text,ans,choices:mc(ans,dis),explain,hint:hint||'Think it through on your guitar before you choose.'}};
+
+/* ===== formulas: chords, scales, modes (letter-correct spelling) ===== */
+/* formula string like '1 b3 5 b7' or '1 2 b3 4 5 b6 7'; degrees > 7 allowed (9, 11, 13) */
+const fml=f=>f.split(' ').map(t=>{const m=t.match(/^(bb|b|#|x)?(\d+)$/),d=+m[2],a={bb:-2,b:-1,'#':1,x:2}[m[1]]||0;return[(d-1)%7,MAJ[(d-1)%7]+12*Math.floor((d-1)/7)+a]});
+const fmlSemis=f=>fml(f).map(x=>x[1]);
+function spellSteps(root,steps){const li=LET.indexOf(root[0]),rpc=pcOf(root);return steps.map(([l,st])=>{const L=(li+l)%7,pc=(rpc+st)%12,a=((pc-LPC[L]+18)%12)-6;return Math.abs(a)<=2?LET[L]+accTxt(a):NN[pc]})}
+const spellF=(root,f)=>spellSteps(root,fml(f));
+const CHORDS={
+ maj:{f:'1 3 5',sym:'',name:'major'},min:{f:'1 b3 5',sym:'m',name:'minor'},dim:{f:'1 b3 b5',sym:'°',name:'diminished'},aug:{f:'1 3 #5',sym:'+',name:'augmented'},
+ sus2:{f:'1 2 5',sym:'sus2',name:'suspended 2nd'},sus4:{f:'1 4 5',sym:'sus4',name:'suspended 4th'},pow:{f:'1 5',sym:'5',name:'power chord'},
+ maj7:{f:'1 3 5 7',sym:'maj7',name:'major 7th'},dom7:{f:'1 3 5 b7',sym:'7',name:'dominant 7th'},m7:{f:'1 b3 5 b7',sym:'m7',name:'minor 7th'},
+ m7b5:{f:'1 b3 b5 b7',sym:'m7♭5',name:'half-diminished (m7♭5)'},dim7:{f:'1 b3 b5 bb7',sym:'°7',name:'diminished 7th'},mMaj7:{f:'1 b3 5 7',sym:'m(maj7)',name:'minor-major 7th'},
+ aug7:{f:'1 3 #5 b7',sym:'+7',name:'augmented 7th'},augMaj7:{f:'1 3 #5 7',sym:'+maj7',name:'augmented major 7th'},
+ maj6:{f:'1 3 5 6',sym:'6',name:'major 6th'},m6:{f:'1 b3 5 6',sym:'m6',name:'minor 6th'},sus47:{f:'1 4 5 b7',sym:'7sus4',name:'7sus4'},
+ add9:{f:'1 3 5 9',sym:'add9',name:'add 9'},maj9:{f:'1 3 5 7 9',sym:'maj9',name:'major 9th'},dom9:{f:'1 3 5 b7 9',sym:'9',name:'dominant 9th'},m9:{f:'1 b3 5 b7 9',sym:'m9',name:'minor 9th'},
+ m11:{f:'1 b3 5 b7 9 11',sym:'m11',name:'minor 11th'},dom13:{f:'1 3 5 b7 9 13',sym:'13',name:'dominant 13th'},maj13:{f:'1 3 5 7 9 13',sym:'maj13',name:'major 13th'}};
+const SCALES={
+ major:{f:'1 2 3 4 5 6 7',name:'major'},ionian:{f:'1 2 3 4 5 6 7',name:'Ionian'},dorian:{f:'1 2 b3 4 5 6 b7',name:'Dorian'},phrygian:{f:'1 b2 b3 4 5 b6 b7',name:'Phrygian'},
+ lydian:{f:'1 2 3 #4 5 6 7',name:'Lydian'},mixolydian:{f:'1 2 3 4 5 6 b7',name:'Mixolydian'},aeolian:{f:'1 2 b3 4 5 b6 b7',name:'Aeolian'},locrian:{f:'1 b2 b3 4 b5 b6 b7',name:'Locrian'},
+ minor:{f:'1 2 b3 4 5 b6 b7',name:'natural minor'},majPent:{f:'1 2 3 5 6',name:'major pentatonic'},minPent:{f:'1 b3 4 5 b7',name:'minor pentatonic'},
+ blues:{f:'1 b3 4 b5 5 b7',name:'blues'},majBlues:{f:'1 2 b3 3 5 6',name:'major blues'},melMinor:{f:'1 2 b3 4 5 6 7',name:'melodic minor'},harmMinor:{f:'1 2 b3 4 5 b6 7',name:'harmonic minor'},
+ wholeTone:{f:'1 2 3 #4 #5 b7',name:'whole tone'},dimWH:{f:'1 2 b3 4 b5 #5 6 7',name:'whole-half diminished'},dimHW:{f:'1 b2 #2 3 #4 5 6 b7',name:'half-whole diminished'}};
+const MODES=['ionian','dorian','phrygian','lydian','mixolydian','aeolian','locrian'];
+const chordNotes=(root,q)=>spellF(root,CHORDS[q].f);
+const chordSym=(root,q)=>root+CHORDS[q].sym;
+const scaleNotes=(root,sc)=>spellF(root,SCALES[sc].f);
+/* identify chord quality from semitones above root (mod 12), e.g. [0,4,7] -> 'maj' */
+const qualityOf=semis=>{const k=[...new Set(semis.map(x=>((x%12)+12)%12))].sort((a,b)=>a-b).join();return Object.keys(CHORDS).find(q=>[...new Set(fmlSemis(CHORDS[q].f).map(x=>x%12))].sort((a,b)=>a-b).join()===k)||null};
+const ROMAN=['I','II','III','IV','V','VI','VII'];
+const romanOf=(deg,q)=>{const r=ROMAN[deg-1],lo=r.toLowerCase();return({maj:r,min:lo,dim:lo+'°',aug:r+'+',maj7:r+'maj7',dom7:r+'7',m7:lo+'7',m7b5:lo+'ø7',dim7:lo+'°7',mMaj7:lo+'(maj7)',augMaj7:r+'+maj7'})[q]||r};
+/* stack 3rds on each degree of a 7-note scale: size 3 = triads, 4 = 7th chords */
+function diatonic(root,sc='major',size=3){const n=scaleNotes(root,sc),s=fmlSemis(SCALES[sc].f);return n.map((x,i)=>{const idx=[0,2,4,6].slice(0,size).map(o=>(i+o)%7),semis=idx.map(j=>((s[j]-s[i])%12+12)%12),q=qualityOf(semis);return{deg:i+1,root:x,notes:idx.map(j=>n[j]),q,sym:x+(CHORDS[q]?CHORDS[q].sym:'?'),roman:romanOf(i+1,q)}})}
+/* fretboard positions of a set of pitch classes */
+const pcsPositions=(pcs,strings=[0,1,2,3,4,5],lo=0,hi=15)=>{const o=[];for(const s of strings)for(let f=lo;f<=hi;f++)if(pcs.includes(pcAt(s,f)))o.push({s,f});return o};
+/* find a voicing: strings[i] must play pitch class pcs[i]; all frets in lo..hi, max fret span ≤ span (open strings ignored for span if allowOpen). Returns [{s,f}] or null; picks the lowest-fret solution. */
+function voicing(strings,pcs,lo=0,hi=15,span=4,allowOpen=false){let best=null;const cand=strings.map((s,i)=>{const o=[];for(let f=lo;f<=hi;f++)if(pcAt(s,f)===pcs[i])o.push(f);return o});
+  const rec=(i,acc)=>{if(i===strings.length){const fs=acc.filter(f=>!(allowOpen&&f===0)),sp=fs.length?Math.max(...fs)-Math.min(...fs):0;if(sp<=span-1){const sc=Math.max(...acc);if(!best||sc<best.sc)best={sc,v:acc.slice()}}return}for(const f of cand[i]){acc.push(f);rec(i+1,acc);acc.pop()}};
+  rec(0,[]);return best?best.v.map((f,i)=>({s:strings[i],f})):null}
+/* string sets for 3- and 4-note voicings, low to high */
+const SETS3=[[0,1,2],[1,2,3],[2,3,4],[3,4,5]],SETS4=[[0,1,2,3],[1,2,3,4],[2,3,4,5]];
+const setName=st=>st.map(s=>SL[s]).join('');
+/* inversion name for a 3-note or 4-note chord */
+const INV=['root position','1st inversion','2nd inversion','3rd inversion'];
+const pickKey=()=>pick(KEASY);
+const relMinor=k=>spellScale(k)[5];
+
+/* ----- shared triad helpers ----- */
+const TQ=['maj','min','dim','aug'],TN={maj:'major',min:'minor',dim:'diminished',aug:'augmented'};
+const TLB={maj:['R','3','5'],min:['R','♭3','5'],dim:['R','♭3','♭5'],aug:['R','3','♯5']};
+const TIV={maj:['major 3rd','perfect 5th'],min:['minor 3rd','perfect 5th'],dim:['minor 3rd','diminished 5th'],aug:['major 3rd','augmented 5th']};
+const TSEM={maj:[4,7],min:[3,7],dim:[3,6],aug:[4,8]};
+const TONE=['root','3rd','5th'];
+const FRIEND=['C','C♯','D♭','D','D♯','E♭','E','F','F♯','G♭','G','G♯','A♭','A','A♯','B♭','B'];
+const BADN=['E♯','B♯','C♭','F♭'];
+const okN=n=>n.length<=2&&!BADN.includes(n);
+const RTS=q=>FRIEND.filter(r=>chordNotes(r,q).every(okN));
+const NNF=['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'];
+const flatish=r=>r.includes('♭')||r==='F';
+const pcName=(pc,fl)=>(fl?NNF:NN)[((pc%12)+12)%12];
+const trn=(r,q)=>`${r} ${TN[q]}`;
+const trSym=(r,q)=>r+CHORDS[q].sym;
+const wh=(nme,s,f)=>`${nme} on the ${SN[s]} string, ${fretTxt(f)}`;
+const lst=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];
+const strTxt=a=>lst(a.map(s=>SN[s]))+' strings';
+const INVN=['root position','1st inversion','2nd inversion'];
+const sortSh=sh=>sh.slice().sort((a,b)=>midi(a.s,a.f)-midi(b.s,b.f));
+const mNotes=sh=>sortSh(sh).map(p=>midi(p.s,p.f));
+const pf=p=>`${SN[p.s]} string fret ${p.f}`;
+const ORD3=[[0,1,2],[1,2,0],[2,0,1]];
+const boxOfSh=(sh,pad=1)=>[Math.max(0,Math.min(...sh.map(p=>p.f))-pad),Math.min(15,Math.max(...sh.map(p=>p.f))+pad)];
+function shapeOf(root,q,inv,set,lo){const n=chordNotes(root,q),pcs=n.map(pcOf),o=ORD3[inv],v=voicing(set,o.map(i=>pcs[i]),lo,lo+5,4);
+  return v?v.map((p,i)=>({s:p.s,f:p.f,deg:o[i],t:TLB[q][o[i]],name:n[o[i]]})):null}
+function rShape(qs,invs=[0],sets=SETS3){for(let i=0;i<4000;i++){const q=pick(qs),root=pick(RTS(q)),set=pick(sets),inv=pick(invs),lo=R(1,10),sh=shapeOf(root,q,inv,set,lo);if(sh)return{q,root,set,inv,sh,n:chordNotes(root,q)}}
+  return{q:'maj',root:'C',set:[2,3,4],inv:0,sh:shapeOf('C','maj',0,[2,3,4],6),n:['C','E','G']}}
+const shKey=o=>o.q+o.root+o.set.join('')+o.inv+o.sh.map(p=>p.f).join('-');
+const shTxt=sh=>sortSh(sh).map(p=>`${p.name} (${SN[p.s]}, fret ${p.f})`).join(', ');
+/* ===== Part 6: lessons 21–24 (Triad shapes & inversions) ===== */
+const fmtN=n=>n.join(' – ');
+const setLbl=st=>lst(st.map(s=>SN[s]));
+const shM=(sh,lab=true)=>sh.map(p=>({s:p.s,f:p.f,t:lab?p.t:'?',k:lab&&p.deg===0?'root':'q'}));
+const tgs=sh=>sh.map(p=>({s:p.s,f:p.f,t:p.t}));
+const AL=['maj','min','dim','aug'],I3=['maj','min','dim'];
+
+const firstShape=(r,q,inv,set,from=1)=>{for(let lo=from;lo<=10;lo++){const s=shapeOf(r,q,inv,set,lo);if(s)return s}return null};
+/* ---- ladder: all shapes of one triad on one string set, lowest bass first ---- */
+function ladder(root,q,set){const out=[],seen=new Set();
+  for(let inv=0;inv<3;inv++)for(let lo=1;lo<=10;lo++){const sh=shapeOf(root,q,inv,set,lo);if(!sh)continue;const k=inv+':'+sh.map(p=>p.f).join();if(seen.has(k))continue;seen.add(k);out.push({inv,sh})}
+  return out.sort((a,b)=>midi(a.sh[0].s,a.sh[0].f)-midi(b.sh[0].s,b.sh[0].f))}
+function pickLad(qs,need=1,sets=SETS3){for(let i=0;i<4000;i++){const q=pick(qs),root=pick(RTS(q)),set=pick(sets),L=ladder(root,q,set),idx=[];
+  for(let j=0;j+need<L.length;j++){let ok=true;for(let k=0;k<need;k++)if(L[j+k+1].inv!==(L[j+k].inv+1)%3)ok=false;if(ok)idx.push(j)}
+  if(!idx.length)continue;const j=pick(idx);return{q,root,set,L,j,n:chordNotes(root,q),a:L[j],b:L[j+1],c:L[j+2]}}
+  const L=ladder('C','maj',[0,1,2]);return{q:'maj',root:'C',set:[0,1,2],L,j:0,n:['C','E','G'],a:L[0],b:L[1],c:L[2]}}
+
+/* ---- generators ---- */
+function gFill(qs,invs=[0],any=false,sets=SETS3){return function(){const o=rShape(qs,invs,sets),{q,root,set,inv,sh,n}=o,gi=any?R(0,2):sh.findIndex(p=>p.deg===0),g=sh[gi],rest=sh.filter((_,i)=>i!==gi),bd=ORD3[inv][0];
+  return{type:'multi',key:'fl'+shKey(o)+gi,box:boxOfSh(sh),text:`${trn(root,q)} triad in ${INVN[inv]} on the ${strTxt(set)}. The marked note is the ${TONE[g.deg]} (${g.name}). Click the other two chord tones on the ${strTxt(rest.map(p=>p.s))} inside the shaded frets.`,
+   marks:[{s:g.s,f:g.f,t:g.t,k:g.deg===0?'root':'q'}],targets:tgs(rest),notes:mNotes(sh),
+   hint:`${inv>0?`In ${INVN[inv]} the ${TONE[bd]} is the lowest note. `:''}Spell the chord first (${n.join(' ')}), then find each note on its string inside the shaded frets.`,
+   explain:`${trn(root,q)} = ${n.join(' ')}. ${INVN[inv][0].toUpperCase()+INVN[inv].slice(1)}: ${shTxt(sh)}.`}}}
+function gFindTone(qs,invs=[0],sets=SETS3){return function(){const o=rShape(qs,invs,sets),{q,root,set,inv,sh,n}=o,rt=sh.find(p=>p.deg===0),cand=sh.filter(p=>p.deg!==0),p=pick(cand);
+  return{type:'click',key:'ft'+shKey(o)+p.deg,box:boxOfSh(sh),text:`${trn(root,q)} triad in ${INVN[inv]} on the ${strTxt(set)}. The marked note is the root. Click the ${TONE[p.deg]} (${p.name}) on the ${SN[p.s]} string inside the shaded frets.`,
+   marks:[{s:rt.s,f:rt.f,t:'R',k:'root'}],target:{s:p.s,f:p.f,t:p.t},notes:mNotes(sh),
+   hint:`Spell ${trn(root,q)} (${n.join(' ')}), then find ${p.name} on the ${SN[p.s]} string near the root.`,explain:`${trn(root,q)} = ${n.join(' ')}. ${INVN[inv][0].toUpperCase()+INVN[inv].slice(1)}: ${shTxt(sh)}. The ${TONE[p.deg]} ${p.name} is on the ${SN[p.s]} string, fret ${p.f}.`}}}
+function gFrets(qs,invs=[0],sets=SETS3){return function(){const o=rShape(qs,invs,sets),{q,root,set,inv,sh,n}=o,rt=sh.findIndex(p=>p.deg===0),rest=sh.filter((_,i)=>i!==rt);
+  const[x,y]=rest.map(p=>p.f),a=`${x} and ${y}`,pool=[`${x+1} and ${y}`,`${x-1} and ${y}`,`${x} and ${y+1}`,`${x} and ${y-1}`,`${x+1} and ${y+1}`,`${x-1} and ${y-1}`].filter(s=>!s.includes('-'));
+  return{type:'choice',key:'fr'+shKey(o),text:`${trn(root,q)} triad in ${INVN[inv]} on the ${strTxt(set)}. The marked note is the root. On which frets are the other two notes (${SN[rest[0].s]} string, then ${SN[rest[1].s]} string)?`,
+   marks:[{s:sh[rt].s,f:sh[rt].f,t:'R',k:'root'}],choices:mc(a,pool),ans:a,notes:mNotes(sh),hint:`Spell the chord (${n.join(' ')}) and count semitones from the root, remembering the string gaps (4 semitones between G and B, 5 elsewhere).`,
+   explain:`${trn(root,q)} = ${n.join(' ')}. ${INVN[inv][0].toUpperCase()+INVN[inv].slice(1)}: ${shTxt(sh)}.`}}}
+function gName(qs,opts,invs=[0]){return function(){const o=rShape(qs,invs),{q,root,sh,n,inv}=o,a=TN[q]+' triad';
+  return{type:'choice',key:'gn'+shKey(o),text:`The note marked R is the root of this triad${inv===0?' (root position)':''}. What type of triad is it?`,
+   marks:sh.map(p=>p.deg===0?{s:p.s,f:p.f,t:'R',k:'root'}:{s:p.s,f:p.f,t:'?',k:'q'}),choices:mc(a,opts.filter(x=>x!==q).map(x=>TN[x]+' triad').concat([a])),ans:a,notes:mNotes(sh),
+   hint:'Measure from the root to each of the other notes in semitones (frets on one string, adjusted for the string gaps).',
+   explain:`The shape is ${trn(root,q)}: ${shTxt(sh)}. Above ${root}, ${n[1]} is ${TSEM[q][0]} semitones (${TIV[q][0]}) and ${n[2]} is ${TSEM[q][1]} semitones (${TIV[q][1]}): ${a}.`}}}
+function gNameSym(qs,invs=[0]){return function(){const o=rShape(qs,invs),{q,root,sh,n,inv}=o,a=trn(root,q),bd=ORD3[inv][0];
+  return{type:'choice',key:'ns'+shKey(o),text:inv===0?'These marked notes form a root-position triad (the lowest note is the root). Which chord is it?':'These marked notes form a triad (not necessarily in root position). Which chord is it?',marks:sh.map(p=>({s:p.s,f:p.f,t:p.name,k:'q'})),choices:mc(a,TQ.map(x=>trn(root,x))),ans:a,notes:mNotes(sh),
+   hint:inv===0?'Take the lowest note as the root and measure the other two notes against it.':'Find which note has a 3rd and a 5th above it among the other two notes.',
+   explain:`Notes ${n.join(' ')}${inv>0?` (${INVN[inv]}, ${n[bd]} in the bass)`:''}: ${root}→${n[1]} is ${art(TIV[q][0])} ${TIV[q][0]} and ${root}→${n[2]} is ${art(TIV[q][1])} ${TIV[q][1]}, so it is ${a}.`}}}
+function gSetOf(){const o=rShape(AL,[0]),{q,root,set,sh}=o,a=setLbl(set);
+  return{type:'choice',key:'so'+shKey(o),text:`This is a root-position ${trn(root,q)} triad. On which strings is it played?`,marks:shM(sh),choices:mc(a,SETS3.map(setLbl)),ans:a,notes:mNotes(sh),
+   hint:'Count the strings from the thickest (low E) upwards.',explain:`The three notes sit on the ${setLbl(set)} strings: ${shTxt(sh)}.`}}
+function gInvName(qs,invs=[0,1,2]){return function(){const o=rShape(qs,invs),{q,root,set,inv,sh,n}=o,bd=ORD3[inv][0],a=INVN[inv],pos=['lowest','middle','top'][sh.findIndex(p=>p.deg===0)];
+  return{type:'choice',key:'in'+shKey(o),text:`This is ${trn(root,q)} on the ${strTxt(set)}. The marked R is its root. Which inversion is shown?`,marks:shM(sh,false).map((m,i)=>sh[i].deg===0?{...m,t:'R',k:'root'}:m),choices:mc(a,INVN),ans:a,notes:mNotes(sh),
+   hint:'Is the root the lowest, middle or highest note? That decides which chord tone is in the bass.',
+   explain:`${trn(root,q)} = ${n.join(' ')}. The root is the ${pos} note, so the bass is the ${TONE[bd]} (${n[bd]}): ${a}. (Root lowest = root position; root on top = 1st inversion; root in the middle = 2nd inversion.)`}}}
+function gInvNotes(qs){return function(){const q=pick(qs),root=pick(RTS(q)),inv=R(0,2),n=chordNotes(root,q),ord=ORD3[inv].map(i=>n[i]),a=INVN[inv];
+  return{type:'choice',noBoard:true,key:`iv${q}${root}${inv}`,text:`${trn(root,q)} (${n.join(' ')}) is played with the notes ${fmtN(ord)}, lowest to highest. Which inversion is this?`,choices:mc(a,INVN),ans:a,hint:'Which chord tone is the lowest note?',
+   explain:`The bass note is ${ord[0]}, the ${TONE[ORD3[inv][0]]} of ${root}: ${a}.`}}}
+function gBassNote(qs){return function(){const q=pick(qs),root=pick(RTS(q)),inv=R(0,2),n=chordNotes(root,q),a=n[ORD3[inv][0]],fl=n.some(x=>x.includes('♭'))||flatish(root);
+  return{type:'choice',noBoard:true,key:`bn${q}${root}${inv}`,text:`Which note is in the bass of ${trn(root,q)} (${n.join(' ')}) in ${INVN[inv]}?`,choices:mc(a,[...n,pcName(pcOf(a)+1,fl),pcName(pcOf(a)-1,fl)]),ans:a,hint:'Root position: root in the bass. 1st inversion: the 3rd. 2nd inversion: the 5th.',
+   explain:`In ${INVN[inv]} the ${TONE[ORD3[inv][0]]} is the lowest note: ${a}.`}}}
+function gSlash(qs){return function(){const q=pick(qs),root=pick(RTS(q)),inv=R(1,2),n=chordNotes(root,q),b=n[ORD3[inv][0]],a=INVN[inv];
+  return{type:'choice',noBoard:true,key:`sl${q}${root}${inv}`,text:`The slash chord ${trSym(root,q)}/${b} means ${trn(root,q)} with ${b} in the bass. Which inversion is that?`,choices:mc(a,INVN),ans:a,hint:`${root}${CHORDS[q].sym} has the notes ${n.join(' ')}. Which chord tone is ${b}?`,
+   explain:`${trn(root,q)} = ${n.join(' ')}. ${b} is the ${TONE[ORD3[inv][0]]}, so ${trSym(root,q)}/${b} is ${a}.`}}}
+function gStepTh(){const q=pick(AL),root=pick(RTS(q)),a=R(0,2),st=[TSEM[q][0],TSEM[q][1]-TSEM[q][0],12-TSEM[q][1]][a],ans=st+' frets',n=chordNotes(root,q),nx=ORD3[(a+1)%3][0];
+  return{type:'choice',noBoard:true,key:`sh${q}${root}${a}`,text:`Moving ${trn(root,q)} up the neck on one string set, the shape changes from ${INVN[a]} to ${INVN[(a+1)%3]}. By how many frets does the bass note rise on its string?`,choices:mc(ans,['3 frets','4 frets','5 frets','6 frets','7 frets']),ans,
+   hint:'The bass moves from one chord tone to the next chord tone above it.',explain:`The bass moves from ${n[ORD3[a][0]]} to ${n[nx]}: ${ans} (${st} semitones on the same string).`}}
+function gNextInv(qs){return function(){const o=pickLad(qs),{q,root,set,a,b,n}=o,ans=INVN[b.inv];
+  return{type:'choice',key:'ni'+q+root+set.join('')+a.sh.map(p=>p.f).join('-'),text:`The labelled notes are ${trn(root,q)} in ${INVN[a.inv]} on the ${strTxt(set)}. The shape marked ? is the next one up the neck on the same strings. Which inversion is it?`,
+   marks:[...shM(a.sh),...b.sh.map(p=>({s:p.s,f:p.f,t:'?',k:'q'}))],choices:mc(ans,INVN),ans,notes:mNotes(b.sh),hint:'Each note moves up to the next chord tone on its own string. Which chord tone is now in the bass?',
+   explain:`The order of inversions repeats as you climb: root position → 1st → 2nd → root position an octave higher. After ${INVN[a.inv]} comes ${ans}: ${shTxt(b.sh)}.`}}}
+function gNextClick(qs,sets=SETS3){return function(){const o=pickLad(qs,1,sets),{q,root,set,a,b,n}=o;
+  return{type:'multi',key:'nc'+q+root+set.join('')+a.sh.map(p=>p.f).join('-'),text:`${trn(root,q)} in ${INVN[a.inv]} on the ${strTxt(set)} is marked. Click the three notes of the next shape up the neck on the same strings (${INVN[b.inv]}).`,
+   marks:shM(a.sh),targets:tgs(b.sh),notes:mNotes(b.sh),hint:`${trn(root,q)} = ${n.join(' ')}. Each note moves up to the next chord tone on its own string.`,
+   explain:`${INVN[b.inv][0].toUpperCase()+INVN[b.inv].slice(1)}: ${shTxt(b.sh)}. Every note moved up to the next chord tone on its own string.`}}}
+function gBassClick(qs){return function(){const o=pickLad(qs),{q,root,set,a,b,n}=o,st=b.sh[0].f-a.sh[0].f;
+  return{type:'click',key:'bc'+q+root+set.join('')+a.sh.map(p=>p.f).join('-'),text:`${trn(root,q)} in ${INVN[a.inv]} on the ${strTxt(set)} is marked. Click the bass note of the next inversion up (${INVN[b.inv]}) on the ${SN[set[0]]} string.`,
+   marks:shM(a.sh),target:{s:b.sh[0].s,f:b.sh[0].f,t:b.sh[0].t},notes:mNotes(b.sh),hint:'On the bass string the new bass note is the next chord tone above the old one: how many semitones apart are they?',
+   explain:`The bass moves from ${a.sh[0].name} to ${b.sh[0].name}, ${st} semitones up on the same string: fret ${a.sh[0].f} → fret ${b.sh[0].f}.`}}}
+function gLadder(qs){return function(){const o=pickLad(qs,2),{q,root,set,a,b,c,n}=o;
+  return{type:'multi',key:'ld'+q+root+set.join('')+a.sh.map(p=>p.f).join('-'),text:`${trn(root,q)} in ${INVN[a.inv]} on the ${strTxt(set)} is marked. Climb the neck on the same strings: click the notes of the next two shapes (${INVN[b.inv]}, then ${INVN[c.inv]}).`,
+   marks:shM(a.sh),targets:[...tgs(b.sh),...tgs(c.sh)],notes:[...mNotes(a.sh),...mNotes(b.sh),...mNotes(c.sh)],hint:`${trn(root,q)} = ${n.join(' ')}. Each shape is the one before it with every note moved up to the next chord tone.`,
+   explain:`${INVN[b.inv][0].toUpperCase()+INVN[b.inv].slice(1)}: ${shTxt(b.sh)}. ${INVN[c.inv][0].toUpperCase()+INVN[c.inv].slice(1)}: ${shTxt(c.sh)}.`}}}
+/* augmented triads */
+const augName=pc=>[NNF[pc],NN[pc]].find(r=>chordNotes(r,'aug').every(okN))||NNF[pc];
+function gAugBass(){const root=pick(RTS('aug')),inv=R(0,2),n=chordNotes(root,'aug'),a=n[ORD3[inv][0]],fl=n.some(x=>x.includes('♭'))||flatish(root);
+  return{type:'choice',noBoard:true,key:`ab${root}${inv}`,text:`Which note is in the bass of ${root} augmented (${n.join(' ')}) in ${INVN[inv]}?`,choices:mc(a,[...n,pcName(pcOf(a)+1,fl),pcName(pcOf(a)-1,fl)]),ans:a,hint:'Root position: root. 1st inversion: the 3rd. 2nd inversion: the 5th.',explain:`In ${INVN[inv]} the ${TONE[ORD3[inv][0]]} is the lowest note: ${a}.`}}
+function gAugSame(){const root=pick(RTS('aug')),p=pcOf(root),o=pick([4,8]),a=augName((p+o)%12)+' augmented',own=[p,(p+4)%12,(p+8)%12];
+  const pool=[0,1,2,3,4,5,6,7,8,9,10,11].filter(x=>!own.includes(x)).map(x=>augName(x)+' augmented');
+  return{type:'choice',noBoard:true,key:'as'+root+o,text:`Which augmented triad contains exactly the same three pitches as ${root} augmented?`,choices:mc(a,pool),ans:a,hint:'Add 4 frets to each note of the chord and see what you get.',
+   explain:`${root} augmented = ${chordNotes(root,'aug').join(' ')}. The notes are equally spaced (4 frets), so each one can be the root: ${root}+, ${augName((p+4)%12)}+ and ${augName((p+8)%12)}+ are the same three pitches.`}}
+function gAugSlide(){for(let i=0;i<800;i++){const o=rShape(['aug'],[0,1,2]),{root,set,inv,sh,n}=o,k=pick([1,2]),mv=4*k;if(Math.max(...sh.map(p=>p.f))+mv>15)continue;
+  const ni=(inv+k)%3,a=INVN[ni],nsh=sh.map(p=>({...p,f:p.f+mv}));
+  return{type:'choice',key:`sd${shKey(o)}${k}`,text:`The labelled notes are ${root} augmented in ${INVN[inv]} on the ${strTxt(set)}. You slide the whole shape up ${mv} frets (new notes marked ?). Described as an inversion of ${root} augmented, what is it now?`,
+   marks:[...shM(sh),...nsh.map(p=>({s:p.s,f:p.f,t:'?',k:'q'}))],choices:mc(a,INVN),ans:a,notes:mNotes(nsh),hint:`Sliding up ${mv} frets raises every note by ${k===1?'a major 3rd':'two major 3rds'}. Which chord tone ends up in the bass?`,
+   explain:`${root} augmented = ${n.join(' ')}. Every note moves up ${mv} semitones to the next${k===2?'-but-one':''} chord tone, so the bass becomes ${n[ORD3[ni][0]]}, the ${TONE[ORD3[ni][0]]}: ${a}. The shape looks identical because the chord is symmetrical.`}}
+  return gAugSlide()}
+function gAugNotName(){const rs=rShape(['aug'],[0]),{root,sh}=rs,p=pcOf(root),own=[p,(p+4)%12,(p+8)%12],valid=own.map(x=>augName(x)+' augmented'),bad=[0,1,2,3,4,5,6,7,8,9,10,11].filter(x=>!own.includes(x)),a=augName(pick(bad))+' augmented',nn=chordNotes(root,'aug');
+  return{type:'choice',key:'an'+shKey(rs),text:'These marked notes form an augmented triad. Which of these names does NOT fit it?',marks:sh.map(q=>({s:q.s,f:q.f,t:q.name,k:'q'})),choices:shuf([a,...valid]),ans:a,notes:mNotes(sh),
+   hint:'Every note of an augmented triad can be the root: look at what is 4 and 8 semitones above each note.',explain:`The notes are ${nn.join(' ')}. Each one can act as the root, so ${valid.join(', ')} are all the same chord. ${a} would need different notes.`}}
+const bank=sbank;
+const bank21=bank('b21',[
+ ['How many sets of three adjacent strings are there on a six-string guitar?','4',['3','5','6'],'Low E–A–D, A–D–G, D–G–B and G–B–high e.'],
+ ['In a root-position triad on three adjacent strings, which note is on the lowest string?','The root',['The 3rd','The 5th','Any of the three'],'Root position means the root is the lowest note.'],
+ ['Which two string sets give a root-position triad exactly the same shape?','Low E–A–D and A–D–G',['A–D–G and D–G–B','D–G–B and G–B–high e','Low E–A–D and G–B–high e'],'Both sets are tuned in two perfect 4ths; the G–B gap is a major 3rd (4 frets) and changes the shape.'],
+ ['Why does a triad shape change on sets that contain both G and B?','The G–B gap is 4 semitones, not 5',['The B string is tuned lower than the G string','There are no chords on those strings','The root must be on the B string'],'Every other neighbouring gap is a perfect 4th (5 semitones); G–B is a major 3rd (4 semitones).'],
+ ['In which set does a root-position major triad put two notes on the same fret?','G–B–high e',['D–G–B','A–D–G','Low E–A–D'],'For example C major: G string fret 5, B string fret 5, high e fret 3.'],
+ ['How many different root-position shapes does one triad type have across the four adjacent string sets?','3',['4','2','1'],'Low E–A–D and A–D–G match, while D–G–B and G–B–high e each differ.'],
+ ['You play the same root-position triad on the A–D–G strings and on the D–G–B strings. What stays the same?','The note names (root, 3rd, 5th)',['The fret numbers','The strings used','The fingering'],'Same chord, same three notes, but the shape on the neck differs.'],
+ ['Which chord tone is on the highest string of a root-position triad?','The 5th',['The root','The 3rd','The 7th'],'Root position stacks root, 3rd, 5th from low to high.']]);
+const bank22=bank('b22',[
+ ['What is an inversion?','The same chord with a note other than the root in the bass',['A chord with its quality reversed','A chord played backwards','A chord with a new root'],'The notes are the same; only the lowest note changes.'],
+ ['Which chord tone is in the bass in 1st inversion?','The 3rd',['The root','The 5th','The 7th'],'1st inversion: 3rd – 5th – root.'],
+ ['Which chord tone is in the bass in 2nd inversion?','The 5th',['The root','The 3rd','The 7th'],'2nd inversion: 5th – root – 3rd.'],
+ ['How many inversions does a triad have (not counting root position)?','2',['1','3','4'],'Three notes means three possible bass notes: root position plus two inversions.'],
+ ['In C major, which inversion is C/E (E in the bass)?','1st inversion',['Root position','2nd inversion','3rd inversion'],'E is the 3rd of C.'],
+ ['In C major, which inversion is C/G (G in the bass)?','2nd inversion',['Root position','1st inversion','3rd inversion'],'G is the 5th of C.'],
+ ['What does the chord name after the slash show in G/B?','The note in the bass',['The new root','The chord quality','The key'],'G/B is G major with B (its 3rd) in the bass.'],
+ ['Does an inversion change the chord name?','No, the chord is still the same triad (only the bass note changes)',['Yes, it becomes a different chord','Yes, it becomes minor','Only on the A string'],'C E G, E G C and G C E are all C major.'],
+ ['In 1st inversion, which chord tone is on the highest string?','The root',['The 3rd','The 5th','None: it is a different note'],'1st inversion from low to high: 3rd – 5th – root.']]);
+const bank23=bank('b23',[
+ ['Moving up the neck on one string set, the order of triad shapes is…','root position, 1st inversion, 2nd inversion, root position again',['root position, 2nd inversion, 1st inversion','1st inversion, root position, 2nd inversion','all the same shape'],'Each shape moves every note to the next chord tone above it, and the cycle repeats an octave higher.'],
+ ['After 2nd inversion on the same string set, which shape follows higher up the neck?','Root position, an octave higher',['1st inversion, an octave lower','A different chord','2nd inversion again'],'5th – root – 3rd moves up to root – 3rd – 5th.'],
+ ['Which chord tone is on the highest string of a root-position triad?','The 5th',['The root','The 3rd','The 7th'],'Root position, low to high: root – 3rd – 5th.'],
+ ['Which chord tone is on the highest string of a 2nd-inversion triad?','The 3rd',['The root','The 5th','The 7th'],'2nd inversion, low to high: 5th – root – 3rd.'],
+ ['Which chord tone is on the highest string of a 1st-inversion triad?','The root',['The 3rd','The 5th','The 7th'],'1st inversion, low to high: 3rd – 5th – root.'],
+ ['Going up the neck on one string set from root position to 1st inversion, the bass note moves from…','the root to the 3rd',['the root to the 5th','the 3rd to the 5th','the 5th to the root'],'Bass: root → 3rd → 5th → root.'],
+ ['Three triad shapes (root position, 1st, 2nd) on one string set together span roughly…','an octave (12 frets)',['3 frets','5 frets','24 frets'],'The bass climbs root → 3rd → 5th → root, which adds up to 12 semitones.'],
+ ['Why is it useful to know all three inversions on one string set?','You can play any chord near any position without jumping',['It changes the key','It makes chords louder','It replaces open chords'],'The same chord is available wherever your hand is, and chord changes can move by small steps.']]);
+const bank24=bank('b24',[
+ ['Every inversion of an augmented triad is…','another augmented triad with the same shape',['a minor triad','a diminished triad','a major triad'],'The notes are all a major 3rd apart, so each inversion looks identical.'],
+ ['You slide an augmented triad shape 4 frets up on the same strings. What is the new chord?','The same chord in another inversion',['A minor triad','A different chord with new notes','A diminished triad'],'C E G♯ becomes E G♯ C: the same three pitches.'],
+ ['How far must you slide an augmented triad shape to return to the same inversion?','12 frets',['4 frets','6 frets','8 frets'],'4 frets gives the next inversion, 8 frets the one after, 12 frets the same shape an octave higher.'],
+ ['On one string set, an augmented triad shape repeats its look every…','4 frets',['3 frets','5 frets','7 frets'],'The notes are 4 semitones apart.'],
+ ['Why do all inversions of an augmented triad look the same?','All the intervals between its notes are major 3rds',['It has no root','It uses only natural notes','It has a perfect 5th'],'4 + 4 + 4 = 12: three equal steps.'],
+ ['C augmented in 1st inversion has E in the bass. What other root-position chord has the same notes?','E augmented',['E♭ augmented','C minor','E major'],'E G♯ C (E augmented) = C E G♯ (C augmented) in 1st inversion.'],
+ ['How many different augmented triads (as sets of pitches) exist?','4',['3','6','12'],'Each set has 3 notes and 3 possible roots: 12 ÷ 3 = 4.'],
+ ['From the bass of one augmented inversion to the bass of the next on one string, you move…','4 frets',['3 frets','5 frets','7 frets'],'Root → 3rd → 5th → root, each step a major 3rd.'],
+ ['In C augmented (C E G♯), which note is in the bass in 2nd inversion?','G♯',['C','E','A♭'],'The 5th, spelled G♯ in C+.']]);
+
+const flR=gFill(AL),flRI=gFill(AL,[0],true),flInv=gFill(I3,[1,2]),flInvAny=gFill(I3,[0,1,2],true),flAug=gFill(['aug'],[0,1,2],true);
+const ftR=gFindTone(AL),ftInv=gFindTone(I3,[1,2]),ftAny=gFindTone(I3,[0,1,2]),ftAug=gFindTone(['aug'],[0,1,2]);
+const frR=gFrets(AL),frInv=gFrets(I3,[1,2]),frAny=gFrets(I3,[0,1,2]);
+const nmAll=gName(AL,AL),nmAny=gName(I3,I3,[0,1,2]),nsAll=gNameSym(AL),nsInv=gNameSym(I3,[0,1,2]);
+const inAll=gInvName(I3),inAug=gInvName(['aug']),ivN=gInvNotes(I3),bnN=gBassNote(I3),slN=gSlash(['maj','min']);
+const niN=gNextInv(I3),ncN=gNextClick(I3),bcN=gBassClick(I3),ldN=gLadder(I3),ncAug=gNextClick(['aug']),niAug=gNextInv(['aug']);
+
+const LS={
+ sets:{h:'triad-shapes-string-sets',n:'Lesson 21',title:'Triad shapes on all string sets',sub:'Root-position triads on the four sets of three adjacent strings.',
+  ex:[['Concepts',[bank21,gSetOf]],['Fill the shape',[flR,flRI]],['Frets & tones',[frR,ftR]],['Name it',[nmAll,nsAll]]],
+  test:[...rep(bank21,3),gSetOf,...rep(flR,3),...rep(flRI,2),...rep(frR,2),...rep(ftR,2),nmAll,nsAll]},
+ inv:{h:'triad-inversions',n:'Lesson 22',title:'Triad inversions',sub:'Root position, 1st and 2nd inversion: which chord tone is in the bass.',
+  ex:[['Concepts',[bank22,ivN,bnN,slN]],['Read the shape',[inAll,nsInv]],['Build it',[flInv,flInvAny,ftInv]],['Frets',[frInv,nmAny]]],
+  test:[...rep(bank22,2),...rep(ivN,2),bnN,slN,...rep(inAll,3),...rep(flInv,2),flInvAny,ftInv,frInv,nmAny]},
+ vert:{h:'triad-inversions-vertical',n:'Lesson 23',title:'Inversions up the neck',sub:'Moving through the inversions on one string set.',
+  ex:[['Concepts',[bank23,gStepTh]],['Next shape',[niN,ncN,bcN]],['Climb the neck',[ldN,inAll]]],
+  test:[...rep(bank23,2),...rep(gStepTh,2),...rep(niN,3),...rep(ncN,3),...rep(bcN,2),...rep(inAll,2),ldN]},
+ aug:{h:'augmented-triad-inversions',n:'Lesson 24',title:'Augmented triad inversions',sub:'One shape, three names: every augmented inversion looks the same.',
+  ex:[['Concepts',[bank24,gAugBass,gAugSame]],['Slide it',[gAugSlide,gAugNotName]],['Build it',[flAug,ftAug,ncAug]],['Read the shape',[inAug,niAug]]],
+  test:[...rep(bank24,3),gAugBass,gAugSame,...rep(gAugSlide,3),gAugNotName,...rep(flAug,2),ftAug,ncAug,inAug,niAug]},
+ final:{h:'final-check',n:'Final',title:'Final check',sub:'Lessons 21–24 mixed.',
+  ex:[['Lessons 21–22',[bank21,bank22,gSetOf,flR,frR,ftR,nmAll,nsAll,inAll,ivN,bnN,slN,flInv,ftInv]],['Lessons 23–24',[bank23,bank24,gStepTh,niN,ncN,bcN,ldN,gAugBass,gAugSame,gAugSlide,gAugNotName,flAug,ncAug]]],
+  test:[bank21,bank22,bank23,bank24,gSetOf,ivN,bnN,gStepTh,gAugSame,flR,flInv,frAny,ftAny,nmAny,inAll,niN,ncN,bcN,gAugSlide,flAug]}};
+const ORDER=['sets','inv','vert','aug','final'],STORE='gi-best-p6';
+
+const shLine=(r,q,inv,set,lo=1)=>{const s=firstShape(r,q,inv,set,lo);return s?`${trn(r,q)}, ${INVN[inv]}, ${setLbl(set)} strings (low→high): frets ${s.map(p=>p.f).join('-')}`:''};
+const NOTES={
+ sets:`<div class="cols"><div><h3>Root-position triad shapes (frets relative to the root)</h3><table class="stack"><thead><tr><th>Strings</th><th>Major</th><th>Minor</th></tr></thead><tbody>${SETS3.map(st=>{const f=(q)=>{const r=firstShape('C',q,0,st),b=r[0].f;return r.map(p=>p.f-b>0?'+'+(p.f-b):p.f-b===0?'0':String(p.f-b).replace('-','−')).join(' ')};return`<tr><td>${setLbl(st)}</td><td>${f('maj')}</td><td>${f('min')}</td></tr>`}).join('')}</tbody></table><p class="small">Fret offsets of the 3rd and 5th compared with the root fret, low string to high string.</p></div>
+  <div><h3>Key ideas</h3><ul><li>There are four sets of three adjacent strings; the root-position shape has the root on the lowest string of the set.</li><li>Low E–A–D and A–D–G give the same shape (two perfect 4ths); D–G–B and G–B–high e differ because of the major-3rd gap between G and B.</li><li>Every shape is movable: the root fret names the chord.</li><li>This lesson uses root-position, close-position triads (span of at most 4 frets).</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>${shLine('C','maj',0,[1,2,3])}.</li><li>${shLine('C','maj',0,[2,3,4])}.</li><li>Play one chord on all four sets and say root, 3rd, 5th on each string.</li></ul></div></div>`,
+ inv:`<div class="cols"><div><h3>C major in its three positions</h3><table class="stack"><thead><tr><th>Position</th><th>Low → high</th><th>Bass</th></tr></thead><tbody>${[0,1,2].map(i=>`<tr><td>${cap(INVN[i])}</td><td>${ORD3[i].map(x=>chordNotes('C','maj')[x]).join(' ')}</td><td>${TONE[ORD3[i][0]]}</td></tr>`).join('')}</tbody></table></div>
+  <div><h3>Key ideas</h3><ul><li>An inversion keeps the same three notes but changes which one is lowest.</li><li>Find the root: lowest note = root position; top note = 1st inversion; middle note = 2nd inversion.</li><li>Slash chords name the bass: C/E is 1st inversion, C/G is 2nd inversion.</li><li>Inversions shown here are close-position triads on three adjacent strings.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>${shLine('C','maj',0,[2,3,4])}</li><li>${shLine('C','maj',1,[2,3,4])}</li><li>${shLine('C','maj',2,[2,3,4])}</li></ul></div></div>`,
+ vert:`<div class="cols"><div><h3>Climbing one string set</h3><table class="stack"><thead><tr><th>Shape</th><th>Bass moves by (major)</th><th>Bass moves by (minor)</th></tr></thead><tbody><tr><td>Root pos. → 1st inv.</td><td>root → 3rd: 4 frets</td><td>3 frets</td></tr><tr><td>1st inv. → 2nd inv.</td><td>3rd → 5th: 3 frets</td><td>4 frets</td></tr><tr><td>2nd inv. → root pos.</td><td>5th → root: 5 frets</td><td>5 frets</td></tr></tbody></table><p class="small">The three steps add up to 12 frets: one octave.</p></div>
+  <div><h3>Key ideas</h3><ul><li>On one string set the same chord appears as root position, 1st and 2nd inversion as you climb the neck, then repeats an octave higher.</li><li>Each note of the shape moves up to the next chord tone on its own string.</li><li>Top note: root position = 5th, 1st inversion = root, 2nd inversion = 3rd.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>Climb C major on the D, G and B strings: ${[0,1,2].map(i=>{const s=ladder('C','maj',[2,3,4]).find(x=>x.inv===i);return s?s.sh.map(p=>p.f).join('-'):''}).filter(Boolean).join(', ')} (frets, low to high).</li><li>Do the same on G, B, high e, then on A, D, G.</li><li>Pick a note on the high e string and find which inversion has that note on top.</li></ul></div></div>`,
+ aug:`<div class="cols"><div><h3>One shape, three roots</h3><table class="stack"><thead><tr><th>Slide</th><th>C+ becomes</th><th>Bass</th></tr></thead><tbody><tr><td>0 frets</td><td>C E G♯ (root position)</td><td>C</td></tr><tr><td>+4 frets</td><td>E G♯ C (1st inversion)</td><td>E</td></tr><tr><td>+8 frets</td><td>G♯ C E (2nd inversion)</td><td>G♯</td></tr><tr><td>+12 frets</td><td>C E G♯ again</td><td>C</td></tr></tbody></table></div>
+  <div><h3>Key ideas</h3><ul><li>An augmented triad is made of two major 3rds, so all its inversions are the same shape.</li><li>Slide the shape 4 frets: the same three pitches, a new bass note.</li><li>C+, E+ and A♭+ (G♯+) are three names for the same pitches; which name you use depends on the music around it.</li></ul>
+  <h3 style="margin-top:22px">On your guitar</h3><ul><li>${shLine('C','aug',0,[2,3,4])}. Slide it up 4, then 8 frets.</li><li>Find the same shape on the G, B and high e strings and on the A, D and G strings.</li></ul><p class="small">When one shape has three names, this workbook always calls the marked note the root.</p></div></div>`,
+ final:`<div class="cols"><div><h3>Before the final check</h3><ul><li>Pass each lesson test first (13/15).</li><li>The final mixes lessons 21–24: 20 questions, pass mark 17.</li></ul></div><div><h3>Next in the course</h3><p>Lesson 25 builds triads on every note of the major scale: diatonic major scale triads.</p></div></div>`};
+
+/* ===== audio: plucked string (Karplus–Strong) ===== */
+let ac=null;
+function pluck(m,t0){const sr=ac.sampleRate,fq=440*2**((m-69)/12),len=Math.floor(sr*1.7),b=ac.createBuffer(1,len,sr),d=b.getChannelData(0),N=Math.max(2,Math.round(sr/fq));
+  for(let i=0;i<N;i++)d[i]=Math.random()*2-1;
+  for(let i=N;i<len;i++)d[i]=.996*.5*(d[i-N]+(i-N-1>=0?d[i-N-1]:0));
+  const src=ac.createBufferSource(),gn=ac.createGain(),t=ac.currentTime+t0;src.buffer=b;gn.gain.setValueAtTime(.3,t);gn.gain.linearRampToValueAtTime(0,t+1.65);src.connect(gn).connect(ac.destination);src.start(t)}
+/* default: notes one after another, then together (2–6 notes). pm 'seq' = melody only (scales), 'chord' = strum only, 'one' = single note */
+function play(ns,mode){if(!ns||!ns.length)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume();
+  if(mode==='one'||ns.length===1)return pluck(ns[0],0);
+  if(mode==='chord'){ns.forEach((m,j)=>pluck(m,j*.035));return}
+  const step=ns.length>2?.32:.6;ns.forEach((m,j)=>pluck(m,j*step));if(mode!=='seq'&&ns.length<=6)ns.forEach((m,j)=>pluck(m,ns.length*step+.15+j*.03))}catch(e){}}
+
+/* ===== state ===== */
+let cur=ORDER[0],mode='practice',sel=new Set(),q=null,done=false,picked=null,st={streak:0,ok:0,n:0},T=null,showHint=false;
+let best={};try{best=JSON.parse(localStorage.getItem(STORE)||'{}')}catch(e){}
+const $=id=>document.getElementById(id);
+function prep(x){x.found=[];return x}
+function gen(fns,seen){for(let k=0;k<40;k++){const x=pick(fns)();if(!seen.has(x.key)){seen.add(x.key);return prep(x)}}return prep(pick(fns)())}
+function autoplay(){if(q.hide&&ac)play(q.notes,q.pm)}
+function newQ(){const fns=(sel.size?LS[cur].ex.filter((e,i)=>sel.has(i+1)):LS[cur].ex).flatMap(e=>e[1]);q=gen(fns,new Set(q?[q.key]:[]));done=false;picked=null;showHint=false;render();autoplay()}
+function startTest(){const seen=new Set();T={qs:shuf(LS[cur].test.map(f=>gen([f],seen))),i:0,a:[],done:false};q=T.qs[0];done=false;picked=null;showHint=false;render();autoplay()}
+function setLesson(k,push){cur=k;mode='practice';sel=new Set();T=null;st={streak:0,ok:0,n:0};q=null;if(push!==false)try{history.replaceState(null,'','#'+LS[k].h)}catch(e){location.hash=LS[k].h}$('notes').innerHTML=NOTES[k];newQ()}
+const ansLabel=x=>x.type==='choice'?x.ans:x.type==='multi'?`${x.targets.length} spots: ${x.targets.map(posTxt).join(', ')}`:where(x.target.s,x.target.f);
+function answer(ok,label,pk){if(done)return;done=true;picked=pk;q.ok=ok;
+  if(mode==='practice'){st.n++;if(ok){st.ok++;st.streak++}else st.streak=0}else T.a.push({q,ok,label});
+  render();if(q.notes&&q.type!=='click'&&mode==='practice')play(q.notes,q.pm)}
+function next(){if(!done)return;
+  if(mode==='practice')return newQ();
+  if(T.i<T.qs.length-1){T.i++;q=T.qs[T.i];done=false;picked=null;showHint=false;render();if(q.hide)play(q.notes,q.pm);return}
+  T.done=true;const sc=T.a.filter(a=>a.ok).length;if(!(best[cur]>=sc)){best[cur]=sc;try{localStorage.setItem(STORE,JSON.stringify(best))}catch(e){}}render();window.scrollTo({top:0,behavior:'smooth'})}
+
+/* ===== fretboard ===== */
+const X=f=>f===0?62:90+(f-.5)*60,Y=s=>32+(5-s)*32;
+const BASE=(()=>{let h=`<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a26" stop-opacity=".55"/><stop offset=".5" stop-color="#2b1b13" stop-opacity="0"/><stop offset="1" stop-color="#1a0f0a" stop-opacity=".6"/></linearGradient></defs><rect x="40" y="16" width="50" height="192" rx="6" fill="var(--panel)"/><rect x="90" y="16" width="900" height="192" rx="3" fill="#3a2418"/><rect x="90" y="16" width="900" height="192" rx="3" fill="url(#gr)"/>`;
+  for(const f of [3,5,7,9,15])h+=`<circle cx="${X(f)}" cy="112" r="7" fill="#e9dfcf" opacity=".85"/>`;
+  h+=`<circle cx="${X(12)}" cy="80" r="7" fill="#e9dfcf" opacity=".85"/><circle cx="${X(12)}" cy="144" r="7" fill="#e9dfcf" opacity=".85"/>`;
+  for(let f=1;f<=15;f++)h+=`<line x1="${90+f*60}" y1="16" x2="${90+f*60}" y2="208" stroke="#b9b4ab" stroke-width="3"/><line x1="${89+f*60}" y1="16" x2="${89+f*60}" y2="208" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`;
+  h+=`<rect x="86" y="14" width="8" height="196" rx="2" fill="#efe7d8"/>`;
+  for(let s=0;s<6;s++)h+=`<line x1="40" y1="${Y(s)}" x2="990" y2="${Y(s)}" stroke="#cfc8bd" stroke-width="${(3.2-s*.42).toFixed(2)}"/><text x="20" y="${Y(s)}" fill="var(--mut)" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="central">${SL[s]}</text>`;
+  for(let f=0;f<=15;f++)h+=`<text x="${X(f)}" y="225" fill="var(--mut)" font-size="13" font-weight="${[3,5,7,9,12,15].includes(f)?700:400}" text-anchor="middle">${f}</text>`;
+  return h})();
+const CELLS=(()=>{let h='';for(let s=0;s<6;s++)for(let f=0;f<=15;f++)h+=`<rect class="cell" data-s="${s}" data-f="${f}" x="${f===0?40:X(f)-30}" y="${Y(s)-16}" width="${f===0?48:60}" height="32"><title>${NN2[pcAt(s,f)]}</title></rect>`;return h})();
+function board(ms,box){let h=BASE;
+  if(box){const x1=box[0]===0?40:90+(box[0]-1)*60,x2=90+box[1]*60;h+=`<rect class="box" x="${x1}" y="14" width="${x2-x1}" height="196" rx="6"/>`}
+  h+=CELLS;
+  for(const m of ms)h+=`<g class="mk k-${m.k}"><circle cx="${X(m.f)}" cy="${Y(m.s)}" r="15"/><text x="${X(m.f)}" y="${Y(m.s)}"${String(m.t).length>2?' style="font-size:11px"':''}>${m.t}</text></g>`;
+  $('fb').innerHTML=h}
+
+/* ===== render ===== */
+const same=(a,b)=>a&&b&&a.s===b.s&&a.f===b.f;
+function render(){const L=LS[cur],n=L.test.length;
+  $('tabs').innerHTML=ORDER.map(k=>{const b=best[k],p=b>=passMark(LS[k].test.length);return`<button class="tab" role="tab" data-k="${k}" aria-selected="${k===cur}"><b>${LS[k].n}: ${LS[k].title}</b><span>${b==null?'Not tested yet':`Best ${b}/${LS[k].test.length}${p?' · passed':''}`}</span></button>`}).join('');
+  $('ttl').textContent=`${L.n}: ${L.title}`;$('sub').textContent=L.sub;
+  {const num=(L.n.match(/\d+/)||[])[0],ico='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0561b"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>',lk=(n,t)=>VIDEOS[n]?`<a class="vid" href="https://www.youtube.com/watch?v=${VIDEOS[n]}" target="_blank" rel="noopener">${ico}${t}</a>`:'';
+   $('vid').innerHTML=num?lk(num,`Watch lesson ${num} on YouTube`):ORDER.filter(k=>/\d/.test(LS[k].n)).map(k=>{const m=LS[k].n.match(/\d+/)[0];return lk(m,`Lesson ${m}`)}).join('')}
+  $('mPr').className=mode==='practice'?'on':'';$('mTe').className=mode==='test'?'on':'';
+  $('chips').hidden=mode!=='practice';
+  $('chips').innerHTML=['Mix all',...L.ex.map(e=>e[0])].map((c,j)=>{const on=j===0?!sel.size:sel.has(j);return`<button class="chip${on?' on':''}" data-x="${j}" aria-pressed="${on}">${c}</button>`}).join('');
+  const fin=mode==='test'&&T&&T.done;$('quiz').hidden=fin;$('result').hidden=!fin;
+  if(fin)return result();
+  $('status').innerHTML=mode==='practice'?`<span>Exercise mode: hints and explanations as you go</span><span>Streak <b>${st.streak}</b></span><span>Correct <b>${st.ok}/${st.n}</b></span>`:`<span>Test · question <b>${T.i+1}</b> of ${T.qs.length}</span><span>Pass mark ${passMark(n)}/${n}</span><span>Answers are checked at the end</span>`;
+  $('prompt').textContent=q.text;
+  $('boardWrap').hidden=!!q.noBoard;
+  if(!q.noBoard){let ms=q.hide&&!done?[]:q.marks.slice();const pr=mode==='practice';
+    if(q.type==='multi')q.found.forEach(p=>ms.push({...p,t:pr?(q.targets.find(t=>same(t,p)).t||'✓'):'•',k:pr?'good':'q'}));
+    if(done&&pr){(q.reveal||[]).forEach(r=>ms.push({...r,k:'good'}));
+      if(q.type==='click'){if(picked&&!same(picked,q.target))ms.push({...picked,t:'✗',k:'bad'});ms.push({...q.target,t:q.target.t||'✓',k:'good'})}
+      if(q.type==='multi'){q.targets.filter(t=>!q.found.some(p=>same(p,t))).forEach(t=>ms.push({...t,t:t.t||'✓',k:'good'}));if(picked)ms.push({...picked,t:'✗',k:'bad'})}}
+    if(done&&!pr&&picked&&q.type!=='choice')ms.push({...picked,t:'•',k:'q'});
+    board(ms,q.box)}
+  $('choices').innerHTML=q.type==='choice'?q.choices.map((c,j)=>{let cl='';if(done){if(mode==='practice'){if(c===q.ans)cl=' good';else if(c===picked)cl=' bad'}else if(c===picked)cl=' sel'}return`<button class="ch${cl}" data-c="${j}"${done?' disabled':''}><kbd>${j+1}</kbd>${c}</button>`}).join(''):'';
+  const fb=$('fbk');
+  if(done&&mode==='practice')fb.innerHTML=`<b class="${q.ok?'ok':'no'}">${q.ok?'Correct.':'Not quite.'}</b> ${q.explain}`;
+  else if(done)fb.textContent='Answer saved. On to the next one.';
+  else{let h=showHint?`<b>Hint:</b> ${q.hint}`:'';
+    if(q.type==='multi')h+=`${h?'<br>':''}<span class="small">Found ${q.found.length} of ${q.targets.length}. A wrong click ends the question.</span>`;
+    else if(q.type==='click'&&!showHint)h='<span class="small">Click a fret on the board to answer.</span>';
+    fb.innerHTML=h}
+  $('next').disabled=!done;$('next').textContent=mode==='test'&&T.i===T.qs.length-1?'See my results':'Next';
+  $('hear').hidden=!(q.notes&&(q.hide||done||mode==='practice'));
+  $('hint').hidden=!(mode==='practice'&&!done&&!showHint&&q.hint)}
+function result(){const n=T.qs.length,sc=T.a.filter(a=>a.ok).length,pm=passMark(n),pass=sc>=pm,miss=T.a.filter(a=>!a.ok),last=cur===ORDER[ORDER.length-1];
+  $('result').innerHTML=`<div class="score"><div class="big">${sc}<small> / ${n}</small></div><div><h3>${pass?(sc===n?'Perfect. You own this lesson.':'Passed. This lesson is solid.'):'Not yet. Review the misses, practise, retake.'}</h3><p>Pass mark ${pm}/${n} · best so far ${best[cur]}/${n}</p><div class="acts"><button class="btn main" id="retake">Retake test</button><button class="btn" id="toPr">Back to practice</button>${pass&&!last?`<button class="btn" id="goNext">Next tab</button>`:''}</div></div></div>`+
+  (miss.length?`<h3 style="font-size:26px;margin:28px 0 6px">What to review</h3>`+miss.map(a=>`<div class="miss"><p><b>${a.q.text}</b></p><p class="y">Your answer: ${a.label}</p><p class="c">Correct: ${ansLabel(a.q)}</p><p>${a.q.explain}</p></div>`).join(''):'<p style="margin-top:20px">No mistakes to review.</p>')}
+
+/* ===== events ===== */
+document.addEventListener('click',e=>{const t=e.target.closest('button,.cell');if(!t)return;
+  if(t.classList.contains('cell')){const s=+t.dataset.s,f=+t.dataset.f,p={s,f};play([midi(s,f)],'one');if(!q||done||(T&&T.done))return;
+    if(q.type==='click')answer(same(p,q.target),where(s,f),p);
+    else if(q.type==='multi'){if(q.found.some(x=>same(x,p))||q.marks.some(m=>same(m,p)))return;
+      if(q.targets.some(x=>same(x,p))){q.found.push(p);q.found.length===q.targets.length?answer(true,'found them all',null):render()}
+      else answer(false,`${where(s,f)} (found ${q.found.length} of ${q.targets.length} first)`,p)}
+    return}
+  if(t.dataset.k)return setLesson(t.dataset.k);
+  if(t.dataset.x!=null){const j=+t.dataset.x;if(j===0)sel.clear();else{sel.has(j)?sel.delete(j):sel.add(j);if(sel.size===LS[cur].ex.length)sel.clear()}q=null;return newQ()}
+  if(t.dataset.c!=null){const c=q.choices[+t.dataset.c];return answer(c===q.ans,c,c)}
+  switch(t.id){case'mPr':if(mode!=='practice'){mode='practice';T=null;q=null;newQ()}break;
+   case'mTe':case'retake':mode='test';startTest();break;
+   case'toPr':mode='practice';T=null;q=null;newQ();break;
+   case'goNext':setLesson(ORDER[ORDER.indexOf(cur)+1]);break;
+   case'next':next();break;case'hear':play(q.notes,q.pm);break;case'hint':showHint=true;render();break}});
+document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea')||e.metaKey||e.ctrlKey||e.altKey)return;if(!q||(T&&T.done))return;
+  if(/^[1-4]$/.test(e.key)&&q.type==='choice'&&!done){const c=q.choices[+e.key-1];if(c)answer(c===q.ans,c,c)}
+  else if(e.key==='Enter'&&done&&document.activeElement.tagName!=='BUTTON')next();
+  else if(e.key.toLowerCase()==='h'&&q.notes&&!$('hear').hidden)play(q.notes,q.pm)});
+const fromHash=()=>ORDER.find(k=>'#'+LS[k].h===location.hash)||ORDER[0];
+addEventListener('hashchange',()=>{const k=fromHash();if(k!==cur)setLesson(k,false)});
+setLesson(fromHash(),false);
+
+}
+</script>
+</body>
+</html>
